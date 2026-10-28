@@ -8,7 +8,6 @@ import { ChartSvg } from "@/components/charts/ChartSvg"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { KpiCard } from "@/components/mocks/KpiCard"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { SentimentChip } from "@/components/mocks/SentimentChip"
 import { fmt } from "@/components/mocks/home/kpi"
 import { useSentimentState } from "@/components/mocks/sentiment/SentimentStateProvider"
@@ -16,7 +15,7 @@ import { Segmented } from "@/components/mocks/smi/Segmented"
 import { darkCard } from "@/components/mocks/smi/styles"
 import { GrowRect } from "@/components/motion/GrowBar"
 import { sentimentPartBWidgets as c } from "@/content/features/sentiment-keywords"
-import { networks, sentiment, type Sentiment } from "@/content/sample-data"
+import { sentiment, type Sentiment } from "@/content/sample-data"
 import { sentimentGlyph, sentimentLabel, sentimentText } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
 
@@ -63,10 +62,10 @@ export function KeywordKpisWidget() {
   )
 }
 
-/* -------------------------- B2 · Platform breakdown -------------------------- */
+/* -------------------------- B2 · Sub-topic breakdown -------------------------- */
 /**
- * Part B · 2 · Platform breakdown: one tile per network with its share of the keyword's mentions.
- * The strongest network gets a solid outline, the weakest a dashed one (plus ▲ / ▼ words).
+ * Part B · 2 · Sub-topic breakdown: one tile per sub-topic with its share of the keyword's mentions.
+ * The strongest sub-topic gets a solid outline, the weakest a dashed one (plus ▲ / ▼ words).
  */
 export function KeywordPlatformWidget() {
   const K = useKeyword()
@@ -79,18 +78,18 @@ export function KeywordPlatformWidget() {
             <span className="md:hidden">{c.platforms.titleMobile}</span>
           </>
         }
-        caption={`Sample platform breakdown for ${K.name}: ${K.platforms.map((p) => `${networks[p.network]} ${p.share}% of mentions, net sentiment ${signed(p.net)}`).join("; ")}. ${K.note}`}
+        caption={`Sample sub-topic breakdown for ${K.name}: ${K.subtopics.map((p) => `${p.label} ${p.share}% of mentions, net sentiment ${signed(p.net)}`).join("; ")}. ${K.note}`}
         bodyClassName="gap-3.5 p-3 md:p-5"
       >
         <ul aria-hidden="true" className="grid grid-cols-2 gap-2 tabular md:grid-cols-4 md:gap-3">
-          {K.platforms.map((p, i) => {
+          {K.subtopics.map((p, i) => {
             const strong = i === K.strong
             const weak = i === K.weak
             const tone = netTone(p.net)
             const tag = p.tag ? `${weak ? "▼ " : strong ? "▲ " : ""}${p.tag}` : ""
             return (
               <li
-                key={p.network}
+                key={p.label}
                 className={cn(
                   darkCard,
                   "flex flex-col gap-0.5 p-2.5 md:gap-2.5 md:p-4",
@@ -99,8 +98,7 @@ export function KeywordPlatformWidget() {
                 )}
               >
                 <span className="flex items-center gap-1.5 text-[0.78125rem] font-bold md:gap-2 md:text-sm">
-                  <NetworkIcon network={p.network} className="size-3.75 md:size-4.5" />
-                  {networks[p.network]}
+                  {p.label}
                 </span>
                 <span className="font-heading text-[1.375rem] leading-[1.15] font-extrabold md:text-[1.75rem]">{p.share}%</span>
                 <span className="-mt-2 text-[0.6875rem] text-muted-foreground max-md:hidden">{c.platforms.share}</span>

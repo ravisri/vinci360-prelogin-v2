@@ -550,9 +550,9 @@ type SentKeyword = {
   name: string
   kind: string
   kpis: readonly SentKpi[]
-  /** Platform breakdown, in the reference's order (largest share first). */
-  platforms: readonly { network: Network; share: number; mentions: number; engagement: string; net: number; tag?: string }[]
-  /** Index of the strongest (solid outline) and weakest (dashed outline) platform tile. */
+  /** Sub-topic breakdown, in the reference's order (largest share first). */
+  subtopics: readonly { label: string; share: number; mentions: number; engagement: string; net: number; tag?: string }[]
+  /** Index of the strongest (solid outline) and weakest (dashed outline) sub-topic tile. */
   strong: number
   weak: number
   card: string
@@ -566,21 +566,21 @@ type SentKeyword = {
 
 export const sentiment = {
   overall: { net: 34, change: 2, trend: "up" as Trend },
-  /** Hero and Part A · Platform-wise (Instagram is the slipping platform). */
-  platforms: [
-    { network: "facebook", total: 6270, split: sentimentByPlatform.facebook, net: 34, change: 2, trend: "up" },
-    { network: "x", total: 8680, split: sentimentByPlatform.x, net: 10, change: 1, trend: "down" },
-    { network: "youtube", total: 3374, split: sentimentByPlatform.youtube, net: 43, change: 3, trend: "up" },
-    { network: "instagram", total: 29890, split: sentimentByPlatform.instagram, net: 9, change: 12, trend: "down", slipping: true },
-  ] as { network: Network; total: number; split: Split; net: number; change: number; trend: Trend; slipping?: boolean }[],
+  /** Hero and Part A · Topic-wise (Battery & charging is the slipping topic). */
+  topics: [
+    { label: "Aurora X2 launch", total: 6270, split: [52, 30, 18] as Split, net: 34, change: 2, trend: "up" },
+    { label: "Price & offers", total: 8680, split: [38, 34, 28] as Split, net: 10, change: 1, trend: "down" },
+    { label: "Night photography", total: 3374, split: [57, 29, 14] as Split, net: 43, change: 3, trend: "up" },
+    { label: "Battery & charging", total: 29890, split: [41, 27, 32] as Split, net: 9, change: 12, trend: "down", slipping: true },
+  ] as { label: string; total: number; split: Split; net: number; change: number; trend: Trend; slipping?: boolean }[],
   /** Explainer "Underneath" card. The reference shows X at 44/34/22 (net +22) here, unlike the hero. */
   underneath: {
-    platforms: [
-      { network: "facebook", split: [52, 30, 18], net: 34, tone: "pos" },
-      { network: "x", split: [44, 34, 22], net: 22, tone: "neu" },
-      { network: "youtube", split: [57, 29, 14], net: 43, tone: "pos" },
-      { network: "instagram", split: [41, 27, 32], net: 9, tone: "neg", change: -12, flagged: true },
-    ] as { network: Network; split: Split; net: number; tone: Sentiment; change?: number; flagged?: boolean }[],
+    topics: [
+      { label: "Aurora X2 launch", split: [52, 30, 18], net: 34, tone: "pos" },
+      { label: "Price & offers", split: [44, 34, 22], net: 22, tone: "neu" },
+      { label: "Night photography", split: [57, 29, 14], net: 43, tone: "pos" },
+      { label: "Battery & charging", split: [41, 27, 32], net: 9, tone: "neg", change: -12, flagged: true },
+    ] as { label: string; split: Split; net: number; tone: Sentiment; change?: number; flagged?: boolean }[],
     hashtags: [
       { tag: "#ShotOnX2", net: 64, tone: "pos" },
       { tag: "#AuroraLaunch", net: 29, tone: "neu" },
@@ -609,9 +609,9 @@ export const sentiment = {
     relaxed: { at: 60, split: [52, 28, 20] as Split },
     strict: { at: 90, split: [34, 54, 12] as Split },
   },
-  /** Part A · "Drill into the posts": the negative Instagram segment. */
+  /** Part A · "Drill into the posts": the negative Battery & charging segment. */
   drill: {
-    network: "instagram" as Network,
+    label: "Battery & charging",
     count: 9565,
     posts: [
       { initials: "RK", text: "Third X2 charger this year. Support keeps closing my ticket.", engagement: "2.4K" },
@@ -639,16 +639,16 @@ export const sentiment = {
         { label: "Net sentiment", value: 29, format: "net", delta: "4 pts", trend: "down" },
         { label: "Content volume", value: 3960, delta: "26% posts", trend: "up" },
       ],
-      platforms: [
-        { network: "instagram", share: 54, mentions: 6740, engagement: "402K", net: 41, tag: "Strong" },
-        { network: "youtube", share: 21, mentions: 2620, engagement: "148K", net: 47 },
-        { network: "facebook", share: 15, mentions: 1870, engagement: "64K", net: 22 },
-        { network: "x", share: 10, mentions: 1250, engagement: "26K", net: -6, tag: "Fading · ▼ 31%" },
+      subtopics: [
+        { label: "Unboxing", share: 54, mentions: 6740, engagement: "402K", net: 41, tag: "Strong" },
+        { label: "Camera", share: 21, mentions: 2620, engagement: "148K", net: 47 },
+        { label: "Price & offers", share: 15, mentions: 1870, engagement: "64K", net: 22 },
+        { label: "Launch-day issues", share: 10, mentions: 1250, engagement: "26K", net: -6, tag: "Fading · ▼ 31%" },
       ],
       strong: 0,
       weak: 3,
-      card: "Strong on Instagram, fading on X",
-      note: "Instagram carries over half the mentions and the warmest tone; on X the term is shrinking and slightly negative.",
+      card: "Strong on unboxing, fading on launch-day issues",
+      note: "Unboxing posts carry over half the mentions and the warmest tone; launch-day issues are shrinking and slightly negative.",
       split: [52, 25, 23],
       total: 12480,
       hashtags: [
@@ -680,16 +680,16 @@ export const sentiment = {
         { label: "Net sentiment", value: 62, format: "net", delta: "3 pts", trend: "up" },
         { label: "Content volume", value: 2710, delta: "19% posts", trend: "up" },
       ],
-      platforms: [
-        { network: "instagram", share: 61, mentions: 5470, engagement: "318K", net: 64, tag: "Strong" },
-        { network: "youtube", share: 24, mentions: 2150, engagement: "162K", net: 70, tag: "Strong" },
-        { network: "facebook", share: 9, mentions: 810, engagement: "22K", net: 48 },
-        { network: "x", share: 6, mentions: 530, engagement: "10K", net: 21, tag: "Quiet" },
+      subtopics: [
+        { label: "Night photography", share: 61, mentions: 5470, engagement: "318K", net: 64, tag: "Strong" },
+        { label: "Low-light video", share: 24, mentions: 2150, engagement: "162K", net: 70, tag: "Strong" },
+        { label: "Camera settings", share: 9, mentions: 810, engagement: "22K", net: 48 },
+        { label: "Blur complaints", share: 6, mentions: 530, engagement: "10K", net: 21, tag: "Quiet" },
       ],
       strong: 1,
       weak: 3,
-      card: "Loved on YouTube, quiet on X",
-      note: "Video reviews drive the warmest conversation; on X the feature barely registers.",
+      card: "Loved in low-light video, quiet on blur complaints",
+      note: "Video reviews drive the warmest conversation; blur complaints barely register.",
       split: [71, 20, 9],
       total: 8960,
       hashtags: [
@@ -721,16 +721,16 @@ export const sentiment = {
         { label: "Net sentiment", value: -18, format: "net", delta: "9 pts", trend: "down" },
         { label: "Content volume", value: 860, delta: "4% posts", trend: "down" },
       ],
-      platforms: [
-        { network: "facebook", share: 44, mentions: 940, engagement: "21K", net: -4, tag: "Most used" },
-        { network: "x", share: 31, mentions: 660, engagement: "14K", net: -41, tag: "Negative" },
-        { network: "instagram", share: 17, mentions: 360, engagement: "9K", net: 6 },
-        { network: "youtube", share: 8, mentions: 180, engagement: "4K", net: 12 },
+      subtopics: [
+        { label: "Support tickets", share: 44, mentions: 940, engagement: "21K", net: -4, tag: "Most used" },
+        { label: "Charging", share: 31, mentions: 660, engagement: "14K", net: -41, tag: "Negative" },
+        { label: "Repairs", share: 17, mentions: 360, engagement: "9K", net: 6 },
+        { label: "Store visits", share: 8, mentions: 180, engagement: "4K", net: 12 },
       ],
       strong: 0,
       weak: 1,
-      card: "Mostly on Facebook, negative on X",
-      note: "Facebook questions are neutral; on X the plan is mostly mentioned in complaints.",
+      card: "Mostly support tickets, negative on charging",
+      note: "Support-ticket questions are neutral; charging is mostly mentioned in complaints.",
       split: [24, 34, 42],
       total: 2140,
       hashtags: [

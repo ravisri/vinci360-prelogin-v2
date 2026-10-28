@@ -9,11 +9,11 @@ import { MockFrame } from "@/components/mocks/MockFrame"
 import { fmt } from "@/components/mocks/home/kpi"
 import { Segmented } from "@/components/mocks/smi/Segmented"
 import { sentimentPartAWidgets } from "@/content/features/sentiment-keywords"
-import { networks, sentiment, type Split } from "@/content/sample-data"
+import { sentiment, type Split } from "@/content/sample-data"
 import { cn } from "@/lib/utils"
 
 const c = sentimentPartAWidgets.platform
-const rows = sentiment.platforms
+const rows = sentiment.topics
 const maxTotal = Math.max(...rows.map((p) => p.total))
 const compact = new Intl.NumberFormat("en-US", {
   notation: "compact",
@@ -30,9 +30,9 @@ const countLabels = (total: number, split: Split, extent: number) =>
   split.map((share) => (share * extent >= 12 ? compact.format((total * share) / 100) : "")) as unknown as [string, string, string]
 
 /**
- * Part A · 1 · Platform-wise sentiment. "100% stacked" compares the mix; "Counts" scales each bar to
- * the platform's volume, which shows why Instagram's slide moves the total. The hotspot sits under
- * the Instagram row, clear of every label.
+ * Part A · 1 · Topic-wise sentiment. "100% stacked" compares the mix; "Counts" scales each bar to
+ * the topic's volume, which shows why Battery & charging's slide moves the total. The hotspot sits under
+ * the Battery & charging row, clear of every label.
  */
 export function PlatformSentimentWidget() {
   const [mode, setMode] = useState<Mode>("pct")
@@ -50,14 +50,14 @@ export function PlatformSentimentWidget() {
         </p>
         <ul
           aria-live="polite"
-          className="grid grid-cols-[4.875rem_minmax(0,1fr)] items-center gap-x-2.5 gap-y-3.5 text-xs tabular sm:grid-cols-[4.875rem_minmax(0,1fr)_7.5rem]"
+          className="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-x-2.5 gap-y-3.5 text-xs tabular sm:grid-cols-[6.5rem_minmax(0,1fr)_7.5rem]"
         >
           {rows.map((p) => {
             const extent = counts ? Math.max(0.14, p.total / maxTotal) : 1
             return (
-              <li key={p.network} className="contents">
+              <li key={p.label} className="contents">
                 <span className={cn(p.slipping ? "font-bold" : "font-medium")}>
-                  {networks[p.network]}
+                  {p.label}
                   <span className="block text-[0.65625rem] font-normal text-muted-foreground">
                     {fmt(p.total)} {c.mentions}
                   </span>
@@ -68,7 +68,7 @@ export function PlatformSentimentWidget() {
                   extent={extent}
                   segmentLabels={counts ? countLabels(p.total, p.split, extent) : pctLabels(p.split)}
                   highlight={p.slipping}
-                  ariaLabel={`${networks[p.network]}: ${p.split
+                  ariaLabel={`${p.label}: ${p.split
                     .map((s, i) => `${["positive", "neutral", "negative"][i]} ${s}%${counts ? ` (${fmt(Math.round((p.total * s) / 100))})` : ""}`)
                     .join(", ")}`}
                 />

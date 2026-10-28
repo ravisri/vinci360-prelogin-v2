@@ -1,25 +1,26 @@
+import { TriangleAlert } from "lucide-react"
+
 import { StackedBar100 } from "@/components/charts/StackedBar100"
 import { Delta } from "@/components/mocks/Delta"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { Hotspot } from "@/components/mocks/Hotspot"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { VisualPanel } from "@/components/sections/VisualPanel"
 import { sentimentHero as c } from "@/content/features/sentiment-keywords"
-import { networks, sentiment, type Split } from "@/content/sample-data"
+import { sentiment, type Split } from "@/content/sample-data"
 import { trendGlyph, trendText } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
 
-const rows = sentiment.platforms
+const rows = sentiment.topics
 /** Plain "52%" in the segments, as in the reference; the legend carries the ▲ – ▼ glyphs. */
 const pctLabels = (split: Split) => split.map((v) => `${v}%`) as unknown as [string, string, string]
-const caption = `Sample platform-wise sentiment for Aurora Mobile as 100% stacked bars. ${rows
-  .map((p) => `${networks[p.network]} ${p.split[0]}% positive, ${p.split[1]}% neutral, ${p.split[2]}% negative, net +${p.net}`)
-  .join("; ")}. Instagram’s net sentiment fell 12 points versus the last period.`
+const caption = `Sample topic-wise sentiment for Aurora Mobile as 100% stacked bars. ${rows
+  .map((p) => `${p.label} ${p.split[0]}% positive, ${p.split[1]}% neutral, ${p.split[2]}% negative, net +${p.net}`)
+  .join("; ")}. Battery & charging net sentiment fell 12 points versus the last period.`
 
 /**
- * Sentiment hero: platform-wise 100% stacked bars with the net score per network, Instagram outlined
- * as the slipping platform. Hotspots sit on the frame's edges (under the Instagram row, beside the
+ * Sentiment hero: topic-wise 100% stacked bars with the net score per topic, Battery & charging outlined
+ * as the slipping topic. Hotspots sit on the frame's edges (under the Battery & charging row, beside the
  * net column), so they never cover a number or label.
  */
 export function SentimentHeroMock() {
@@ -46,11 +47,11 @@ export function SentimentHeroMock() {
           </div>
           <ul
             aria-hidden="true"
-            className="grid grid-cols-[4rem_minmax(0,1fr)] items-center gap-x-2 gap-y-2.5 text-[0.71875rem] tabular md:grid-cols-[4.5rem_minmax(0,1fr)_5.75rem] md:gap-x-2.5 md:gap-y-3 md:text-xs"
+            className="grid grid-cols-[5.75rem_minmax(0,1fr)] items-center gap-x-2 gap-y-2.5 text-[0.71875rem] tabular md:grid-cols-[6.5rem_minmax(0,1fr)_5.75rem] md:gap-x-2.5 md:gap-y-3 md:text-xs"
           >
             {rows.map((p) => (
-              <li key={p.network} className="contents">
-                <span className={cn(p.slipping && "font-bold")}>{networks[p.network]}</span>
+              <li key={p.label} className="contents">
+                <span className={cn(p.slipping && "font-bold")}>{p.label}</span>
                 <StackedBar100 data={p.split} height={20} segmentLabels={pctLabels(p.split)} highlight={p.slipping} />
                 <span className={cn("max-md:hidden", trendText[p.trend], p.slipping && "font-bold")}>
                   {trendGlyph[p.trend]} {c.net} +{p.net}
@@ -64,7 +65,7 @@ export function SentimentHeroMock() {
         <Hotspot n={2} accent="sent" {...c.hotspots[1]} className="top-[4.75rem] left-full md:top-[5.25rem]" />
       </div>
       <FloatCard enter className="flex items-center gap-2.5 px-3.5 py-2.5 tabular max-md:mt-7 md:-bottom-20.5 md:-left-10.5 md:px-4 md:py-3">
-        <NetworkIcon network="instagram" className="size-4.5 flex-none max-md:hidden" />
+        <TriangleAlert aria-hidden="true" strokeWidth={2} className="size-4.5 flex-none text-neg max-md:hidden" />
         <p className="text-[0.84375rem] font-bold md:font-heading md:text-[0.9375rem] md:font-extrabold">
           {c.float.label} <Delta trend="down">{c.float.delta}</Delta>{" "}
           <span className="text-[0.8125rem] font-medium text-muted-foreground md:font-sans">{c.float.vs}</span>

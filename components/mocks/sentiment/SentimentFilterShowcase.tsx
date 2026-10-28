@@ -4,19 +4,18 @@ import { useId, useState } from "react"
 import { ChevronDown, Info } from "lucide-react"
 import { m, useAnimationControls, useReducedMotion } from "motion/react"
 
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { useSentimentState } from "@/components/mocks/sentiment/SentimentStateProvider"
 import { Reveal } from "@/components/motion/Reveal"
 import { SectionHeader } from "@/components/sections/SectionHeader"
 import { Slider } from "@/components/ui/slider"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { sentimentFilters as c } from "@/content/features/sentiment-keywords"
-import { networks, sentiment, type Network } from "@/content/sample-data"
+import { sentiment } from "@/content/sample-data"
 import { widgetPulse } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
 type Tab = "sent" | "key"
-const NETWORKS: Network[] = ["facebook", "x", "youtube", "instagram"]
+const TOPICS = c.platform.items
 const t = sentiment.threshold
 
 const groupLabel = "text-xs font-semibold tracking-[0.03em] text-neutral-text uppercase"
@@ -40,8 +39,8 @@ function StaticChip({ label, value, on, note }: { label: string; value: string; 
   )
 }
 
-/** Platform toggles, shared by both filter sets (switching one off updates every widget). */
-function PlatformChips({ off, onToggle }: { off: readonly Network[]; onToggle: (n: Network) => void }) {
+/** Topic toggles, shared by both filter sets (switching one off updates every widget). */
+function PlatformChips({ off, onToggle }: { off: readonly string[]; onToggle: (n: string) => void }) {
   const labelId = useId()
   return (
     <div className="flex flex-col gap-1.5">
@@ -49,14 +48,14 @@ function PlatformChips({ off, onToggle }: { off: readonly Network[]; onToggle: (
         {c.platform.label}
       </span>
       <div role="group" aria-labelledby={labelId} className="flex flex-wrap gap-1.5">
-        {NETWORKS.map((n) => {
+        {TOPICS.map((n) => {
           const on = !off.includes(n)
           return (
             <button
               key={n}
               type="button"
               aria-pressed={on}
-              aria-label={on ? c.platform.included(networks[n]) : c.platform.excluded(networks[n])}
+              aria-label={on ? c.platform.included(n) : c.platform.excluded(n)}
               onClick={() => onToggle(n)}
               className={cn(
                 chipBase,
@@ -64,8 +63,7 @@ function PlatformChips({ off, onToggle }: { off: readonly Network[]; onToggle: (
                 on ? chipOn : "border-border bg-card font-medium text-muted-foreground line-through hover:border-sent-text",
               )}
             >
-              <NetworkIcon network={n} className="size-4" />
-              {networks[n]}
+              {n}
             </button>
           )
         })}
@@ -76,18 +74,18 @@ function PlatformChips({ off, onToggle }: { off: readonly Network[]; onToggle: (
 
 /**
  * "Narrow it down": separate filter sets for the Sentiment and Keyword modules (tabs, arrow keys).
- * Switching a platform off pulses every widget sketch once and tags it "↻ updated"; the threshold
+ * Switching a topic off pulses every widget sketch once and tags it "↻ updated"; the threshold
  * slider is the same control as Part A block 3; when a filter would empty a widget, it says why.
  */
 export function SentimentFilterShowcase() {
-  const { threshold, setThreshold, keyword, off, toggleNetwork } = useSentimentState()
+  const { threshold, setThreshold, keyword, off, toggleTopic } = useSentimentState()
   const [tab, setTab] = useState<Tab>("sent")
   const controls = useAnimationControls()
   const reduced = useReducedMotion()
   const ids = { entity: useId(), threshold: useId() }
 
-  const toggle = (n: Network) => {
-    toggleNetwork(n)
+  const toggle = (n: string) => {
+    toggleTopic(n)
     if (!reduced)
       controls.start((i: number) => ({
         ...widgetPulse,
@@ -97,9 +95,7 @@ export function SentimentFilterShowcase() {
 
   const updated = off.length > 0
   const note = updated
-    ? `${c.without} ${NETWORKS.filter((n) => off.includes(n))
-        .map((n) => networks[n])
-        .join(", ")}`
+    ? `${c.without} ${TOPICS.filter((n) => off.includes(n)).join(", ")}`
     : c.allPlatforms
   const valueText = `${threshold}% confidence`
   const kwName = sentiment.keywords[keyword].name

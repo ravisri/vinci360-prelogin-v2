@@ -1,6 +1,5 @@
-import { Bell, Sparkles } from "lucide-react"
+import { Bell, Heart, MessageSquare, Radio, Sparkles, Users } from "lucide-react"
 
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { SentimentChip } from "@/components/mocks/SentimentChip"
 import { sentimentSteps as c } from "@/content/features/sentiment-keywords"
 import { cn } from "@/lib/utils"
@@ -43,13 +42,13 @@ export const sentimentStepIllustrations = [
   </div>,
 ]
 
-/** "Works with the rest" thumbnails: Reports & Alerts, Promotable Stories, Channel Analysis. */
+/** "Works with the rest" thumbnails: Reports & Alerts, Promotable Stories, Source Analysis. */
 export const sentimentRelatedThumbnails = [
   <Bell key="reports" className="size-11" strokeWidth={2} />,
   <Sparkles key="stories" className="size-11" strokeWidth={2} />,
   <span key="channels" className="flex gap-2.5">
-    {(["facebook", "youtube", "instagram", "x"] as const).map((n) => (
-      <NetworkIcon key={n} network={n} className="size-7.5" />
+    {[MessageSquare, Radio, Heart, Users].map((Icon, i) => (
+      <Icon key={i} aria-hidden="true" strokeWidth={1.8} className="size-7.5" />
     ))}
   </span>,
 ]

@@ -7,7 +7,7 @@ import { useSentimentState } from "@/components/mocks/sentiment/SentimentStatePr
 import { SampleDataChip } from "@/components/mocks/SampleDataChip"
 import { fmt } from "@/components/mocks/home/kpi"
 import { sentimentPartB } from "@/content/features/sentiment-keywords"
-import { networks, sentiment, type SentimentKeywordId } from "@/content/sample-data"
+import { sentiment, type SentimentKeywordId } from "@/content/sample-data"
 import { sentimentGlyph } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
 
@@ -30,13 +30,13 @@ const icons: Record<(typeof c.widgets)[number]["id"], LucideIcon> = {
 /** One-line value per widget for the selected keyword, as in the reference grid. */
 function widgetValue(id: (typeof c.widgets)[number]["id"], k: SentimentKeywordId) {
   const K = kw[k]
-  const strong = K.platforms[K.strong]
+  const strong = K.subtopics[K.strong]
   const v = c.widgetValues
   switch (id) {
     case "kpis":
       return `${fmt(K.kpis[0].value)} ${v.mentions}`
     case "platforms":
-      return `${networks[strong.network]} ${strong.share}%`
+      return `${strong.label} ${strong.share}%`
     case "sentiment":
       return `${sentimentGlyph.pos} ${K.split[0]}% ${v.positive}`
     case "articles":

@@ -8,7 +8,7 @@ import { NetGauge } from "@/components/mocks/sentiment/NetGauge"
 import { Segmented } from "@/components/mocks/smi/Segmented"
 import { Button } from "@/components/ui/button"
 import { sentimentExplainer as c } from "@/content/features/sentiment-keywords"
-import { networks, sentiment } from "@/content/sample-data"
+import { sentiment } from "@/content/sample-data"
 import { sentimentGlyph, sentimentText } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
 
@@ -91,10 +91,10 @@ export function SentimentExplainer() {
             </h3>
             <div className="flex flex-col gap-2.5">
               <span className={cn(chip, "max-md:hidden")}>{c.under.chipPlatform}</span>
-              <ul className="grid grid-cols-[4.375rem_minmax(0,1fr)_4.375rem] items-center gap-x-2 gap-y-2.25 text-[0.78125rem] md:grid-cols-[4.375rem_minmax(0,1fr)_4.875rem]">
-                {u.platforms.map((p) => (
-                  <li key={p.network} className="contents">
-                    <span className={cn(p.flagged && "font-bold")}>{networks[p.network]}</span>
+              <ul className="grid grid-cols-[6rem_minmax(0,1fr)_4.375rem] items-center gap-x-2 gap-y-2.25 text-[0.78125rem] md:grid-cols-[6.5rem_minmax(0,1fr)_4.875rem]">
+                {u.topics.map((p) => (
+                  <li key={p.label} className="contents">
+                    <span className={cn(p.flagged && "font-bold")}>{p.label}</span>
                     <StackedBar100 data={p.split} height={12} labels={false} className={cn(p.flagged && flag)} />
                     <span className={cn(sentimentText[p.tone], p.flagged ? "font-bold" : "font-semibold")}>
                       {sentimentGlyph[p.tone]} {signed(p.net)}

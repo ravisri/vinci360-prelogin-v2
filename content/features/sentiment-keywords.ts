@@ -13,14 +13,14 @@ export const sentimentPage = {
   seo: {
     title: "Sentiment & Keywords",
     description:
-      "See how people feel about your brand on Facebook, X, YouTube and Instagram, by platform and hashtag, and how any keyword or campaign term performs on each.",
+      "See how people feel about your brand across social media, by topic and hashtag, and how any keyword or campaign term performs across its sub-topics over time.",
   },
   hero: {
     breadcrumb: [{ label: "Platform", href: "/features" }, { label: "Sentiment & Keywords" }],
     chip: { label: "Sentiment & Keywords", variant: "tint", bordered: true },
     title: "Find the problem before it reaches the headline number.",
-    lead: "See where the favourable and adverse conversation sits, and how any keyword or campaign term performs on every network.",
-    leadMobile: "See where the favourable and adverse conversation sits, and how any keyword performs on every network.",
+    lead: "See where the favourable and adverse conversation sits, and how any keyword or campaign term performs across every topic.",
+    leadMobile: "See where the favourable and adverse conversation sits, and how any keyword performs across every topic.",
     primary: { label: "Request a demo", href: "/request-demo" },
     secondary: { label: "Take the product tour", href: "/product-tour" },
   },
@@ -48,8 +48,8 @@ export const sentimentPage = {
     title: "How to use it",
     items: [
       {
-        title: "Check sentiment by platform and by hashtag",
-        text: "Find the network or tag that is moving the wrong way.",
+        title: "Check sentiment by topic and by hashtag",
+        text: "Find the topic or tag that is moving the wrong way.",
         dark: true,
       },
       {
@@ -57,7 +57,7 @@ export const sentimentPage = {
         text: "Read what people actually said, so you know why.",
       },
       {
-        title: "Pick your campaign keyword and compare networks",
+        title: "Pick your campaign keyword and compare sub-topics",
         text: "See where the message lands and where it doesn’t.",
       },
     ],
@@ -68,7 +68,7 @@ export const sentimentPage = {
       {
         icon: TriangleAlert,
         title: "Catch trouble early",
-        text: "Spot an adverse platform or tag before it reaches the headline.",
+        text: "Spot an adverse topic or tag before it reaches the headline.",
       },
       {
         icon: Reply,
@@ -78,7 +78,7 @@ export const sentimentPage = {
       {
         icon: Flag,
         title: "Prove what the message achieved",
-        text: "See how a campaign term performs per network and category.",
+        text: "See how a campaign term performs per sub-topic and category.",
       },
     ] satisfies Benefit[],
   },
@@ -101,16 +101,16 @@ export const sentimentPage = {
       },
       {
         accent: "channels",
-        label: "Channel Analysis",
-        prompt: "Go deeper on one network.",
+        label: "Source Analysis",
+        prompt: "Go deeper on mentions, reach and interactions.",
         href: "/features/channel-analysis",
-        linkLabel: "Explore Channel Analysis",
+        linkLabel: "Explore Source Analysis",
       },
     ],
   },
   cta: {
     title: "See what hides beneath your sentiment score.",
-    lead: "Leave your work email and we will show you your own platforms, tags and keywords.",
+    lead: "Leave your work email and we will show you your own topics, tags and keywords.",
     label: "Work email",
     placeholder: "you@company.com",
     buttonLabel: "Request a demo",
@@ -131,14 +131,14 @@ export const sentimentSubnav = {
 export const sentimentHero = {
   chrome: "vinci360 · ",
   module: "Sentiment Analysis",
-  title: "Sentiment by platform · last 30 days",
+  title: "Sentiment by topic · last 30 days",
   legend: { pos: "▲ Pos", neu: "– Neu", neg: "▼ Neg (hatched)" },
   legendMobile: "▲ positive · – neutral · ▼ negative (hatched)",
   net: "net",
   hotspots: [
     {
-      title: "Slipping platform",
-      text: "Instagram’s tone is falling while the others hold steady.",
+      title: "Slipping topic",
+      text: "Battery & charging’s tone is falling while the others hold steady.",
     },
     {
       title: "Net sentiment",
@@ -146,7 +146,7 @@ export const sentimentHero = {
     },
   ],
   float: {
-    label: "Instagram net sentiment",
+    label: "Battery & charging net sentiment",
     delta: "−12 pts",
     vs: "vs last period",
   },
@@ -171,13 +171,13 @@ export const sentimentExplainer = {
     caption: "Overall net sentiment is +34, up 2 points: a reassuring headline number.",
   },
   under: {
-    chipPlatform: "2 · Underneath: by platform",
+    chipPlatform: "2 · Underneath: by topic",
     chipHashtag: "by hashtag",
     callout: "Moving the wrong way",
     reveal: "Look underneath",
     heading: "Underneath the overall score",
     caption:
-      "Underneath the overall score: Instagram’s net sentiment is +9, down 12 points, and the campaign tag #SampleCampaign has turned negative at −14, down 22 points. Both are moving the wrong way.",
+      "Underneath the overall score: Battery & charging’s net sentiment is +9, down 12 points, and the campaign tag #SampleCampaign has turned negative at −14, down 22 points. Both are moving the wrong way.",
   },
   key: "Bar key: ▲ positive (green) · – neutral (grey) · ▼ negative (red, hatched). Purple outlines mark what needs attention; they never mean a sentiment.",
 }
@@ -189,14 +189,14 @@ const tellsLabel = "What it tells you:"
 export const sentimentPartA = {
   part: "Part A",
   title: "Sentiment Analysis",
-  lead: "How people feel, separated from how much they talk, by platform and by hashtag.",
+  lead: "How people feel, separated from how much they talk, by topic and by hashtag.",
   items: [
     {
-      title: "Platform-wise sentiment",
-      lead: "Positive, neutral and negative on Facebook, X, YouTube and Instagram, side by side.",
+      title: "Topic-wise sentiment",
+      lead: "Positive, neutral and negative for each of your top topics, side by side.",
       tells: {
         label: tellsLabel,
-        text: "which network is pulling your sentiment up, and which is dragging it down.",
+        text: "which topic is pulling your sentiment up, and which is dragging it down.",
       },
       metrics: ["Positive", "Neutral", "Negative", "Net sentiment", "Change vs previous"],
       hint: "Switch between real counts and 100% stacked bars.",
@@ -222,7 +222,7 @@ export const sentimentPartA = {
       hint: "Drag the slider and watch the chart change.",
     },
   ] satisfies WalkthroughItem[],
-  platformNote: "Audiences behave differently by network; this explains movements that look inexplicable in the total.",
+  platformNote: "Audiences feel differently about each topic; this explains movements that look inexplicable in the total.",
   hashtagNote: "A campaign tag turning negative shows up here before it shows in any total.",
   drill: {
     chip: "Drill into the posts",
@@ -232,7 +232,7 @@ export const sentimentPartA = {
     posts: "posts",
     viewOriginal: "View original",
     viewOriginalTitle: "Opens the original post in the product",
-    caption: "Sample negative posts on Instagram about charging and support, each with engagement and a View original link.",
+    caption: "Sample negative posts about charging and support, each with engagement and a View original link.",
   },
 }
 
@@ -253,11 +253,11 @@ export const sentimentPartAWidgets = {
     net: "Net",
     vsPrev: "pts vs prev.",
     hotspot: {
-      title: "Biggest network, weakest tone",
-      text: "Instagram carries most mentions, so its slide moves the total.",
+      title: "Biggest topic, weakest tone",
+      text: "Battery & charging carries most mentions, so its slide moves the total.",
     },
     caption:
-      "Sample platform-wise sentiment with counts or percentages. Instagram has by far the most mentions and the largest negative share at 32%, with net sentiment +9, down 12 points; YouTube is the most positive at +43.",
+      "Sample topic-wise sentiment with counts or percentages. Battery & charging has by far the most mentions and the largest negative share at 32%, with net sentiment +9, down 12 points; Night photography is the most positive at +43.",
   },
   hashtags: {
     title: "Hashtags · last 30 days",
@@ -310,9 +310,9 @@ export const sentimentPartB = {
     },
     {
       id: "platforms",
-      name: "Platform breakdown",
+      name: "Sub-topic breakdown",
       desc: "Where it is used",
-      mobile: "Platform breakdown",
+      mobile: "Sub-topic breakdown",
     },
     {
       id: "sentiment",
@@ -395,9 +395,9 @@ export const sentimentPartB = {
     },
   ] satisfies WalkthroughItem[],
   platforms: {
-    title: "Platform breakdown",
-    lead: "Where your keyword is used, network by network: mentions, engagement and share of total.",
-    leadMobile: "Where your keyword is used, network by network.",
+    title: "Sub-topic breakdown",
+    lead: "What your keyword is used with, sub-topic by sub-topic: mentions, engagement and share of total.",
+    leadMobile: "What your keyword is used with, sub-topic by sub-topic.",
     tells: { label: tellsLabel, text: "same term, very different results." },
     metrics: ["Mentions", "Engagement", "Share of total", "Net sentiment"],
     /** The 390 reference drops Net sentiment. */
@@ -426,8 +426,8 @@ export const sentimentPartB = {
 export const sentimentPartBWidgets = {
   kpis: { title: "Keyword:", vs: "vs prev." },
   platforms: {
-    title: "by platform · last 30 days",
-    titleMobile: "by platform",
+    title: "by sub-topic · last 30 days",
+    titleMobile: "by sub-topic",
     share: "share of total",
     mentions: "Mentions",
     engagement: "Engagement",
@@ -469,7 +469,7 @@ export const sentimentPartBWidgets = {
 /* ----------------------------- Narrow it down ----------------------------- */
 export const sentimentFilters = {
   title: "Narrow it down",
-  lead: "Separate filters for each module. Try switching a platform off.",
+  lead: "Separate filters for each module. Try switching a topic off.",
   tabsLabel: "Filter sets",
   tabs: [
     { value: "sent", label: "Sentiment filters" },
@@ -477,7 +477,8 @@ export const sentimentFilters = {
   ],
   date: { label: "Date range", value: "Last 30 days" },
   platform: {
-    label: "Platform",
+    label: "Topic",
+    items: ["Launch", "Price", "Night", "Battery"],
     included: (n: string) => `${n} included`,
     excluded: (n: string) => `${n} excluded`,
   },
@@ -493,16 +494,16 @@ export const sentimentFilters = {
   category: { label: "Category", value: "All" },
   canvasTitle: "Change a filter and every widget updates together.",
   without: "✓ Updated without",
-  allPlatforms: "All four platforms",
+  allPlatforms: "All topics",
   updated: "↻ updated",
   widgets: {
-    sent: ["Platform-wise sentiment", "Hashtag-wise sentiment", "Sentiment threshold", "Overall sentiment", "Posts behind a segment", "Sentiment trend"],
-    key: ["KPI cards", "Platform breakdown", "Sentiment bars", "Hashtags", "Topics", "Category graph"],
+    sent: ["Topic-wise sentiment", "Hashtag-wise sentiment", "Sentiment threshold", "Overall sentiment", "Posts behind a segment", "Sentiment trend"],
+    key: ["KPI cards", "Sub-topic breakdown", "Sentiment bars", "Hashtags", "Topics", "Category graph"],
   },
   side: {
     title: "Never a blank widget",
     text: "If a filter leaves a widget empty, it says why instead of going blank.",
-    example: "e.g. “No posts with this keyword on YouTube in the last 7 days. Widen the date range to see more.”",
+    example: "e.g. “No posts with this keyword in the last 7 days. Widen the date range to see more.”",
   },
 }
 

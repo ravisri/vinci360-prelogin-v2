@@ -38,7 +38,7 @@ function responsive(desktop: string, mobile?: string): ReactNode {
   )
 }
 
-/** Solid-border info line under a block's text ("Audiences behave differently by network…"). */
+/** Solid-border info line under a block's text ("Audiences feel differently about each topic…"). */
 function InfoPill({ children }: { children: ReactNode }) {
   return (
     <p className="flex items-start gap-2 rounded-lg border border-sent-200 bg-card px-3 py-2.5 text-sm font-semibold">

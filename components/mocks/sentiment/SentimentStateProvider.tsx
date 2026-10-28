@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react"
 
-import { sentiment, type Network, type SentimentKeywordId, type Split } from "@/content/sample-data"
+import { sentiment, type SentimentKeywordId, type Split } from "@/content/sample-data"
 
 type SentimentState = {
   /** Confidence % a post needs to count as positive or negative (Part A block 3 and the filter bar). */
@@ -11,9 +11,9 @@ type SentimentState = {
   /** The one keyword every Part B widget is about. */
   keyword: SentimentKeywordId
   setKeyword: (k: SentimentKeywordId) => void
-  /** Platforms switched off in "Narrow it down". */
-  off: readonly Network[]
-  toggleNetwork: (n: Network) => void
+  /** Topics switched off in "Narrow it down". */
+  off: readonly string[]
+  toggleTopic: (n: string) => void
 }
 
 const t = sentiment.threshold
@@ -31,7 +31,7 @@ const Ctx = createContext<SentimentState>({
   keyword: sentiment.keywordOrder[0],
   setKeyword: () => {},
   off: [],
-  toggleNetwork: () => {},
+  toggleTopic: () => {},
 })
 
 /**
@@ -41,7 +41,7 @@ const Ctx = createContext<SentimentState>({
 export function SentimentStateProvider({ children }: { children: ReactNode }) {
   const [threshold, setThreshold] = useState(t.initial)
   const [keyword, setKeyword] = useState<SentimentKeywordId>(sentiment.keywordOrder[0])
-  const [off, setOff] = useState<readonly Network[]>([])
+  const [off, setOff] = useState<readonly string[]>([])
   const value = useMemo(
     () => ({
       threshold,
@@ -49,7 +49,7 @@ export function SentimentStateProvider({ children }: { children: ReactNode }) {
       keyword,
       setKeyword,
       off,
-      toggleNetwork: (n: Network) => setOff((prev) => (prev.includes(n) ? prev.filter((x) => x !== n) : [...prev, n])),
+      toggleTopic: (n: string) => setOff((prev) => (prev.includes(n) ? prev.filter((x) => x !== n) : [...prev, n])),
     }),
     [threshold, keyword, off],
   )
