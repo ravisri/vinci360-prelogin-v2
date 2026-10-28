@@ -1,0 +1,56 @@
+/** Log in page copy (Login.dc.html · LoginMobile.dc.html). */
+export const login = {
+  description:
+    "Log in to Vinci360 to see what is being said about your brand right now across Facebook, X, YouTube and Instagram, with sentiment, trends and alerts.",
+  back: "Back to website",
+  chip: "Welcome back",
+  title: "Log in to Vinci360",
+  intro: "See what is being said about your brand right now.",
+  fields: { email: "Work email", password: "Password" },
+  show: "Show",
+  hide: "Hide",
+  caps: "Caps Lock is on",
+  forgotLink: "Forgot password?",
+  submit: "Log in",
+  submitting: "Logging in…",
+  redirecting: "Redirecting to the app…",
+  sso: "[Single sign-on options: to be confirmed]",
+  signedOut: "You’ve been signed out. Log in again to continue.",
+  invalid: "We couldn’t log you in. Check your email and password and try again.",
+  errors: {
+    email: "Enter your work email",
+    emailInvalid: "Enter a valid work email",
+    password: "Enter your password",
+  },
+  forgot: {
+    title: "Reset your password",
+    help: "Enter your work email and we’ll send reset instructions.",
+    submit: "Send reset instructions",
+    submitting: "Sending…",
+    live: "Sending reset instructions",
+  },
+  sent: {
+    title: "Check your inbox",
+    body: "If an account exists for that email, we’ve sent instructions to reset your password.",
+    delivery: "[Reset email delivery time: to be confirmed]",
+    resend: "Resend instructions",
+    resent: "Instructions sent again",
+  },
+  backToLogin: "Back to log in",
+  newTo: { text: "New to Vinci360?", link: "Request a demo" },
+  questions: { text: "Questions?", link: "Contact us" },
+  what: {
+    title: "What is Vinci360?",
+    body: "Real-time social media intelligence for Facebook, X, YouTube and Instagram.",
+    link: "See the features overview",
+  },
+  preview: {
+    label: "Product preview",
+    chrome: "Social Media Intelligence · Aurora Mobile",
+    caption:
+      "Sample Social Media Intelligence view for Aurora Mobile over the last 7 days: 11,382 mentions up 12%, engagement 446 thousand up 7%, net sentiment +24 down 2 points, a mention volume timeline peaking on Thursday with mostly positive sentiment, and one negative mention about battery drain on X.",
+    chart: "Mention volume and sentiment",
+    tagline: "Know first. Act before your competition does.",
+    networks: "Facebook · X · YouTube · Instagram",
+  },
+} as const
