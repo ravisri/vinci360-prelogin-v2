@@ -58,7 +58,7 @@ export const ctaLink: NavItem = { label: "Request a demo", href: "/request-demo"
 
 export const loginLink: NavItem = { label: "Log in", href: "/login" }
 
-export const footerBlurb = "Social media intelligence for Facebook, X, YouTube and Instagram."
+export const footerBlurb = "Social media intelligence for your brand: mentions, reach, sentiment and trends in one view."
 
 export const footerColumns: { id: string; heading: string; items: NavItem[] }[] = [
   { id: "ft-p", heading: "Platform", items: features },

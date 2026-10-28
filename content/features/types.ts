@@ -44,6 +44,8 @@ export type FeaturePageConfig = {
     secondary?: Action
     /** "Facebook · X · YouTube · Instagram" under the buttons (omitted when the page passes `heroTrailing`). */
     networks?: string
+    /** Source-agnostic text line in the same slot; wins over `networks`. */
+    metricsLine?: string
   }
   /** "Who opens this page": 2–4 role pills, plus an optional tinted "When to use it" box (Channels). */
   personas: { title: string; items: readonly Benefit[]; aside?: PersonasAside }

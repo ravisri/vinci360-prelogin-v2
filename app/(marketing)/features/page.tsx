@@ -15,7 +15,6 @@ import { GlossaryFilter } from "@/components/sections/GlossaryFilter"
 import { Hero } from "@/components/sections/Hero"
 import { IconCardGrid } from "@/components/sections/IconCardGrid"
 import { ModuleMap } from "@/components/sections/ModuleMap"
-import { NetworkRow } from "@/components/sections/NetworkRow"
 import { PageAnatomy } from "@/components/sections/PageAnatomy"
 import { RolePills } from "@/components/sections/RolePills"
 import { SectionHeader } from "@/components/sections/SectionHeader"
@@ -93,7 +92,7 @@ export default function FeaturesPage() {
         primary={hero.primary}
         secondary={hero.secondary}
         visual={<FeaturesHeroMock />}
-        after={<NetworkRow label={hero.networks} className="mt-4 flex-row flex-wrap items-center gap-3 lg:mt-10 lg:border-t lg:border-border lg:pt-5" />}
+        after={<p className="mt-4 text-sm text-muted-foreground lg:mt-10 lg:border-t lg:border-border lg:pt-5">{hero.metricsLine}</p>}
         className="pt-9 pb-0 md:pt-18 md:pb-10"
       />
 

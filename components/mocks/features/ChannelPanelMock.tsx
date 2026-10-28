@@ -7,28 +7,26 @@ import { Delta } from "@/components/mocks/Delta"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { Hotspot } from "@/components/mocks/Hotspot"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { featuresOverview as copy, type Panel } from "@/content/features-overview"
-import { featuresOverview as data, networks, type Network } from "@/content/sample-data"
+import { featuresOverview as data } from "@/content/sample-data"
 import { cn } from "@/lib/utils"
 
 const c = copy.mocks.channels
-const fb = data.facebook
-const SWITCHER: Network[] = ["facebook", "youtube", "instagram", "x"]
-const reactions = Object.entries(fb.reactions).map(([k, v]) => ({
+const fb = data.source
+const reactions = Object.entries(fb.interactions).map(([k, v]) => ({
   label: k[0].toUpperCase() + k.slice(1),
   value: v,
 }))
 
-const caption = `Sample Facebook analysis: ${fb.pages.map((p) => `${p.group ? "the group " : ""}${p.name} with ${p.followers} ${p.group ? "members" : "followers"}`).join(", ")}; reaction mix ${reactions.map((r) => `${r.label} ${r.value}%`).join(", ")}; follower growth ${fb.growth}. Thumbnails hint at YouTube, Instagram and X views.`
+const caption = `Sample source analysis with the Mentions metric selected: top profiles ${fb.pages.map((p) => `${p.name} with ${p.followers} followers`).join(", ")}; interaction mix ${reactions.map((r) => `${r.label} ${r.value}%`).join(", ")}; audience growth ${fb.growth}. Smaller tiles show comment sentiment, top voices and shares.`
 
-/** Channel tab: platform switcher, pages & groups, reaction types, follower growth and the other networks' teasers. */
+/** Source Analysis tab: metric switcher, top profiles, interaction mix, audience growth and three metric teasers. No network is named. */
 export function ChannelPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }) {
   return (
     <div className="relative">
       <MockFrame chrome={c.chrome} caption={caption} className="relative" bodyClassName="gap-3 p-2.5 md:p-4">
         <div className="relative flex flex-wrap gap-1.5" aria-hidden="true">
-          {SWITCHER.map((n, i) => (
+          {c.metrics.map((n, i) => (
             <span
               key={n}
               className={cn(
@@ -36,8 +34,7 @@ export function ChannelPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }) 
                 i === 0 ? "bg-channels font-bold text-ink" : "border border-border text-muted-foreground"
               )}
             >
-              <NetworkIcon network={n} className="size-3.75" />
-              {networks[n]}
+              {n}
             </span>
           ))}
         </div>
@@ -52,10 +49,7 @@ export function ChannelPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }) 
                   <span aria-hidden="true" className="grid size-6 flex-none place-items-center rounded-[6px] bg-border text-[0.625rem] font-bold">
                     {p.initials}
                   </span>
-                  <span className="min-w-0 flex-1">
-                    {p.name}
-                    {p.group && <span className="text-muted-foreground"> (group)</span>}
-                  </span>
+                  <span className="min-w-0 flex-1">{p.name}</span>
                   <span>{p.followers}</span>
                 </li>
               ))}
@@ -67,7 +61,7 @@ export function ChannelPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }) 
               ariaLabel={`${c.reactions}: ${reactions.map((r) => `${r.label} ${r.value}%`).join(", ")}`}
               tone="channels"
               thickness={7}
-              labelClassName="w-10"
+              labelClassName="w-16"
               className="gap-1.25 text-[0.71875rem]"
               data={reactions.map((r) => ({
                 label: r.label,
@@ -101,28 +95,27 @@ export function ChannelPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }) 
 
         <ul className="grid grid-cols-3 gap-2">
           {c.others.map((o) => (
-            <li key={o.network} className="flex min-w-0 flex-col gap-1 rounded-lg border border-border bg-card p-2.5 text-[0.6875rem] text-muted-foreground">
+            <li key={o.kind} className="flex min-w-0 flex-col gap-1 rounded-lg border border-border bg-card p-2.5 text-[0.6875rem] text-muted-foreground">
               <span className="flex items-center gap-1.5 font-semibold text-foreground">
-                <NetworkIcon network={o.network} className="size-3.5" />
-                {networks[o.network]}
+                {o.title}
               </span>
               {o.text}
-              {o.network === "youtube" && (
+              {o.kind === "sentiment" && (
                 <StackedBar100
-                  data={data.youtubeSplit}
+                  data={data.commentSplit}
                   height={6}
                   labels={false}
-                  ariaLabel={`YouTube comment sentiment: positive ${data.youtubeSplit[0]}%, neutral ${data.youtubeSplit[1]}%, negative ${data.youtubeSplit[2]}%`}
+                  ariaLabel={`Comment sentiment: positive ${data.commentSplit[0]}%, neutral ${data.commentSplit[1]}%, negative ${data.commentSplit[2]}%`}
                 />
               )}
-              {o.network === "instagram" && (
+              {o.kind === "voices" && (
                 <span aria-hidden="true" className="flex gap-0.75">
                   <span className="size-4 rounded-full bg-border" />
                   <span className="size-4 rounded-full bg-border" />
                   <span className="size-4 rounded-full bg-border" />
                 </span>
               )}
-              {o.network === "x" && (
+              {o.kind === "shares" && (
                 <span aria-hidden="true" className="flex items-center gap-1.5">
                   <Repeat2 className="size-3.5" strokeWidth={1.8} />
                   <span className="h-1.25 w-10 rounded-full bg-border" />

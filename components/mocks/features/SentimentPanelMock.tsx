@@ -5,18 +5,19 @@ import { Delta } from "@/components/mocks/Delta"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { Hotspot } from "@/components/mocks/Hotspot"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { featuresOverview as copy, type Panel } from "@/content/features-overview"
-import { featuresOverview as data, home, networks, sentimentByPlatform, type Network, type Trend } from "@/content/sample-data"
+import { featuresOverview as data, home, trends, type Trend } from "@/content/sample-data"
 import { sentimentGlyph, sentimentLabel, sentimentText } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
 
 const c = copy.mocks.sent
 const k = data.keyword
 const callout = home.sentiment.callout
-const ORDER: Network[] = ["facebook", "x", "youtube", "instagram"]
+/** Battery & charging is the topic turning negative (highlighted, like the float card). */
+const TOPICS = trends.topics.slice(0, 4)
+const WEAK = "Battery & charging"
 
-const caption = `Sample Sentiment and Keyword page. Keyword deep-dive for “${k.term}”: ${k.mentions.display} mentions up ${k.mentions.delta}, net sentiment ${k.netSentiment.display} down ${k.netSentiment.delta}, ${k.negativeShare.display} negative. Platform sentiment bars (positive, neutral, negative %): ${ORDER.map((n) => `${networks[n]} ${sentimentByPlatform[n].join(", ")}`).join("; ")}. Hashtag sentiment: ${data.hashtagSentiment.map((h) => `${h.tag} net ${h.net}`).join(", ")}.`
+const caption = `Sample Sentiment and Keyword page. Keyword deep-dive for “${k.term}”: ${k.mentions.display} mentions up ${k.mentions.delta}, net sentiment ${k.netSentiment.display} down ${k.netSentiment.delta}, ${k.negativeShare.display} negative. Topic sentiment bars (positive, neutral, negative %): ${TOPICS.map((t) => `${t.topic} ${t.split.join(", ")}`).join("; ")}. Hashtag sentiment: ${data.hashtagSentiment.map((h) => `${h.tag} net ${h.net}`).join(", ")}.`
 
 function Stat({ label, value, delta, trend, className }: { label: string; value: string; delta: ReactNode; trend?: Trend; className?: string }) {
   return (
@@ -34,7 +35,7 @@ function Stat({ label, value, delta, trend, className }: { label: string; value:
   )
 }
 
-/** Sentiment tab: "charging" keyword deep-dive, sentiment by platform, hashtag-wise sentiment and the Instagram float. */
+/** Sentiment tab: "charging" keyword deep-dive, sentiment by topic, hashtag-wise sentiment and the battery & charging float. */
 export function SentimentPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }) {
   return (
     <div className="relative">
@@ -58,15 +59,15 @@ export function SentimentPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }
               </p>
             </div>
             <ul className="flex flex-col gap-2.25">
-              {ORDER.map((n) => (
-                <li key={n} className="grid grid-cols-[4.375rem_minmax(0,1fr)] items-center gap-2 text-[0.71875rem]">
-                  <span className={cn(n === "instagram" && "font-bold")}>{networks[n]}</span>
+              {TOPICS.map((t) => (
+                <li key={t.topic} className="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-2 text-[0.71875rem]">
+                  <span className={cn("truncate", t.topic === WEAK && "font-bold")}>{t.topic}</span>
                   <StackedBar100
-                    data={sentimentByPlatform[n]}
+                    data={t.split}
                     height={22}
-                    highlight={n === "instagram"}
+                    highlight={t.topic === WEAK}
                     className="[&_text]:text-[0.6875rem]"
-                    ariaLabel={`${networks[n]}: positive ${sentimentByPlatform[n][0]}%, neutral ${sentimentByPlatform[n][1]}%, negative ${sentimentByPlatform[n][2]}%`}
+                    ariaLabel={`${t.topic}: positive ${t.split[0]}%, neutral ${t.split[1]}%, negative ${t.split[2]}%`}
                   />
                 </li>
               ))}
@@ -94,8 +95,7 @@ export function SentimentPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }
 
       <FloatCard className="flex flex-col gap-1 px-4 md:relative md:mt-3 md:w-65 lg:absolute lg:-right-5 lg:-bottom-16 lg:mt-0">
         <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <NetworkIcon network={callout.network} className="size-3.5" />
-          {callout.label}
+          {c.calloutLabel}
         </p>
         <p className="font-heading text-lg font-extrabold">
           {callout.metric}{" "}

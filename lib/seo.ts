@@ -45,7 +45,7 @@ export function softwareApp() {
     name: siteName,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    description: "Social media intelligence for Facebook, X, YouTube and Instagram.",
+    description: "Social media intelligence for your brand: mentions, reach, sentiment and trends in one view.",
     publisher: { "@type": "Organization", name: "MSRcosmos" },
   }
 }

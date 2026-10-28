@@ -439,19 +439,19 @@ export default function KitPage() {
 
           <MockFrame
             title="Bars · grouped"
-            caption={`Sample share of mentions and engagement by platform: ${smi.platforms.map((p) => `${networks[p.network]} ${p.share}% and ${p.engagementShare}%`).join("; ")}.`}
+            caption={`Sample share of mentions and engagement by topic: ${smi.topicBreakdown.map((p) => `${p.topic} ${p.share}% and ${p.engagementShare}%`).join("; ")}.`}
           >
             <Bars
-              ariaLabel={`Mentions and engagement share by platform: ${smi.platforms.map((p) => `${networks[p.network]} ${p.share}% / ${p.engagementShare}%`).join(", ")}`}
+              ariaLabel={`Mentions and engagement share by topic: ${smi.topicBreakdown.map((p) => `${p.topic} ${p.share}% / ${p.engagementShare}%`).join(", ")}`}
               legend
               width={480}
               height={140}
-              labels={smi.platforms.map((p) => networks[p.network])}
+              labels={smi.topicBreakdown.map((p) => p.topic)}
               data={[
-                { label: kit.charts.mentions, values: smi.platforms.map((p) => p.share), tone: "chart-1" },
-                { label: kit.charts.engagement, values: smi.platforms.map((p) => p.engagementShare), tone: "chart-4" },
+                { label: kit.charts.mentions, values: smi.topicBreakdown.map((p) => p.share), tone: "chart-1" },
+                { label: kit.charts.engagement, values: smi.topicBreakdown.map((p) => p.engagementShare), tone: "chart-4" },
               ]}
-              valueLabels={[smi.platforms.map((p) => `${p.share}%`), smi.platforms.map((p) => `${p.engagementShare}%`)]}
+              valueLabels={[smi.topicBreakdown.map((p) => `${p.share}%`), smi.topicBreakdown.map((p) => `${p.engagementShare}%`)]}
             />
           </MockFrame>
 

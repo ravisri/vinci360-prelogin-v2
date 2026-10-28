@@ -4,10 +4,9 @@ import { Delta } from "@/components/mocks/Delta"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { Hotspot } from "@/components/mocks/Hotspot"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { fmt } from "@/components/mocks/home/kpi"
 import { featuresOverview as copy, type Panel } from "@/content/features-overview"
-import { featuresOverview as data, home, leadStory, networks } from "@/content/sample-data"
+import { featuresOverview as data, home, leadStory } from "@/content/sample-data"
 import { cn } from "@/lib/utils"
 
 const c = copy.mocks.stories
@@ -74,8 +73,6 @@ export function StoriesPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }) 
                     {p.initials}
                   </span>
                   <span className="min-w-0 flex-1">{p.text}</span>
-                  <NetworkIcon network={p.network} className="size-3.75 text-muted-foreground" />
-                  <span className="sr-only">{networks[p.network]}</span>
                 </li>
               ))}
             </ul>

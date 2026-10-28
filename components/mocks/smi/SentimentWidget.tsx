@@ -8,12 +8,12 @@ import { MockFrame } from "@/components/mocks/MockFrame"
 import { fmt } from "@/components/mocks/home/kpi"
 import { Segmented } from "@/components/mocks/smi/Segmented"
 import { smiWidgets } from "@/content/features/smi"
-import { networks, sentimentByPlatform, smi, type Network } from "@/content/sample-data"
+import { smi, trends } from "@/content/sample-data"
 import { cn } from "@/lib/utils"
 
 const c = smiWidgets.sentiment
 const s = smi.sentiment
-const ORDER: Network[] = ["facebook", "x", "youtube", "instagram"]
+const TOPICS = trends.topics.slice(0, 4)
 const ROWS = [
   { label: "▲ Positive", tone: "pos" },
   { label: "– Neutral", tone: "neu" },
@@ -21,9 +21,9 @@ const ROWS = [
 ] as const
 
 type Values = "count" | "pct"
-type View = "overall" | "platform"
+type View = "overall" | "topic"
 
-/** Widget 5 · Sentiment bar graphs: net score tile plus overall bars or a per-network split. */
+/** Widget 5 · Sentiment bar graphs: net score tile plus overall bars or a per-topic split. */
 export function SentimentWidget() {
   const [values, setValues] = useState<Values>("pct")
   const [view, setView] = useState<View>("overall")
@@ -35,7 +35,7 @@ export function SentimentWidget() {
           <Segmented label={c.view.label} value={view} options={c.view.options as { value: View; label: string }[]} onChange={setView} />
         </span>
       }
-      caption={`Sample sentiment, last 30 days: net sentiment ${s.net}; positive ${s.split[0]}% (${fmt(s.counts[0])}), neutral ${s.split[1]}% (${fmt(s.counts[1])}), negative ${s.split[2]}% (${fmt(s.counts[2])}). By platform: ${ORDER.map((n) => `${networks[n]} ${sentimentByPlatform[n].join("/")}`).join(", ")} (positive/neutral/negative %).`}
+      caption={`Sample sentiment, last 30 days: net sentiment ${s.net}; positive ${s.split[0]}% (${fmt(s.counts[0])}), neutral ${s.split[1]}% (${fmt(s.counts[1])}), negative ${s.split[2]}% (${fmt(s.counts[2])}). By topic: ${TOPICS.map((t) => `${t.topic} ${t.split.join("/")}`).join(", ")} (positive/neutral/negative %).`}
     >
       <div className="grid gap-3 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center">
         <div className="rounded-lg bg-card px-4 py-3">
@@ -58,12 +58,11 @@ export function SentimentWidget() {
             />
           ) : (
             <ul aria-label={c.byPlatform} className="flex flex-col gap-2">
-              {ORDER.map((n) => {
-                const split = sentimentByPlatform[n]
+              {TOPICS.map(({ topic, split }) => {
                 return (
-                  <li key={n} className="grid grid-cols-[4.375rem_minmax(0,1fr)] items-center gap-2 text-xs">
-                    <span className="text-muted-foreground">{networks[n]}</span>
-                    <StackedBar100 data={split} height={18} ariaLabel={`${networks[n]}: positive ${split[0]}%, neutral ${split[1]}%, negative ${split[2]}%`} />
+                  <li key={topic} className="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-2 text-xs">
+                    <span className="truncate text-muted-foreground">{topic}</span>
+                    <StackedBar100 data={split} height={18} ariaLabel={`${topic}: positive ${split[0]}%, neutral ${split[1]}%, negative ${split[2]}%`} />
                   </li>
                 )
               })}

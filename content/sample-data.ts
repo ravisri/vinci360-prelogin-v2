@@ -78,7 +78,7 @@ export const weekly = {
   mentions: { label: "Mentions", value: 11382, display: "11,382", delta: "12%", trend: "up" },
   engagement: { label: "Engagement", value: 446000, display: "446K", delta: "7%", trend: "up" },
   netSentiment: { label: "Net sentiment", value: 24, display: "+24", delta: "2 pts", trend: "down" },
-  insight: "Instagram drove 38% of mentions this week.",
+  insight: "Mentions peaked on Saturday.",
 } as const
 
 /** Sentiment by platform, pos/neu/neg % (Main, Features, SMI, Sentiment, Tour). */
@@ -115,7 +115,7 @@ export const home = {
   dashboard: {
     title: "Social Media Intelligence",
     brand: "Aurora Mobile",
-    filters: ["Last 30 days", "All platforms", "All sentiment"],
+    filters: ["Last 30 days", "All keywords", "All sentiment"],
     kpis: [kpis30d.mentions, kpis30d.engagement, kpis30d.reach, kpis30d.posts, kpis30d.sentiment],
     /** KPI sparklines in the same order as `kpis` (shape only, 0–24 plot units). */
     sparks: [
@@ -250,16 +250,16 @@ export const featuresOverview = {
     { title: "Battery lasts the full trek", posts: 860, positive: 69, met: true },
     { title: "Store staff shout-outs", posts: 410, positive: null, met: false },
   ],
-  facebook: {
+  source: {
     pages: [
       { name: "Aurora Mobile India", initials: "AM", followers: "1.2M" },
       { name: "Aurora Care", initials: "AC", followers: "214K" },
-      { name: "Aurora Fans Club", initials: "FC", followers: "58K", group: true },
+      { name: "Aurora Fans Club", initials: "FC", followers: "58K" },
     ],
-    reactions: { like: 61, love: 18, wow: 8, haha: 5, sad: 4, angry: 4 },
+    interactions: { likes: 54, comments: 22, shares: 16, saves: 8 },
     growth: "+4.8% this month",
   },
-  filterChips: ["Last 30 days", "Instagram", "Negative", "Keyword: charging"],
+  filterChips: ["Last 30 days", "Topic: Battery & charging", "Negative", "Keyword: charging"],
 
   /** Hero: 30 daily mention points read off the reference polyline (plot units, 0–140 scale, not counts). */
   heroKpis: [kpis30d.mentions, kpis30d.engagement, kpis30d.reach, kpis30d.sentiment],
@@ -319,7 +319,7 @@ export const featuresOverview = {
 
   /** Channel tab: follower growth read off the reference polyline (0–90 plot units). */
   followerGrowth: [12, 16, 18, 24, 28, 32, 40, 46, 56, 64, 76],
-  youtubeSplit: [58, 27, 15] as Split,
+  commentSplit: [58, 27, 15] as Split,
   followers: { value: "1.2M", delta: "+4.8% this month" },
 }
 
@@ -364,12 +364,13 @@ export const smi = {
     { topic: "Price & offers", volume: 4130, engagement: "148K", split: [40, 45, 15] as Split },
     { topic: "Customer support", volume: 3040, engagement: "96K", split: [18, 32, 50] as Split },
   ],
-  platforms: [
-    { network: "instagram", mentions: 29890, engagement: "1.11M", share: 62, engagementShare: 58 },
-    { network: "x", mentions: 8680, engagement: "173K", share: 18, engagementShare: 9 },
-    { network: "facebook", mentions: 6270, engagement: "269K", share: 13, engagementShare: 14 },
-    { network: "youtube", mentions: 3374, engagement: "365K", share: 7, engagementShare: 19 },
-  ] as { network: Network; mentions: number; engagement: string; share: number; engagementShare: number }[],
+  /** Topic breakdown (source-agnostic): the reference's per-network numbers, relabelled to topics. */
+  topicBreakdown: [
+    { topic: "Aurora X2 launch", mentions: 29890, engagement: "1.11M", share: 62, engagementShare: 58 },
+    { topic: "Night photography", mentions: 8680, engagement: "173K", share: 18, engagementShare: 9 },
+    { topic: "Battery & charging", mentions: 6270, engagement: "269K", share: 13, engagementShare: 14 },
+    { topic: "Price & offers", mentions: 3374, engagement: "365K", share: 7, engagementShare: 19 },
+  ] as { topic: string; mentions: number; engagement: string; share: number; engagementShare: number }[],
   sentiment: { split: [54, 28, 18] as Split, counts: [26036, 13500, 8678], net: "+36" },
   articles: [
     { handle: "@riya.k", initials: "RK", time: "Tue 9:12 PM", network: "instagram", sentiment: "neg", text: "Third Aurora X2 charger this year. Support keeps closing my ticket without a fix.", likes: 1920, comments: 311, shares: 164, views: "48K" },

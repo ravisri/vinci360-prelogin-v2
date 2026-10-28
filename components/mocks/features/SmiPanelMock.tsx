@@ -4,24 +4,24 @@ import { FloatCard } from "@/components/mocks/FloatCard"
 import { Hotspot } from "@/components/mocks/Hotspot"
 import { KpiCard } from "@/components/mocks/KpiCard"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { PostCard } from "@/components/mocks/PostCard"
 import { ReachNote } from "@/components/mocks/ReachNote"
 import { kpiProps } from "@/components/mocks/home/kpi"
 import { featuresOverview as copy, type Panel } from "@/content/features-overview"
-import { featuresOverview as data, networks } from "@/content/sample-data"
+import { featuresOverview as data, home } from "@/content/sample-data"
 import { cn } from "@/lib/utils"
 
 const c = copy.mocks.smi
 const w = data.smiWeek
+const topics = home.risingTopics.rows.slice(0, 4)
 
 const caption = `Sample Social Media Intelligence page: five KPIs (${data.smiKpis
   .map((k) => `${k.display} ${k.label.toLowerCase()} ${k.trend} ${k.delta.replace(" vs prev.", "")}`)
   .join(
     ", "
-  )}), a weekly mention timeline peaking on Saturday with a sentiment dip that day, and a platform breakdown led by Instagram at ${data.platformShare[0].share}%.`
+  )}), a weekly mention timeline peaking on Saturday with a sentiment dip that day, and top topics by momentum led by ${topics[0].topic} at ${topics[0].score}.`
 
-/** SMI tab: 5 KPIs (3 on mobile), week bars with net sentiment, platform breakdown, and the @riya.k post float. */
+/** SMI tab: 5 KPIs (3 on mobile), week bars with net sentiment, top topics, and the @riya.k post float. */
 export function SmiPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }) {
   return (
     <>
@@ -82,14 +82,10 @@ export function SmiPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }) {
             <div className="relative rounded-lg border border-border bg-card p-2.5 md:p-3.5">
               <p className="mb-2.5 text-[0.8125rem] font-semibold max-md:hidden">{c.platforms}</p>
               <HBar
-                ariaLabel={`${c.platforms}: ${data.platformShare.map((p) => `${networks[p.network]} ${p.share}%`).join(", ")}`}
-                labelClassName="w-15 md:w-16"
-                data={data.platformShare.map((p) => ({
-                  label: networks[p.network],
-                  value: p.share,
-                  display: `${p.share}%`,
-                  icon: <NetworkIcon network={p.network} className="size-3.5 text-foreground md:size-4" />,
-                }))}
+                ariaLabel={`${c.platforms}: ${topics.map((t) => `${t.topic} ${t.score}`).join(", ")}`}
+                labelClassName="w-28 md:w-32"
+                max={100}
+                data={topics.map((t) => ({ label: t.topic, value: t.score, display: String(t.score) }))}
                 className="max-md:[&>div:nth-child(4)]:hidden"
               />
               <Hotspot n={3} accent="smi" {...hotspots[2]} className="top-0 right-0 translate-x-0 max-md:top-full max-md:right-auto max-md:left-[58%]" />
@@ -102,7 +98,6 @@ export function SmiPanelMock({ hotspots }: { hotspots: Panel["hotspots"] }) {
             initials={data.post.initials}
             handle={data.post.handle}
             time={data.post.time}
-            network={data.post.network}
             text={data.post.text}
             sentiment={data.post.sentiment}
             engagement={`${data.post.engagement} ${c.engagements}`}

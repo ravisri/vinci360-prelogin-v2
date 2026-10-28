@@ -1,10 +1,9 @@
 import Link from "next/link"
+import { Heart, MessageSquare, Radio, Users } from "lucide-react"
 
 import { Stagger, StaggerItem } from "@/components/motion/Stagger"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { ModuleChip } from "@/components/sections/ModuleChip"
 import type { MapTile } from "@/content/features-overview"
-import type { Network } from "@/content/sample-data"
 import { accents } from "@/lib/accents"
 import { cn } from "@/lib/utils"
 
@@ -14,7 +13,8 @@ const SPAN: Partial<Record<MapTile["glyph"], string>> = {
   reports: "col-span-2 lg:col-span-1",
   channels: "col-span-2",
 }
-const CHANNEL_GLYPHS: Network[] = ["facebook", "youtube", "instagram", "x"]
+/** Source Analysis metrics: mentions, reach, interactions, voices. */
+const CHANNEL_GLYPHS = [MessageSquare, Radio, Heart, Users]
 
 /** Decorative tile drawings in currentColor, as in the reference. They lift on tile hover (transform only). */
 function Glyph({ kind }: { kind: MapTile["glyph"] }) {
@@ -39,9 +39,9 @@ function Glyph({ kind }: { kind: MapTile["glyph"] }) {
   if (kind === "channels") {
     return (
       <span aria-hidden="true" className={cn("grid flex-none grid-cols-[repeat(2,4rem)] gap-3 self-center", motion)}>
-        {CHANNEL_GLYPHS.map((n) => (
-          <span key={n} className="grid h-16 place-items-center rounded-lg border-2 border-current">
-            <NetworkIcon network={n} className="size-7" />
+        {CHANNEL_GLYPHS.map((Icon, i) => (
+          <span key={i} className="grid h-16 place-items-center rounded-lg border-2 border-current">
+            <Icon strokeWidth={1.8} className="size-7" />
           </span>
         ))}
       </span>

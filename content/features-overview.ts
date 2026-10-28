@@ -14,6 +14,7 @@ import {
   Folder,
   Gauge,
   Hash,
+  Heart,
   KeyRound,
   Languages,
   Layers,
@@ -22,6 +23,7 @@ import {
   Mail,
   Megaphone,
   PieChart,
+  Radio,
   Repeat2,
   Rows3,
   Share,
@@ -34,7 +36,6 @@ import {
   type LucideIcon,
 } from "lucide-react"
 
-import { networkGlyph } from "@/components/mocks/NetworkIcon"
 import type { Benefit, BenefitIcon } from "@/components/sections/BenefitList"
 import type { Accent } from "@/content/navigation"
 
@@ -74,26 +75,22 @@ export type GlossaryItem = {
   icon: BenefitIcon
 }
 
-const facebook = networkGlyph("facebook")
-const youtube = networkGlyph("youtube")
-const instagram = networkGlyph("instagram")
-
 export const featuresOverview = {
   meta: {
     title: "Features",
     description:
-      "Explore all twelve vinci360° modules for Facebook, X, YouTube and Instagram: trends, sentiment, brand compare, promotable stories, reports and channel analysis.",
+      "Explore all twelve vinci360° modules: social listening, trends, sentiment, brand compare, promotable stories, reports and source analysis, in one clear view.",
   },
 
   hero: {
     chip: "Platform",
-    title: "Twelve modules. Four networks. One clear picture.",
+    title: "Twelve modules. One clear picture of your brand.",
     lead: "Every Vinci360 module answers a different question about the conversation around your brand",
     /** Desktop only: 390 ends the lead at "brand." */
     leadTail: ", from what is being said to what is worth promoting",
     primary: { label: "Request a demo", href: "/request-demo" },
     secondary: { label: "Take the product tour", href: "/product-tour" },
-    networks: "Facebook · X · YouTube · Instagram",
+    metricsLine: "Mentions · Reach · Interactions · Sentiment, analysed in one place",
     chrome: "vinci360 · Aurora Mobile",
     chromeMobile: "Aurora Mobile",
     timeline: "Mentions · last 30 days",
@@ -168,9 +165,9 @@ export const featuresOverview = {
       },
       {
         accent: "channels",
-        eyebrow: "Channel Analysis",
-        title: "How is each of our channels performing?",
-        modules: ["Facebook analysis", "YouTube analysis", "Instagram analysis", "X analysis"],
+        eyebrow: "Source Analysis",
+        title: "How is the conversation performing?",
+        modules: ["Mentions & reach", "Interactions", "Audience growth", "Top voices"],
         glyph: "channels",
         href: "/features/channel-analysis",
       },
@@ -188,7 +185,7 @@ export const featuresOverview = {
         name: "Social Media Intelligence",
         chip: "Social Media Intelligence",
         title: "Everything being said about you, in one view.",
-        lead: "Mentions, engagement and sentiment from all four networks on one filterable page.",
+        lead: "Mentions, engagement and sentiment from across social media on one filterable page.",
         benefits: [
           {
             icon: Gauge,
@@ -221,8 +218,8 @@ export const featuresOverview = {
             text: "Shows whether a busy day was a good or bad one.",
           },
           {
-            title: "Platform breakdown",
-            text: "Which network the conversation happens on.",
+            title: "Top topics",
+            text: "Which topics drive the conversation.",
           },
         ],
       },
@@ -276,8 +273,8 @@ export const featuresOverview = {
         benefits: [
           {
             icon: Smile,
-            title: "Sentiment by platform",
-            text: "Positive, neutral and negative for each network.",
+            title: "Sentiment by topic",
+            text: "Positive, neutral and negative for each topic.",
           },
           {
             icon: Hash,
@@ -300,8 +297,8 @@ export const featuresOverview = {
             text: "Volume and mood for one word you care about.",
           },
           {
-            title: "Sentiment by platform",
-            text: "Shows which network is turning negative.",
+            title: "Sentiment by topic",
+            text: "Shows which topic is turning negative.",
           },
           {
             title: "Hashtag-wise sentiment",
@@ -438,42 +435,42 @@ export const featuresOverview = {
       {
         id: "channels",
         accent: "channels",
-        name: "Channel Analysis",
-        chip: "Channel Analysis",
-        title: "See how each network performs on its own terms.",
-        lead: "Facebook, YouTube, Instagram and X analysis, each with the measures that network is known for.",
+        name: "Source Analysis",
+        chip: "Source Analysis",
+        title: "See how the conversation performs, metric by metric.",
+        lead: "Mentions, reach, interactions and engagement rate, each with the measures that explain it.",
         benefits: [
           {
-            icon: facebook,
-            title: "Facebook pages & groups",
-            text: "Reactions, follower growth and top posts.",
+            icon: Radio,
+            title: "Mentions & reach",
+            text: "Volume, estimated reach and top profiles.",
           },
           {
-            icon: youtube,
-            title: "YouTube channels & comments",
-            text: "Views plus how commenters feel.",
+            icon: Heart,
+            title: "Interactions",
+            text: "Likes, comments, shares and how commenters feel.",
           },
           {
             icon: Users,
-            title: "Instagram & X voices",
-            text: "Influential users, replies and reposts.",
+            title: "Top voices",
+            text: "Influential authors, replies and shares.",
           },
         ],
         action: {
-          label: "Explore Channel Analysis",
+          label: "Explore Source Analysis",
           href: "/features/channel-analysis",
         },
         hotspots: [
           {
-            title: "Platform switcher",
-            text: "Jump between each network’s own view.",
+            title: "Metric switcher",
+            text: "Jump between mentions, reach and interactions.",
           },
           {
-            title: "Reaction types",
-            text: "How people react, beyond a simple like.",
+            title: "Interaction mix",
+            text: "How people interact, beyond a simple like.",
           },
           {
-            title: "Follower growth",
+            title: "Audience growth",
             text: "Whether your audience is growing month on month.",
           },
         ],
@@ -489,7 +486,7 @@ export const featuresOverview = {
       weekMobile: "This week · mentions & net sentiment",
       mentions: "Mentions",
       net: "Net sentiment",
-      platforms: "Platform breakdown",
+      platforms: "Top topics",
       engagements: "engagements",
     },
     trends: {
@@ -511,7 +508,8 @@ export const featuresOverview = {
       mentions: "Mentions",
       net: "Net sentiment",
       negShare: "Negative share",
-      byPlatform: "Sentiment by platform",
+      byPlatform: "Sentiment by topic",
+      calloutLabel: "Battery & charging · this week",
       hashtags: "Hashtag-wise sentiment",
     },
     cmp: {
@@ -559,14 +557,15 @@ export const featuresOverview = {
       },
     },
     channels: {
-      chrome: "Facebook analysis",
-      pages: "Pages & groups",
-      reactions: "Reaction types",
-      growth: "Follower growth · 30 days",
+      chrome: "Source analysis",
+      metrics: ["Mentions", "Reach", "Interactions", "Engagement rate"],
+      pages: "Top profiles",
+      reactions: "Interaction mix",
+      growth: "Audience growth · 30 days",
       others: [
-        { network: "youtube", text: "Channel + comment sentiment" },
-        { network: "instagram", text: "Users + influence" },
-        { network: "x", text: "Replies + reposts" },
+        { kind: "sentiment", title: "Comment sentiment", text: "How commenters feel" },
+        { kind: "voices", title: "Top voices", text: "Authors + influence" },
+        { kind: "shares", title: "Shares", text: "Replies + shares" },
       ] as const,
       followers: "Aurora Mobile India · followers",
     },
@@ -596,7 +595,7 @@ export const featuresOverview = {
       lead: "Change a filter and every widget on the page updates together.",
       items: [
         { icon: CalendarDays, label: "Date range" },
-        { icon: LayoutGrid, label: "Platform" },
+        { icon: LayoutGrid, label: "Source" },
         { icon: KeyRound, label: "Keyword or brand" },
         { icon: Layers, label: "Topic" },
         { icon: Hash, label: "Hashtag" },
@@ -663,8 +662,8 @@ export const featuresOverview = {
         icon: Layers,
       },
       {
-        name: "Platform breakdown",
-        text: "How the conversation splits across networks.",
+        name: "Top topics",
+        text: "Which topics drive the conversation.",
         area: "smi",
         icon: LayoutGrid,
       },
@@ -682,7 +681,7 @@ export const featuresOverview = {
       },
       {
         name: "Unified article feed",
-        text: "Posts from all four networks in one list.",
+        text: "Posts from across social media in one list.",
         area: "smi",
         icon: Rows3,
       },
@@ -765,25 +764,25 @@ export const featuresOverview = {
         icon: Mail,
       },
       {
-        name: "Facebook pages & groups",
-        text: "Reactions and follower growth per page.",
+        name: "Mentions & reach",
+        text: "Volume and estimated reach over time.",
         area: "channels",
-        icon: facebook,
+        icon: Radio,
       },
       {
-        name: "YouTube channels & comment sentiment",
-        text: "Views plus how commenters feel.",
+        name: "Interactions & comment sentiment",
+        text: "Likes, comments, shares and how commenters feel.",
         area: "channels",
-        icon: youtube,
+        icon: Heart,
       },
       {
-        name: "Instagram users & influence",
+        name: "Top voices & influence",
         text: "Who has the most sway in your space.",
         area: "channels",
-        icon: instagram,
+        icon: Users,
       },
       {
-        name: "X replies & reposts",
+        name: "Replies & shares",
         text: "How your posts travel and get answered.",
         area: "channels",
         icon: Repeat2,

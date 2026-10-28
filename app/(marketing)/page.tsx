@@ -1,3 +1,4 @@
+import { ReachNote } from "@/components/mocks/ReachNote"
 import { HomeDashboardMock } from "@/components/mocks/home/HomeDashboardMock"
 import { RisingTopicsMock } from "@/components/mocks/home/RisingTopicsMock"
 import { SentimentPlatformMock } from "@/components/mocks/home/SentimentPlatformMock"
@@ -11,8 +12,7 @@ import { CtaBand } from "@/components/sections/CtaBand"
 import { FeatureSplit } from "@/components/sections/FeatureSplit"
 import { Hero } from "@/components/sections/Hero"
 import { HowToUse } from "@/components/sections/HowToUse"
-import { NetworkGrid } from "@/components/sections/NetworkGrid"
-import { NetworkRow } from "@/components/sections/NetworkRow"
+import { IconGrid } from "@/components/sections/IconGrid"
 import { ProofPlaceholder } from "@/components/sections/ProofPlaceholder"
 import { QuestionTiles } from "@/components/sections/QuestionTiles"
 import { RoleCards } from "@/components/sections/RoleCards"
@@ -59,11 +59,10 @@ export default function HomePage() {
         }
         primary={hero.primary}
         secondary={hero.secondary}
-        trailing={<NetworkRow label={hero.networks} align="center" />}
         visual={<HomeDashboardMock />}
       />
 
-      <NetworkGrid title={home.networks.title} items={home.networks.items} />
+      <IconGrid title={home.overview.title} items={home.overview.items} after={<ReachNote className="text-center" />} />
 
       <section className="container-site flex flex-col gap-8 pt-16 md:gap-10 lg:pt-24">
         <Reveal>

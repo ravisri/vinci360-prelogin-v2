@@ -4,12 +4,11 @@ import { Bars } from "@/components/charts/Bars"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { KpiCard } from "@/components/mocks/KpiCard"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { SentimentChip } from "@/components/mocks/SentimentChip"
 import { kpiProps } from "@/components/mocks/home/kpi"
 import { VisualPanel } from "@/components/sections/VisualPanel"
 import { home as copy } from "@/content/home"
-import { home as data, networks } from "@/content/sample-data"
+import { home as data } from "@/content/sample-data"
 import { cn } from "@/lib/utils"
 
 const s = data.snapshot
@@ -72,11 +71,9 @@ export function SnapshotMock() {
         <ul className="flex flex-col">
           {s.feed.map((p) => (
             <li
-              key={p.network}
+              key={p.text}
               className={cn("flex items-start gap-2 border-t border-muted py-2 first:border-0 first:pt-0 last:pb-0", !p.short && "max-md:hidden")}
             >
-              <NetworkIcon network={p.network} className="mt-0.5 size-4 flex-none" />
-              <span className="sr-only">{networks[p.network]}: </span>
               <span className="min-w-0 flex-1 text-xs leading-[1.4]">
                 {p.short && p.short !== p.text ? (
                   <>

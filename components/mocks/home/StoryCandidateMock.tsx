@@ -3,9 +3,8 @@ import { Check, Sparkles, TrendingUp, X } from "lucide-react"
 import { Delta } from "@/components/mocks/Delta"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { home as copy } from "@/content/home"
-import { home as data, networks } from "@/content/sample-data"
+import { home as data } from "@/content/sample-data"
 
 const st = data.story
 const c = copy.storiesMock
@@ -65,10 +64,7 @@ export function StoryCandidateMock() {
                 <span aria-hidden="true" className="grid size-7 flex-none place-items-center rounded-full bg-border text-[0.625rem] font-bold">
                   {p.initials}
                 </span>
-                <span className="min-w-0 flex-1">{p.text}</span>
-                <NetworkIcon network={p.network} className="size-4 flex-none text-muted-foreground" />
-                <span className="sr-only">{networks[p.network]}</span>
-              </li>
+                <span className="min-w-0 flex-1">{p.text}</span>              </li>
             ))}
           </ul>
         </div>

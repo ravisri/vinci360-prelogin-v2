@@ -73,7 +73,7 @@ export function WeeklyBriefMock() {
   )
 }
 
-/** Navy alert rule: "When Instagram mentions go above 2× the 7-day average", notify Email + Brand team. */
+/** Navy alert rule: "When Aurora Mobile mentions go above 2× the 7-day average", notify Email + Brand team. */
 export function AlertRuleCard() {
   const [when, metric, verb, threshold] = r.rule.parts
   return (

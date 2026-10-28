@@ -7,12 +7,11 @@ import { FloatCard } from "@/components/mocks/FloatCard"
 import { Hotspot } from "@/components/mocks/Hotspot"
 import { KpiCard } from "@/components/mocks/KpiCard"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { PostCard } from "@/components/mocks/PostCard"
 import { ReachNote } from "@/components/mocks/ReachNote"
 import { kpiProps } from "@/components/mocks/home/kpi"
 import { home as copy } from "@/content/home"
-import { home as data, networks } from "@/content/sample-data"
+import { home as data, overview } from "@/content/sample-data"
 import { sentimentGlyph, sentimentLabel } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
 
@@ -20,10 +19,11 @@ const d = data.dashboard
 const h = copy.hero
 const filterIcons = [CalendarDays, LayoutGrid, Smile]
 const SENTIMENTS = ["pos", "neu", "neg"] as const
+const topics = data.risingTopics.rows.slice(0, 4)
 
-const caption = `Sample Social Media Intelligence dashboard for the fictional brand ${d.brand}: filters for last 30 days, all platforms and all sentiment; five KPI cards showing ${d.kpis
+const caption = `Sample Social Media Intelligence dashboard for the fictional brand ${d.brand}: filters for last 30 days, all keywords and all sentiment; five KPI cards showing ${d.kpis
   .map((k) => `${k.display} ${k.label.toLowerCase()} ${k.trend} ${k.delta.replace(" vs prev.", "")}`)
-  .join(", ")}; a 30-day mention volume chart with a sentiment line showing a spike on 1 October; a sentiment split of ${d.sentimentSplit[0]}% positive, ${d.sentimentSplit[1]}% neutral and ${d.sentimentSplit[2]}% negative; and a platform breakdown led by ${networks[d.platformShare[0].network]} at ${d.platformShare[0].share}%.`
+  .join(", ")}; a 30-day mention volume chart with a sentiment line showing a spike on 1 October; a sentiment split of ${d.sentimentSplit[0]}% positive, ${d.sentimentSplit[1]}% neutral and ${d.sentimentSplit[2]}% negative; and top topics by momentum led by ${topics[0].topic} at ${topics[0].score}.`
 
 /** Home hero: the SMI dashboard frame with hotspots, the alert and post float cards, and the reach note. */
 export function HomeDashboardMock() {
@@ -42,17 +42,13 @@ export function HomeDashboardMock() {
             <BellRing className="size-4.5" strokeWidth={2} />
           </span>
           <p className="flex min-w-0 flex-col gap-0.5">
-            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              {d.alert.label} ·
-              <NetworkIcon network={d.alert.network} className="size-3.5" />
-              {networks[d.alert.network]}
-            </span>
+            <span className="text-xs text-muted-foreground">{overview.alert.label}</span>
             <span className="text-sm font-bold whitespace-nowrap tabular">
               <span aria-hidden="true" className="text-pos">
                 ▲{" "}
               </span>
               <span className="sr-only">Up: </span>
-              {d.alert.text}
+              {overview.alert.text}
             </span>
           </p>
         </div>
@@ -156,14 +152,10 @@ export function HomeDashboardMock() {
             <div className="relative rounded-lg border border-border bg-card p-4">
               <p className="mb-3 text-[0.8125rem] font-semibold">{h.platformTitle}</p>
               <HBar
-                ariaLabel={`Platform breakdown: ${d.platformShare.map((p) => `${networks[p.network]} ${p.share}%`).join(", ")}`}
-                labelClassName="w-20"
-                data={d.platformShare.map((p) => ({
-                  label: networks[p.network],
-                  value: p.share,
-                  display: `${p.share}%`,
-                  icon: <NetworkIcon network={p.network} className="size-4" />,
-                }))}
+                ariaLabel={`Top topics by momentum: ${topics.map((t) => `${t.topic} ${t.score}`).join(", ")}`}
+                labelClassName="w-32"
+                max={100}
+                data={topics.map((t) => ({ label: t.topic, value: t.score, display: String(t.score) }))}
               />
               <Hotspot n={3} title={h.hotspots[2].title} text={h.hotspots[2].text} className="top-1 right-0 translate-x-0" />
             </div>
@@ -178,7 +170,6 @@ export function HomeDashboardMock() {
           initials={d.feedPost.initials}
           handle={d.feedPost.handle}
           time={d.feedPost.time}
-          network="instagram"
           text={h.postText}
           sentiment={d.feedPost.sentiment}
           engagement={`${d.feedPost.engagement} ${h.engagements}`}
@@ -186,7 +177,7 @@ export function HomeDashboardMock() {
         />
       </FloatCard>
 
-      <ReachNote className="mt-3 text-center lg:mt-4" />
+      {/* <ReachNote className="mt-3 text-center lg:mt-4" /> */}
     </div>
   )
 }

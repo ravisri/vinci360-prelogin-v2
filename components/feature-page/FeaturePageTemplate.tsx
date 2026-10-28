@@ -59,7 +59,14 @@ export function FeaturePageTemplate({ config, heroVisual, heroChipExtra, heroTra
         }
         primary={hero.primary}
         secondary={hero.secondary}
-        trailing={heroTrailing ?? (hero.networks ? <NetworkRow label={hero.networks} /> : undefined)}
+        trailing={
+          heroTrailing ??
+          (hero.metricsLine ? (
+            <p className="text-sm text-muted-foreground">{hero.metricsLine}</p>
+          ) : hero.networks ? (
+            <NetworkRow label={hero.networks} />
+          ) : undefined)
+        }
         visual={heroVisual}
       />
 

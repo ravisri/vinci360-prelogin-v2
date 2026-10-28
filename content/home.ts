@@ -9,13 +9,16 @@ import {
   Gauge,
   GitCompareArrows,
   Hash,
+  Heart,
   KeyRound,
   LayoutGrid,
   ListOrdered,
   Mail,
   Megaphone,
+  MessageSquare,
   MessageSquareWarning,
   PieChart,
+  Radio,
   Rows3,
   Share2,
   Smile,
@@ -29,7 +32,6 @@ import {
 
 import type { Benefit } from "@/components/sections/BenefitList"
 import type { Accent } from "@/content/navigation"
-import type { Network } from "@/content/sample-data"
 
 type Feature = {
   accent: Accent
@@ -46,18 +48,17 @@ export const home = {
   meta: {
     title: "Social media intelligence for your brand",
     description:
-      "See every conversation about your brand on Facebook, X, YouTube and Instagram. Track sentiment, trends and competitors in one view with vinci360° by MSRcosmos.",
+      "See every conversation about your brand across social media. Track mentions, reach, sentiment, trends and competitors in one view with vinci360° by MSRcosmos.",
   },
 
   hero: {
     chip: "Social media intelligence",
-    title: "See every conversation about your brand, across every network.",
+    title: "See every conversation about your brand, across social media.",
     lead: "Vinci360 brings your mentions together in real time and shows you how people feel, what is trending and how you compare with competitors",
     /** Desktop only: 390 ends the lead at "competitors." */
     leadTail: ", on one screen",
     primary: { label: "Request a demo", href: "/request-demo" },
     secondary: { label: "Take the product tour", href: "/product-tour" },
-    networks: "Facebook · X · YouTube · Instagram, analysed in one place",
     chrome: "vinci360 · Social Media Intelligence",
     chromeMobile: "Social Media Intelligence",
     export: "Export",
@@ -66,24 +67,24 @@ export const home = {
     mentions: "Mentions",
     net: "Net sentiment",
     splitTitle: "Sentiment split",
-    platformTitle: "Platform breakdown",
+    platformTitle: "Top topics",
     engagements: "engagements",
     postText: "Third Aurora X2 charger this year. Support keeps closing my ticket without a fix.",
     hotspots: [
       { title: "Headline KPIs", text: "Headline KPIs with change vs last period" },
       { title: "Volume timeline", text: "Volume timeline with sentiment overlay" },
-      { title: "Platforms", text: "Platform breakdown" },
+      { title: "Topics", text: "Top topics by momentum" },
     ],
   },
 
-  networks: {
-    title: "Four networks. One view.",
+  overview: {
+    title: "Every metric that matters. One view.",
     items: [
-      { network: "facebook", title: "Facebook", text: "Public posts, comments and reactions about your brand." },
-      { network: "x", title: "X", text: "Posts, replies and hashtags as conversations unfold." },
-      { network: "youtube", title: "YouTube", text: "Videos, views and comments on content about you." },
-      { network: "instagram", title: "Instagram", text: "Posts, captions, hashtags and engagement." },
-    ] as { network: Network; title: string; text: string }[],
+      { icon: MessageSquare, title: "Mentions", text: "Every public post, comment and reply that names your brand." },
+      { icon: Radio, title: "Social media reach*", text: "How many people the conversation about you could reach." },
+      { icon: Heart, title: "Interactions", text: "Likes, comments and shares that show what resonates." },
+      { icon: Smile, title: "Sentiment", text: "Positive, neutral and negative mentions, and how they shift." },
+    ] as { icon: LucideIcon; title: string; text: string }[],
   },
 
   questions: {
@@ -101,13 +102,13 @@ export const home = {
     accent: "smi",
     chip: "Social Media Intelligence",
     title: "Everything being said about you, in one view.",
-    lead: "Mentions, engagement and sentiment from all four networks arrive in a single, filterable dashboard.",
+    lead: "Mentions, engagement and sentiment from across social media arrive in a single, filterable dashboard.",
     benefits: [
-      { icon: Rows3, title: "One feed, four networks", text: "Posts, comments and videos side by side, newest first." },
+      { icon: Rows3, title: "One unified feed", text: "Posts, comments and videos side by side, newest first." },
       { icon: Gauge, title: "Headline numbers at a glance", text: "Mentions, reach and sentiment, with change vs last period." },
-      { icon: Filter, title: "Filter in one click", text: "Narrow by date, platform, sentiment or keyword." },
+      { icon: Filter, title: "Filter in one click", text: "Narrow by date, topic, sentiment or keyword." },
     ],
-    benefitsMobile: ["Posts, comments and videos side by side.", "With change vs last period.", "By date, platform, sentiment or keyword."],
+    benefitsMobile: ["Posts, comments and videos side by side.", "With change vs last period.", "By date, topic, sentiment or keyword."],
     action: { label: "Explore Social Media Intelligence", href: "/features/social-media-intelligence" },
   } satisfies Feature,
   smiMock: { titleMobile: "This week", chartTitle: "Mentions per day", netShort: "Net sent.", feedTitle: "Unified feed" },
@@ -131,15 +132,15 @@ export const home = {
     accent: "sent",
     chip: "Sentiment & Keywords",
     title: "Find the problem before it reaches the headline number.",
-    lead: "Break sentiment down by platform and keyword to see exactly where opinion is turning, and why.",
+    lead: "Follow sentiment over time and by keyword to see exactly where opinion is turning, and why.",
     benefits: [
-      { icon: Smile, title: "Sentiment by platform", text: "Positive, neutral and negative for each network." },
+      { icon: Smile, title: "Sentiment over time", text: "Positive, neutral and negative, day by day." },
       { icon: KeyRound, title: "Keywords that drive it", text: "The words most linked to praise or complaints." },
-      { icon: MessageSquareWarning, title: "Catch the shift early", text: "Week-on-week change flags a platform turning sour." },
+      { icon: MessageSquareWarning, title: "Catch the shift early", text: "Week-on-week change flags opinion turning sour." },
     ],
     action: { label: "Explore Sentiment & Keywords", href: "/features/sentiment-keywords" },
   } satisfies Feature,
-  sentimentMock: { title: "Sentiment by platform", keywords: "Top negative keywords:" },
+  sentimentMock: { title: "Sentiment over time", keywords: "Top negative keywords:", callout: "Net sentiment · this week" },
 
   compare: {
     accent: "cmp",
@@ -194,12 +195,12 @@ export const home = {
     subject: "Your weekly brand brief · Aurora Mobile · 5–11 Oct",
     brief: "Weekly brief",
     topRising: "Top rising",
-    bullets: ["Instagram drove 38% of mentions this week.", "Charging complaints eased after Wednesday."],
+    bullets: ["Mentions peaked on Saturday.", "Charging complaints eased after Wednesday."],
     open: "Open full report",
     rule: {
       title: "Alert rule",
       on: "Rule is on",
-      parts: ["When", "Instagram mentions", "go above", "2× the 7-day average"],
+      parts: ["When", "Aurora Mobile mentions", "go above", "2× the 7-day average"],
       notify: "Notify:",
       channels: ["Email", "Brand team"],
     },
@@ -210,7 +211,7 @@ export const home = {
     lead: "Three steps from first login to the insight in your inbox.",
     steps: [
       { icon: Target, title: "Choose what to track", text: "Add your brand, products, competitors and the keywords and hashtags that matter." },
-      { icon: LayoutGrid, title: "See everything in one place", text: "Mentions, sentiment, trends and comparisons from all four networks on one screen." },
+      { icon: LayoutGrid, title: "See everything in one place", text: "Mentions, sentiment, trends and comparisons from across social media on one screen." },
       { icon: Share2, title: "Act and share", text: "Get reports and alerts automatically, and export findings for your team." },
     ] as { icon: LucideIcon; title: string; text: string }[],
   },

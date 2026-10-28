@@ -92,7 +92,6 @@ export function SmiHeroMock() {
           initials={post.initials}
           handle={post.handle}
           time={c.post.time}
-          network={post.network}
           text={c.post.text}
           sentiment="neg"
           engagement={c.post.engagement}

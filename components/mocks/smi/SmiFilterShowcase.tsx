@@ -4,18 +4,16 @@ import { useState } from "react"
 import { Bookmark, CalendarDays, ChevronDown, MoveHorizontal, Search } from "lucide-react"
 import { m, useAnimationControls, useReducedMotion } from "motion/react"
 
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { Segmented } from "@/components/mocks/smi/Segmented"
 import { Reveal } from "@/components/motion/Reveal"
 import { SectionHeader } from "@/components/sections/SectionHeader"
 import { smiFilters as c } from "@/content/features/smi"
-import { networks, type Network } from "@/content/sample-data"
 import { widgetPulse } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
 type Range = "today" | "7d" | "30d" | "custom"
-const NETWORKS: Network[] = ["facebook", "x", "youtube", "instagram"]
-const DEFAULTS = { range: "30d" as Range, off: [] as Network[], mood: 0 }
+const TOPICS = c.platform.items
+const DEFAULTS = { range: "30d" as Range, off: [] as string[], mood: 0 }
 /** The 390 strip leads with the active default, as in the reference. */
 const MOBILE_RANGES: Range[] = ["30d", "7d", "today", "custom"]
 
@@ -33,7 +31,7 @@ const staticChip = "inline-flex min-h-11 flex-none items-center gap-1.5 rounded-
  */
 export function SmiFilterShowcase() {
   const [range, setRange] = useState<Range>(DEFAULTS.range)
-  const [off, setOff] = useState<Network[]>(DEFAULTS.off)
+  const [off, setOff] = useState<string[]>(DEFAULTS.off)
   const [mood, setMood] = useState(DEFAULTS.mood)
   const controls = useAnimationControls()
   const reduced = useReducedMotion()
@@ -45,7 +43,7 @@ export function SmiFilterShowcase() {
     setRange(r)
     pulse()
   }
-  const toggleNetwork = (n: Network) => {
+  const toggleTopic = (n: string) => {
     setOff((prev) => (prev.includes(n) ? prev.filter((x) => x !== n) : [...prev, n]))
     pulse()
   }
@@ -62,7 +60,7 @@ export function SmiFilterShowcase() {
 
   const changes = [
     c.date.options.find((o) => o.value === range)?.change,
-    off.length ? `${c.platform.without} ${NETWORKS.filter((n) => off.includes(n)).map((n) => networks[n]).join(", ")}` : "",
+    off.length ? `${c.platform.without} ${TOPICS.filter((n) => off.includes(n)).join(", ")}` : "",
     mood ? `${c.sentiment.options[mood]} ${c.sentiment.only}` : "",
   ].filter(Boolean)
   const updated = changes.length > 0
@@ -136,19 +134,18 @@ export function SmiFilterShowcase() {
             <div className="flex flex-col gap-2">
               <span className={groupLabel}>{c.platform.label}</span>
               <div role="group" aria-label={c.platform.label} className="flex flex-wrap gap-2">
-                {NETWORKS.map((n) => {
+                {TOPICS.map((n) => {
                   const on = !off.includes(n)
                   return (
                     <button
                       key={n}
                       type="button"
                       aria-pressed={on}
-                      aria-label={on ? c.platform.included(networks[n]) : c.platform.excluded(networks[n])}
-                      onClick={() => toggleNetwork(n)}
+                      aria-label={on ? c.platform.included(n) : c.platform.excluded(n)}
+                      onClick={() => toggleTopic(n)}
                       className={cn(chipBase, on ? chipOn : cn(chipOff, "text-muted-foreground line-through"))}
                     >
-                      <NetworkIcon network={n} className="size-4" />
-                      {networks[n]}
+                      {n}
                     </button>
                   )
                 })}
