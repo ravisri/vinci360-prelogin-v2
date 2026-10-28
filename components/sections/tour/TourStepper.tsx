@@ -8,7 +8,8 @@ import { ArrowLeft, ArrowRight, Check, Compass, Hand } from "lucide-react"
 import { ModuleChip } from "@/components/sections/ModuleChip"
 import { TourContext, type TourState } from "@/components/sections/tour/tour-context"
 import { Button } from "@/components/ui/button"
-import type { Network, TourRange } from "@/content/sample-data"
+import type { ChannelKey } from "@/content/channels-data"
+import type { TourRange } from "@/content/sample-data"
 import { tourPage, type TourModule, type TourStep } from "@/content/tour"
 import { accents, type Accent } from "@/lib/accents"
 import { crossFade, transition } from "@/lib/motion"
@@ -99,7 +100,7 @@ export function TourStepper({ mocks }: { mocks: ReactNode[] }) {
   const [step, setStep] = useState(1)
   const [mode, setMode] = useState<Mode>("guided")
   const [range, setRange] = useState<TourRange>("30d")
-  const [channel, setChannel] = useState<Network | null>(null)
+  const [view, setView] = useState<ChannelKey | null>(null)
   const [moduleName, setModuleName] = useState<string | null>(null)
   const [nudge, setNudge] = useState(false)
 
@@ -115,7 +116,7 @@ export function TourStepper({ mocks }: { mocks: ReactNode[] }) {
   const goTo = useCallback((n: number, { focus, module }: GoOptions = {}) => {
     const next = clampStep(n)
     setStep(next)
-    setChannel(module?.channel ?? null)
+    setView(module?.view ?? null)
     setModuleName(module?.name ?? null)
     setNudge(false)
     focusPending.current = !!focus
@@ -125,7 +126,7 @@ export function TourStepper({ mocks }: { mocks: ReactNode[] }) {
   const switchMode = (next: Mode) => {
     setMode(next)
     setModuleName(null)
-    setChannel(null)
+    setView(null)
     window.history.replaceState(null, "", next === "free" ? "#explore" : `#step-${step}`)
   }
 
@@ -137,7 +138,7 @@ export function TourStepper({ mocks }: { mocks: ReactNode[] }) {
       if (match) {
         setMode("guided")
         setStep(clampStep(Number(match[1])))
-        setChannel(null)
+        setView(null)
       } else if (hash === "#explore") {
         setMode("free")
       } else {
@@ -193,7 +194,7 @@ export function TourStepper({ mocks }: { mocks: ReactNode[] }) {
     goTo(step + (e.key === "ArrowRight" ? 1 : -1), { focus: true })
   }
 
-  const ctx = useMemo<TourState>(() => ({ range, toggleRange: () => setRange((r) => (r === "30d" ? "7d" : "30d")), channel, nudge }), [range, channel, nudge])
+  const ctx = useMemo<TourState>(() => ({ range, toggleRange: () => setRange((r) => (r === "30d" ? "7d" : "30d")), view, nudge }), [range, view, nudge])
 
   const modules = menu.flatMap((g) => g.modules.map((mod) => ({ ...mod, accent: g.accent })))
 

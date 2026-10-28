@@ -37,7 +37,6 @@ export function TagPostsWidget() {
           initials={p.initials}
           handle={p.handle}
           time={p.time}
-          network={p.network}
           text={p.text}
           sentiment={p.sentiment}
           metrics={{ likes: p.likes, comments: p.comments, shares: p.shares }}

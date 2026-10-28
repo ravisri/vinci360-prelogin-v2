@@ -7,7 +7,7 @@ import { VisualPanel } from "@/components/sections/VisualPanel"
 import { channelsHero } from "@/content/channels-data"
 
 /**
- * Channel Analysis hero: the Facebook Page view (reactions by type, follower growth) with two
+ * Source Analysis hero: the Interactions view (interaction types, audience growth) with two
  * hotspots on the widget edges, and the "Reactions" float below the frame (never over a number).
  */
 export function ChannelsHeroMock() {

@@ -13,7 +13,7 @@ export const storiesPage = {
   seo: {
     title: "Promotable Stories",
     description:
-      "Turn social conversation into content ideas backed by evidence: story candidates from trending hashtags on Facebook, X, YouTube and Instagram, with real posts.",
+      "Turn social conversation into content ideas backed by evidence: story candidates from trending hashtags across social media, with reach, sentiment and posts.",
   },
   hero: {
     breadcrumb: [{ label: "Platform", href: "/features" }, { label: "Promotable Stories" }],
@@ -35,7 +35,7 @@ export const storiesPage = {
   steps: {
     title: "How to use it",
     items: [
-      { title: "Set dates, platforms and your evidence bar", text: "Decide how much proof an idea needs." },
+      { title: "Set dates, topics and your evidence bar", text: "Decide how much proof an idea needs." },
       { title: "Open a suggestion and check its posts", text: "Read the proof before you commit.", dark: true },
       { title: "Accept and export to your calendar", text: "Keep the best, schedule them, move on." },
     ],
@@ -181,7 +181,7 @@ export const storiesWalkthrough = {
       title: "The supporting posts",
       lead: "Representative posts that justify the idea, each one a click away from the original.",
       tells: { label: "What it tells you:", text: "exactly what people said, so you can quote it with confidence." },
-      metrics: ["Handle", "Platform", "Sentiment", "Engagement"],
+      metrics: ["Handle", "Snippet", "Sentiment", "Engagement"],
       hint: "",
     },
     {
@@ -215,7 +215,7 @@ export const storiesWidgets = {
   posts: {
     title: (n: number) => `Supporting posts · ${n}`,
     float: "Open the posts behind the suggestion.",
-    caption: "Three positive sample posts about night-mode photos from Instagram, X and YouTube, with engagement counts and View original links.",
+    caption: "Three positive sample posts about night-mode photos, with engagement counts and View original links.",
   },
   decision: {
     accept: "✓ Accept",
@@ -243,7 +243,8 @@ export const storiesBar = {
       { value: "custom", label: "Custom" },
     ],
   },
-  platform: "Platform",
+  platform: "Topic",
+  topics: ["Camera", "Launch", "Battery", "Gifting"],
   sentiment: {
     label: "Sentiment",
     options: [
@@ -264,7 +265,7 @@ export const storiesBar = {
   columns: "Columns: idea · volume · engagement · evidence score",
   scoreLabel: "Evidence score",
   why: {
-    platform: "No platform selected: the Platform filter removed every idea. Pick at least one network.",
+    platform: "No topic selected: the Topic filter removed every idea. Pick at least one topic.",
     engagement: (n: string) => `The minimum engagement of ${n} removed every idea. Lower it to see suggestions.`,
     volume: (n: string) => `The minimum volume of ${n} posts removed every idea. Lower it to see suggestions.`,
     threshold: "The evidence threshold removed every idea. Lower it to see suggestions.",
@@ -277,7 +278,7 @@ export const storiesBar = {
 
 /* ------------------------- Steps and related thumbnails ------------------------ */
 export const storiesSteps = {
-  filters: ["Last 30 days", "All platforms"],
+  filters: ["Last 30 days", "All topics"],
   bar: (n: number) => `Evidence bar: ${n}`,
   quotes: ["“No tripod. Unreal.”", "“Beats my old camera.”"],
   accept: "✓ Accept",

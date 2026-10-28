@@ -7,7 +7,7 @@ import { m, useReducedMotion } from "motion/react"
 import { useChannelState } from "@/components/mocks/channels/ChannelStateProvider"
 import { NetworkPanel } from "@/components/mocks/channels/NetworkPanel"
 import { mchip } from "@/components/mocks/channels/styles"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
+import { ViewIcon } from "@/components/mocks/channels/ViewIcon"
 import { ReachNote } from "@/components/mocks/ReachNote"
 import { Reveal } from "@/components/motion/Reveal"
 import { ModuleChip } from "@/components/sections/ModuleChip"
@@ -51,7 +51,7 @@ export function NetworkSwitcher() {
               value={k}
               className="relative h-12 flex-none gap-2 rounded-full border border-border bg-card px-4.5 text-[0.9375rem] font-semibold text-foreground after:hidden hover:bg-channels-tint focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[state=active]:border-2 data-[state=active]:border-channels-text data-[state=active]:bg-channels-tint data-[state=active]:font-bold data-[state=active]:text-channels-text"
             >
-              <NetworkIcon network={k} />
+              <ViewIcon view={k} />
               {channelNetworks[k].name}
               <span aria-hidden="true" className="hidden size-4.5 place-items-center rounded-full bg-channels-text text-primary-foreground in-data-[state=active]:grid">
                 <Check strokeWidth={3} className="size-3" />
@@ -97,7 +97,7 @@ export function NetworkSwitcher() {
                 <aside aria-labelledby={`nm-${k}`} className="flex flex-col gap-3.5 rounded-lg bg-card p-4 shadow-card md:p-6">
                   <div className="flex items-center gap-2.5">
                     <span aria-hidden="true" className="grid size-9 flex-none place-items-center rounded-lg bg-channels-tint text-ink max-md:hidden">
-                      <NetworkIcon network={k} />
+                      <ViewIcon view={k} />
                     </span>
                     <h3 id={`nm-${k}`} className="text-base md:text-lg">
                       {c.aside.title(n.name)}

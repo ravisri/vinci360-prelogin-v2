@@ -1,15 +1,14 @@
-import { Mail, TriangleAlert } from "lucide-react"
+import { Mail, Tag, TriangleAlert } from "lucide-react"
 
 import { DrawPath } from "@/components/motion/DrawPath"
 import { Delta } from "@/components/mocks/Delta"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { Hotspot } from "@/components/mocks/Hotspot"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { SampleDataChip } from "@/components/mocks/SampleDataChip"
 import { kpiTile, paper } from "@/components/mocks/reports/styles"
 import { VisualPanel } from "@/components/sections/VisualPanel"
 import { reportsHero as c } from "@/content/features/reports-alerts"
-import { networks, reports } from "@/content/sample-data"
+import { reports } from "@/content/sample-data"
 import { cn } from "@/lib/utils"
 
 const e = reports.email
@@ -109,8 +108,8 @@ export function ReportsHeroMock() {
             {c.alert.when}
           </strong>
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
-            <NetworkIcon network={reports.heroAlert.network} className="size-3" />
-            {networks[reports.heroAlert.network]}
+            <Tag aria-hidden="true" strokeWidth={2} className="size-3" />
+            {reports.heroAlert.topic}
           </span>
         </span>
       </FloatCard>

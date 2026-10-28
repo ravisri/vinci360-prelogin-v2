@@ -6,7 +6,7 @@ import { Hotspot } from "@/components/mocks/Hotspot"
 import { SampleDataChip } from "@/components/mocks/SampleDataChip"
 import { kpiTile, paper, plainChip, solidChip, tintChip } from "@/components/mocks/reports/styles"
 import { reportsPartA as c } from "@/content/features/reports-alerts"
-import { networks, reports } from "@/content/sample-data"
+import { reports } from "@/content/sample-data"
 import { sentimentGlyph, sentimentLabel, sentimentText } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
 
@@ -87,7 +87,7 @@ export function KeywordReportWidget() {
   )
 }
 
-/** Part A · 2 · Entity-wise monthly report for Aurora Mobile: entity type, 3 KPIs (reach marked as an estimate) and the platform split. */
+/** Part A · 2 · Entity-wise monthly report for Aurora Mobile: entity type, 3 KPIs (reach marked as an estimate) and the topic split. */
 export function EntityReportWidget() {
   const en = c.entity
   const data = reports.entityMonthly
@@ -117,8 +117,8 @@ export function EntityReportWidget() {
         ))}
       </dl>
       <HBar
-        data={data.platforms.map((p) => ({ label: networks[p.network], value: p.share, display: `${p.share}%` }))}
-        ariaLabel={`${en.platforms}: ${data.platforms.map((p) => `${networks[p.network]} ${p.share}%`).join(", ")}`}
+        data={data.topics.map((p) => ({ label: p.label, value: p.share, display: `${p.share}%` }))}
+        ariaLabel={`${en.platforms}: ${data.topics.map((p) => `${p.label} ${p.share}%`).join(", ")}`}
         tone="chart-1"
         labelClassName="w-18"
         className="gap-1.5"

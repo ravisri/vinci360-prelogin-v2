@@ -1,4 +1,4 @@
-/** Shared in-mock styles for the Channel Analysis page (colours come from the frame's `on-dark` scope). */
+/** Shared in-mock styles for the Source Analysis page (colours come from the frame's `on-dark` scope). */
 
 /** Dark widget panel inside a frame ("dk" in the reference). */
 export const dk = "rounded-lg border border-border bg-card p-3"
@@ -19,7 +19,7 @@ export const dtab =
 /** Metric chip on light ("mchip"). */
 export const mchip = "inline-flex items-center rounded-full bg-channels-tint px-2.5 py-1 text-xs font-semibold text-channels-text"
 
-/** Icon-only network picker button ("nsel"): 44px target, tint + check when on. */
+/** Icon-only view picker button ("nsel"): 44px target, tint + check when on. */
 export const pickerItem =
   "relative size-11 cursor-pointer rounded-sm border border-border bg-card text-foreground hover:bg-channels-tint data-[state=on]:border-2 data-[state=on]:border-channels-text data-[state=on]:bg-channels-tint data-[state=on]:text-channels-text"
 

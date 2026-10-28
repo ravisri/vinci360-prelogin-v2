@@ -10,7 +10,7 @@ import { avatar, checkBadge, dk, dtab, pickerItem } from "@/components/mocks/cha
 import { Delta } from "@/components/mocks/Delta"
 import { Hotspot } from "@/components/mocks/Hotspot"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
+import { ViewIcon } from "@/components/mocks/channels/ViewIcon"
 import { ReachNote } from "@/components/mocks/ReachNote"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { channelNetworks, channelOrder, channelPosts, entityDots, entityTones, type ChannelKey } from "@/content/channels-data"
@@ -87,7 +87,7 @@ function caption(view: ViewKey, k: ChannelKey) {
     case "entity":
       return `Sample entity table on ${n.name}: ${w.entities.map((r) => `${r.name} ${r.mentions} mentions, trend ${r.trend === "down" ? "down" : r.trend === "up" ? "up" : "flat"} ${r.change}`).join("; ")}.`
     case "groups":
-      return `Sample groups on ${n.name} (${w.groups.kind}): ${w.groups.rows.map((r) => `${r.name}, mostly about ${r.topic}`).join("; ")}.`
+      return `Sample communities in ${n.name} (${w.groups.kind}): ${w.groups.rows.map((r) => `${r.name}, mostly about ${r.topic}`).join("; ")}.`
     case "hashtags":
       return `Sample hashtags on ${n.name}: ${w.hashtags.map((r) => `${r.name} growth ${r.growthTrend === "down" ? "down" : "up"} ${r.growth}, ${s(r)}`).join("; ")}.`
     case "object":
@@ -173,7 +173,7 @@ export function NetworkViewMock({ view }: { view: ViewKey }) {
           {w.groups.kind}
         </span>
         <div className="relative">
-          <Table caption={`Groups on ${n.name}`} cols={c.views.groups.cols} numeric={[1, 2]}>
+          <Table caption={`Communities in ${n.name}`} cols={c.views.groups.cols} numeric={[1, 2]}>
             {w.groups.rows.map((r) => (
               <tr key={r.name}>
                 <td className="font-semibold">{r.name}</td>
@@ -292,7 +292,7 @@ export function NetworkViewMock({ view }: { view: ViewKey }) {
       >
         {channelOrder.map((key) => (
           <ToggleGroupItem key={key} value={key} aria-label={c.pickerItem(channelNetworks[key].name)} className={pickerItem}>
-            <NetworkIcon network={key} />
+            <ViewIcon view={key} />
             <span aria-hidden="true" className={checkBadge}>
               <Check strokeWidth={3.5} className="size-2.5" />
             </span>

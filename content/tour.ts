@@ -2,7 +2,7 @@
 import { LayoutGrid, Target, Users, type LucideIcon } from "lucide-react"
 
 import type { Accent } from "@/content/navigation"
-import type { Network } from "@/content/sample-data"
+import type { ChannelKey } from "@/content/channels-data"
 
 export type TourHotspot = { title: string; text: string }
 
@@ -30,7 +30,7 @@ export type TourStep = {
   filters: TourFilter[]
 }
 
-export type TourModule = { name: string; step: number; channel?: Network }
+export type TourModule = { name: string; step: number; view?: ChannelKey }
 
 const steps: TourStep[] = [
   {
@@ -54,7 +54,7 @@ const steps: TourStep[] = [
     filters: [
       { label: "Own brand", value: "Aurora Mobile", mobile: false },
       { label: "Competitor set", mobileLabel: "Competitors", value: "Nimbus, Kestrel" },
-      { label: "Platform", value: "All", mobile: false },
+      { label: "View", value: "All", mobile: false },
       { label: "Metric", value: "" },
       { label: "Granularity", value: "Weekly" },
     ],
@@ -68,10 +68,10 @@ const steps: TourStep[] = [
     accent: "smi",
     module: "Social Media Intelligence",
     time: "2 min",
-    seeing: "Every mention of Aurora across four networks, with headline numbers on top. Saturday’s spike lines up with a dip in sentiment.",
+    seeing: "Every mention of Aurora across social media, with headline numbers on top. Saturday’s spike lines up with a dip in sentiment.",
     tries: ["Click Saturday on the timeline to filter the feed", "Switch the date range to Last 7 days"],
     why: "You spot a problem the day it starts, not when it shows up in a monthly report.",
-    alt: "Sample Social Media Intelligence page: five KPI cards with change and sparklines, a weekly mention timeline with a sentiment line that dips on Saturday, platform breakdown led by Instagram, a sentiment split of 54% positive, 28% neutral and 18% negative, and an article feed.",
+    alt: "Sample Social Media Intelligence page: five KPI cards with change and sparklines, a weekly mention timeline with a sentiment line that dips on Saturday, top topics led by Instagram, a sentiment split of 54% positive, 28% neutral and 18% negative, and an article feed.",
     hotspots: [
       { title: "KPI row", text: "Your headline numbers and how they moved since last period." },
       { title: "Timeline spike", text: "Saturday’s spike came with a sentiment dip. Click it to see why." },
@@ -79,7 +79,7 @@ const steps: TourStep[] = [
     ],
     filters: [
       { label: "Brand", value: "Aurora Mobile" },
-      { label: "Platform", value: "All" },
+      { label: "Topic", value: "All" },
       { label: "Sentiment", value: "All" },
       { label: "Keyword", value: "Any" },
     ],
@@ -104,7 +104,7 @@ const steps: TourStep[] = [
     ],
     filters: [
       { label: "Brand", value: "Aurora Mobile" },
-      { label: "Platform", value: "All" },
+      { label: "Topic", value: "All" },
       { label: "Sort", value: "Momentum" },
     ],
   },
@@ -112,23 +112,23 @@ const steps: TourStep[] = [
     n: 4,
     title: "Where is the tone turning?",
     short: "Tone turning?",
-    sub: "Sentiment by platform and tag",
+    sub: "Sentiment by topic and tag",
     area: "Sentiment Analysis",
     accent: "sent",
     module: "Sentiment Analysis",
     time: "2 min",
-    seeing: "Overall sentiment looks healthy, but Instagram and the #BrightNights campaign tag are slipping. The threshold flags anything below your line.",
+    seeing: "Overall sentiment looks healthy, but Battery & charging and the #BrightNights campaign tag are slipping. The threshold flags anything below your line.",
     tries: ["Drag the threshold slider to 20", "Switch to Last 7 days to see if it is getting worse"],
     why: "You catch the problem before it pulls down the headline number.",
-    alt: "Sample Sentiment Analysis page: overall net sentiment that looks healthy, 100% stacked sentiment bars per platform with net scores where Instagram is slipping, a hashtag-wise list where the #BrightNights campaign tag is falling, and a sentiment threshold slider.",
+    alt: "Sample Sentiment Analysis page: overall net sentiment that looks healthy, 100% stacked sentiment bars per topic with net scores where Battery & charging is slipping, a hashtag-wise list where the #BrightNights campaign tag is falling, and a sentiment threshold slider.",
     hotspots: [
-      { title: "Slipping platform", text: "Instagram’s net sentiment fell the most since last period." },
+      { title: "Slipping topic", text: "Battery & charging’s net sentiment fell the most since last period." },
       { title: "Slipping campaign tag", text: "#BrightNights is losing goodwill even as volume grows." },
       { title: "Threshold slider", text: "Set the line; anything below it is flagged for you." },
     ],
     filters: [
       { label: "Brand", value: "Aurora Mobile" },
-      { label: "Platform", value: "All" },
+      { label: "Topic", value: "All" },
       { label: "Compare", value: "Previous period" },
     ],
   },
@@ -141,18 +141,18 @@ const steps: TourStep[] = [
     accent: "sent",
     module: "Keyword Analysis",
     time: "1 min",
-    seeing: "One keyword, the “Bright Nights” campaign line, on every widget. It is loved on YouTube but barely noticed, and slightly negative, on X.",
+    seeing: "One keyword, the “Bright Nights” campaign line, on every widget. It is loved for its ad creative but slightly negative where charger complaints come up.",
     tries: ["Switch the date range to Last 7 days", "Check which categories the campaign is linked with"],
     why: "You know where to put the next round of campaign spend.",
-    alt: "Sample Keyword Analysis page for the fictional campaign line “Bright Nights”: KPI cards, platform breakdown showing YouTube strongest and X weakest, sentiment bars, articles, hashtag-wise sentiment, a category graph led by Camera, trending hashtags and topics.",
+    alt: "Sample Keyword Analysis page for the fictional campaign line “Bright Nights”: KPI cards, sub-topic breakdown showing ad creative strongest and charger complaints weakest, sentiment bars, articles, hashtag-wise sentiment, a category graph led by Camera, trending hashtags and topics.",
     hotspots: [
-      { title: "Platform breakdown", text: "Strong on YouTube, weak and slightly negative on X." },
+      { title: "Sub-topic breakdown", text: "Strong on ad creative, weak and slightly negative on charger complaints." },
       { title: "Hashtag sentiment", text: "Which campaign tags people like, and which they don’t." },
       { title: "Category graph", text: "The product lines the campaign is being linked with." },
     ],
     filters: [
       { label: "Keyword", value: "“Bright Nights”" },
-      { label: "Platform", value: "All" },
+      { label: "Topic", value: "All" },
       { label: "Language", value: "All" },
     ],
   },
@@ -260,13 +260,13 @@ export const tourPage = {
     { area: "Promotable Stories", accent: "stories", modules: [{ name: "Promotable Stories", step: 6 }] },
     { area: "Reports & Alerts", accent: "reports", modules: [{ name: "SMA Reports", step: 7 }] },
     {
-      area: "Channel Analysis",
+      area: "Source Analysis",
       accent: "channels",
       modules: [
-        { name: "Facebook analysis", step: 2, channel: "facebook" },
-        { name: "YouTube analysis", step: 2, channel: "youtube" },
-        { name: "Instagram analysis", step: 2, channel: "instagram" },
-        { name: "X analysis", step: 2, channel: "x" },
+        { name: "Interactions", step: 2, view: "interactions" },
+        { name: "Top content", step: 2, view: "content" },
+        { name: "Top voices", step: 2, view: "voices" },
+        { name: "Amplification", step: 2, view: "amplification" },
       ],
     },
   ] as { area: string; accent: Accent; modules: TourModule[] }[],
@@ -290,7 +290,7 @@ export const tourPage = {
       week: "This week · click a day to filter the feed",
       mentions: "Mentions",
       net: "Net sentiment",
-      platforms: "Platform breakdown",
+      platforms: "Top topics",
       sentiment: "Sentiment",
       feed: "Article feed",
       latest: "latest posts",
@@ -315,18 +315,18 @@ export const tourPage = {
       healthy: "Looks healthy at a glance.",
       threshold: "Sentiment threshold",
       below: (n: number) => `net below +${n}`,
-      flagged: (n: number) => `${n} ${n === 1 ? "platform" : "platforms"} flagged below your line`,
-      byPlatform: "Sentiment by platform",
+      flagged: (n: number) => `${n} ${n === 1 ? "topic" : "topics"} flagged below your line`,
+      byPlatform: "Sentiment by topic",
       legend: ["▲ Pos", "– Neu", "▼ Neg (hatched)"],
       net: "Net",
       flag: "⚑ Below threshold",
       hashtags: "Hashtag-wise sentiment",
-      float: { network: "Instagram", metric: "Net sentiment", vs: "vs last period" },
+      float: { network: "Battery & charging", metric: "Net sentiment", vs: "vs last period" },
     },
     keyword: {
       keyword: "Keyword",
       line: "Campaign line",
-      platforms: "Platform breakdown",
+      platforms: "Sub-topic breakdown",
       strongest: "Strongest:",
       weakest: "Weakest:",
       net: "net",

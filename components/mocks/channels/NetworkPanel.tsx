@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils"
 
 type NetworkPanelProps = {
   network: ChannelKey
-  /** hero = Facebook reactions + follower growth only · switcher = the full native page. */
+  /** hero = interaction types + audience growth only · switcher = the full view. */
   variant?: "hero" | "switcher"
   className?: string
 }

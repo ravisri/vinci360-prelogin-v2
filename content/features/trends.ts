@@ -13,7 +13,7 @@ export const trendsPage = {
   seo: {
     title: "Trends",
     description:
-      "Spot which topics and hashtags are rising on Facebook, X, YouTube and Instagram, ranked by momentum, with sentiment, reach and a side-by-side competitor view.",
+      "Spot which topics and hashtags are rising across social media, ranked by momentum, with sentiment, reach and a side-by-side competitor view of every trend.",
   },
   hero: {
     breadcrumb: [{ label: "Platform", href: "/features" }, { label: "Trends" }],
@@ -275,7 +275,7 @@ export const trendsHashtags = {
       title: "Posts behind a tag",
       lead: "Click any tag and read the actual posts carrying it.",
       tells: { label: tellsLabel, text: "what a tag really means before you put your brand on it." },
-      metrics: ["Handle", "Platform", "Sentiment", "Engagement"],
+      metrics: ["Handle", "Snippet", "Sentiment", "Engagement"],
       hint: "",
     },
   ] satisfies WalkthroughItem[],
@@ -296,10 +296,10 @@ export const trendsHashtagWidgets = {
       growth: "Growth",
       trend: "Trend",
       sentiment: "Sentiment",
-      platforms: "Platforms",
-      topPlatform: "Top platform",
+      platforms: "Share of mentions",
+      topPlatform: "Share",
     },
-    platformOrder: "Platform bar order: Instagram · X · YouTube · Facebook (light → dark)",
+    platformOrder: "Share of all ranked-hashtag mentions, last 30 days",
     selected: "Selected:",
     select: (tag: string) => `Show posts with ${tag}`,
     regionLabel: "Hashtag table, scroll sideways",
@@ -323,7 +323,7 @@ export const trendsHashtagWidgets = {
   posts: {
     title: "Posts with",
     export: "Export",
-    caption: "Sample posts carrying the selected hashtag, each with handle, platform, snippet, sentiment and engagement, with an Export button.",
+    caption: "Sample posts carrying the selected hashtag, each with handle, snippet, sentiment and engagement, with an Export button.",
   },
 }
 
@@ -341,7 +341,7 @@ export const trendsFilters = {
     ],
   },
   chips: [
-    { label: "Platform", value: "All four" },
+    { label: "Topic", value: "All" },
     { label: "Category", value: "All" },
     { label: "Sentiment", value: "All" },
   ],

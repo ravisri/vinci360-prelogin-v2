@@ -8,13 +8,13 @@ import { HBar } from "@/components/charts/HBar"
 import { StackedBar100 } from "@/components/charts/StackedBar100"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { KpiCard } from "@/components/mocks/KpiCard"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { PostCard } from "@/components/mocks/PostCard"
 import { SentimentChip } from "@/components/mocks/SentimentChip"
 import { kpiProps, fmt } from "@/components/mocks/home/kpi"
 import { chip, hitArea, MoodLegend, Panel, TourFrame, TourHotspot } from "@/components/mocks/tour/TourFrame"
 import { useTour } from "@/components/sections/tour/tour-context"
-import { networks, tour } from "@/content/sample-data"
+import { channelNetworks } from "@/content/channels-data"
+import { home, tour } from "@/content/sample-data"
 import { tourPage } from "@/content/tour"
 import { cn } from "@/lib/utils"
 
@@ -22,12 +22,14 @@ const step = tourPage.steps[1]
 const c = tourPage.mocks.smi
 const w = tour.week
 
-/** Step 2 · Social Media Intelligence: KPI row, clickable week timeline, platform and sentiment split, article feed. "Try this": click Saturday. */
+/** Step 2 · Social Media Intelligence: KPI row, clickable week timeline, top topics and sentiment split, article feed. "Try this": click Saturday. */
+const topics = home.risingTopics.rows.slice(0, 4)
+
 export function TourSmiMock() {
-  const { range, channel } = useTour()
+  const { range, view } = useTour()
   const [day, setDay] = useState<number | null>(null)
   const feed = day === tour.spikeDay ? tour.feed.spike : tour.feed.all
-  const filters = step.filters.map((f) => (f.label === "Platform" && channel ? { ...f, value: networks[channel] } : f))
+  const filters = step.filters.map((f) => (f.label === "View" && view ? { ...f, value: channelNetworks[view].name } : f))
 
   return (
     <TourFrame
@@ -100,16 +102,12 @@ export function TourSmiMock() {
         <div className="flex min-w-0 flex-col gap-2.5">
           <Panel title={c.platforms} className="text-[0.71875rem]">
             <HBar
-              ariaLabel={`${c.platforms}: ${tour.platformShare.map((p) => `${networks[p.network]} ${p.share}%`).join(", ")}`}
-              labelClassName="w-15.5"
+              ariaLabel={`${c.platforms}: ${topics.map((t) => `${t.topic} ${t.score}`).join(", ")}`}
+              labelClassName="w-28"
+              max={100}
               thickness={7}
               className="gap-1.75 text-[0.71875rem]"
-              data={tour.platformShare.map((p) => ({
-                label: networks[p.network],
-                value: p.share,
-                display: `${p.share}%`,
-                icon: <NetworkIcon network={p.network} className="size-3.5 text-foreground" />,
-              }))}
+              data={topics.map((t) => ({ label: t.topic, value: t.score, display: String(t.score) }))}
             />
           </Panel>
           <Panel title={c.sentiment}>
@@ -139,8 +137,6 @@ export function TourSmiMock() {
               </span>
               <span className="flex-none font-semibold">{a.handle}</span>
               <span className="min-w-0 flex-1 truncate">{a.text}</span>
-              <NetworkIcon network={a.network} className="size-3.5 text-muted-foreground" />
-              <span className="sr-only">{networks[a.network]}</span>
               <SentimentChip sentiment={a.sentiment} short />
             </li>
           ))}

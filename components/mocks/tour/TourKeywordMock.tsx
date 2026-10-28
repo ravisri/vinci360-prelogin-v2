@@ -5,12 +5,11 @@ import { ChevronDown } from "lucide-react"
 import { HBar } from "@/components/charts/HBar"
 import { StackedBar100 } from "@/components/charts/StackedBar100"
 import { KpiCard } from "@/components/mocks/KpiCard"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { SentimentChip } from "@/components/mocks/SentimentChip"
 import { kpiProps } from "@/components/mocks/home/kpi"
 import { catChip, MoodLegend, Panel, tagChip, TourFrame, TourHotspot } from "@/components/mocks/tour/TourFrame"
 import { useTour } from "@/components/sections/tour/tour-context"
-import { networks, tour } from "@/content/sample-data"
+import { tour } from "@/content/sample-data"
 import { tourPage } from "@/content/tour"
 import { sentimentGlyph, sentimentText } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
@@ -43,17 +42,17 @@ export function TourKeywordMock() {
       <div className="grid grid-cols-3 gap-2.5">
         <Panel title={c.platforms} className="text-[0.71875rem]">
           <HBar
-            ariaLabel={`${c.platforms}: ${k.platforms.map((p) => `${networks[p.network]} ${p.share}%`).join(", ")}`}
+            ariaLabel={`${c.platforms}: ${k.subtopics.map((p) => `${p.label} ${p.share}%`).join(", ")}`}
             tone="chart-3"
             thickness={7}
-            labelClassName="w-15.5"
+            labelClassName="w-28"
             className="gap-1.5 text-[0.71875rem]"
-            data={k.platforms.map((p) => ({ label: networks[p.network], value: p.share, display: `${p.share}%` }))}
+            data={k.subtopics.map((p) => ({ label: p.label, value: p.share, display: `${p.share}%` }))}
           />
           <div className="flex flex-col gap-1 border-t border-border pt-2">
             <p className="flex justify-between">
               <span>
-                {c.strongest} {networks[k.strongest.network]}
+                {c.strongest} {k.strongest.label}
               </span>
               <span className={sentimentText.pos}>
                 {sentimentGlyph.pos} {c.net} {k.strongest.net}
@@ -61,7 +60,7 @@ export function TourKeywordMock() {
             </p>
             <p className="flex justify-between">
               <span>
-                {c.weakest} {networks[k.weakest.network]}
+                {c.weakest} {k.weakest.label}
               </span>
               <span className={sentimentText.neg}>
                 {sentimentGlyph.neg} {c.net} {k.weakest.net}
@@ -78,8 +77,6 @@ export function TourKeywordMock() {
           <ul>
             {k.articles.map((a) => (
               <li key={a.text} className="flex items-center gap-1.5 border-t border-border py-1.5">
-                <NetworkIcon network={a.network} className="size-3.25 text-muted-foreground" />
-                <span className="sr-only">{networks[a.network]}</span>
                 <span className="flex-1">{a.text}</span>
                 <SentimentChip sentiment={a.sentiment} short className="text-[0.625rem]" />
               </li>

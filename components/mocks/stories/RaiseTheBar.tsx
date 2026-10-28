@@ -4,7 +4,6 @@ import { useId, useState } from "react"
 import { AnimatePresence, m } from "motion/react"
 import { Info } from "lucide-react"
 
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { SampleDataChip } from "@/components/mocks/SampleDataChip"
 import { Segmented } from "@/components/mocks/smi/Segmented"
 import { LayoutMotion } from "@/components/motion/LayoutMotion"
@@ -14,12 +13,12 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
 import { storiesBar as c } from "@/content/features/promotable-stories"
-import { networks, stories, type Network } from "@/content/sample-data"
+import { stories } from "@/content/sample-data"
 import { crossFade, reorder } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
 type Tone = "pos" | "all"
-const order: Network[] = ["facebook", "x", "youtube", "instagram"]
+const order = c.topics
 const { min, max, step } = stories.threshold
 const int = (v: number) => new Intl.NumberFormat("en-GB").format(Math.round(v))
 const groupLabel = "text-xs font-semibold tracking-[0.03em] text-neutral-text uppercase"
@@ -27,14 +26,14 @@ const chip =
   "inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border border-border bg-card px-3.5 text-sm font-medium whitespace-nowrap hover:bg-stories-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-pressed:border-stories-text aria-pressed:bg-stories-tint aria-pressed:font-bold aria-pressed:text-stories-text"
 
 /**
- * "Raise the bar": date, platform, sentiment and category filters plus an evidence threshold and
+ * "Raise the bar": date, topic, sentiment and category filters plus an evidence threshold and
  * minimum volume / engagement. Ideas below the bar fade out of the list and the count updates
  * (announced politely). An empty list always says which filter emptied it.
  */
 export function RaiseTheBar() {
   const ids = { slider: useId(), mSlider: useId(), cat: useId(), vol: useId(), eng: useId(), date: useId(), plat: useId() }
   const [preset, setPreset] = useState("30")
-  const [platforms, setPlatforms] = useState<Network[]>(order)
+  const [topics, setTopics] = useState<string[]>([...order])
   const [tone, setTone] = useState<Tone>("pos")
   const [category, setCategory] = useState(c.category.options[0])
   const [ev, setEv] = useState(min)
@@ -43,8 +42,8 @@ export function RaiseTheBar() {
 
   const pool = stories.ideaPool.filter((x) => tone === "all" || x.tone === "pos")
   const afterEv = pool.filter((x) => x.score >= ev)
-  const list = platforms.length ? afterEv.filter((x) => x.volume >= minVol && x.engagementK * 1000 >= minEng) : []
-  const why = !platforms.length
+  const list = topics.length ? afterEv.filter((x) => x.volume >= minVol && x.engagementK * 1000 >= minEng) : []
+  const why = !topics.length
     ? c.why.platform
     : afterEv.length
       ? pool.some((x) => x.volume >= minVol)
@@ -110,17 +109,16 @@ export function RaiseTheBar() {
               </span>
               <div role="group" aria-labelledby={ids.plat} className="flex flex-wrap gap-1.5">
                 {order.map((p) => {
-                  const on = platforms.includes(p)
+                  const on = topics.includes(p)
                   return (
                     <button
                       key={p}
                       type="button"
                       aria-pressed={on}
-                      onClick={() => setPlatforms(on ? platforms.filter((x) => x !== p) : [...platforms, p])}
+                      onClick={() => setTopics(on ? topics.filter((x) => x !== p) : [...topics, p])}
                       className={cn(chip, !on && "text-muted-foreground line-through")}
                     >
-                      <NetworkIcon network={p} className="size-4" />
-                      {networks[p]}
+                      {p}
                     </button>
                   )
                 })}

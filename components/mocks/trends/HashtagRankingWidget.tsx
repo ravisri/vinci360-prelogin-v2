@@ -5,49 +5,36 @@ import { MoveHorizontal } from "lucide-react"
 import { ChartSvg } from "@/components/charts/ChartSvg"
 import { Sparkline } from "@/components/charts/Sparkline"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { ReachNote } from "@/components/mocks/ReachNote"
 import { SentimentChip } from "@/components/mocks/SentimentChip"
 import { fmt } from "@/components/mocks/home/kpi"
 import { useSelectedTag } from "@/components/mocks/trends/SelectedTagProvider"
 import { trendsHashtagWidgets } from "@/content/features/trends"
-import { networks, trends, type Network } from "@/content/sample-data"
+import { trends } from "@/content/sample-data"
 import { sentimentLabel } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
 
 const c = trendsHashtagWidgets.ranking
 type Tag = (typeof trends.hashtags)[number]
 
-/** Platform bar order and shades (light → dark), as in the reference legend. */
-const PLATFORMS: { network: Network; fill: string }[] = [
-  { network: "instagram", fill: "fill-on-dark-strong" },
-  { network: "x", fill: "fill-on-dark-muted" },
-  { network: "youtube", fill: "fill-neu-fill" },
-  { network: "facebook", fill: "fill-neutral-text" },
-]
-
-const topPlatform = (t: Tag) => PLATFORMS.map((p) => p.network).reduce((best, n) => (t.split[n] > t.split[best] ? n : best))
+/** Each tag's share of all ranked-hashtag mentions, in % (derived from the sample mentions). */
+const totalMentions = trends.hashtags.reduce((sum, t) => sum + t.mentions, 0)
+const share = (t: Tag) => Math.round((t.mentions / totalMentions) * 100)
 
 const cols =
   "grid grid-cols-[minmax(0,1.4fr)_3.625rem_4rem_3.625rem_3.125rem_4rem_4.375rem_4.625rem_minmax(0,1.3fr)] items-center gap-2.5"
 
 const caption =
-  "Sample hashtag ranking of six tags with usage, mentions, engagement, reach, growth, a trend line, sentiment and platform split. #AuroraLaunch is used most and growing 184%; #GiftWithAurora is growing fastest at 210%; #ChargerFail is growing 122% and is negative, mostly on X."
+  "Sample hashtag ranking of six tags with usage, mentions, engagement, reach, growth, a trend line, sentiment and share of mentions. #AuroraLaunch is used most and growing 184%; #GiftWithAurora is growing fastest at 210%; #ChargerFail is growing 122% and is negative."
 
-function PlatformSplit({ tag }: { tag: Tag }) {
-  const top = topPlatform(tag)
-  const starts = PLATFORMS.map((_, i) => PLATFORMS.slice(0, i).reduce((sum, p) => sum + tag.split[p.network], 0))
+function MentionShare({ tag }: { tag: Tag }) {
+  const pct = share(tag)
   return (
     <span className="flex flex-col gap-0.75">
-      <ChartSvg viewBox="0 0 100 8" preserveAspectRatio="none" className="h-2 overflow-hidden rounded-[3px]">
-        {PLATFORMS.map((p, i) => (
-          <rect key={p.network} x={starts[i]} width={Math.max(tag.split[p.network] - 0.8, 0)} height="8" className={p.fill} />
-        ))}
+      <ChartSvg viewBox="0 0 100 8" preserveAspectRatio="none" className="h-2 overflow-hidden rounded-[3px] bg-border">
+        <rect width={pct} height="8" className="fill-on-dark-strong" />
       </ChartSvg>
-      <span className="flex items-center gap-1.5 text-[0.625rem] text-muted-foreground">
-        <NetworkIcon network={top} className="size-2.75" />
-        {networks[top]} {tag.split[top]}%
-      </span>
+      <span className="text-[0.625rem] text-muted-foreground tabular">{pct}%</span>
     </span>
   )
 }
@@ -106,9 +93,9 @@ export function HashtagRankingWidget() {
                     <span className="text-right font-bold text-pos">▲ {t.growth}%</span>
                     <Sparkline data={t.spark} tone="trends" width={64} height={18} className="w-16" />
                     <SentimentChip sentiment={t.sentiment} short className="justify-self-start text-[0.65625rem]" />
-                    <PlatformSplit tag={t} />
+                    <MentionShare tag={t} />
                     <span className="sr-only">
-                      {`, growing ${t.growth}%, ${sentimentLabel[t.sentiment].toLowerCase()}, top platform ${networks[topPlatform(t)]} ${t.split[topPlatform(t)]}%. `}
+                      {`, growing ${t.growth}%, ${sentimentLabel[t.sentiment].toLowerCase()}, ${share(t)}% of mentions. `}
                       {c.select(t.tag)}
                     </span>
                   </button>
@@ -140,7 +127,6 @@ export function HashtagRankingWidget() {
               {trends.hashtags.map((t) => {
                 const on = selected === t.tag
                 const cell = cn("border-b border-border px-2.5 py-2.5 text-right", on && "bg-muted")
-                const top = topPlatform(t)
                 return (
                   <tr key={t.tag}>
                     <th scope="row" className={cn(cell, "sticky left-0 z-1 bg-background p-0 text-left font-normal shadow-card", on && "bg-muted font-bold")}>
@@ -155,10 +141,7 @@ export function HashtagRankingWidget() {
                       <SentimentChip sentiment={t.sentiment} className="text-[0.625rem]" />
                     </td>
                     <td className={cell}>
-                      <span className="inline-flex items-center gap-1">
-                        <NetworkIcon network={top} className="size-3.25" />
-                        {networks[top]} {t.split[top]}%
-                      </span>
+                      {share(t)}%
                     </td>
                   </tr>
                 )

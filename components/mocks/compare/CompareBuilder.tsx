@@ -6,7 +6,6 @@ import { m } from "motion/react"
 
 import { MockFrame } from "@/components/mocks/MockFrame"
 import { ReachNote } from "@/components/mocks/ReachNote"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { BrandMarker, brandKeys, indexPct, largestRemainder, type BrandKey } from "@/components/mocks/compare/brand"
 import { BrandStack } from "@/components/mocks/compare/BrandStack"
 import { Reveal } from "@/components/motion/Reveal"
@@ -14,14 +13,13 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { compareBuilder as c } from "@/content/features/brand-compare"
-import { brands, compare, networks, type Network } from "@/content/sample-data"
+import { brands, compare, compareTopics, type CompareTopic } from "@/content/sample-data"
 import { transition } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
 type Metric = (typeof c.metrics)[number]["value"]
 type IndexMetric = keyof typeof compare.raw
 
-const networkOrder: Network[] = ["facebook", "x", "youtube", "instagram"]
 const indexMetrics: { value: IndexMetric; label: string }[] = [
   { value: "mentions", label: "Mentions" },
   { value: "engagement", label: "Engagement" },
@@ -39,15 +37,15 @@ const toggle = <T,>(list: readonly T[], v: T) => (list.includes(v) ? list.filter
 const others = (own: BrandKey) => brandKeys.filter((b) => b !== own)
 
 /**
- * "Build your comparison": own brand, competitor set, platforms, metrics and range drive a live
- * preview. Shares are mentions weighted by each brand's platform mix (largest remainder, 100%);
+ * "Build your comparison": own brand, competitor set, topics, metrics and range drive a live
+ * preview. Shares are mentions weighted by each brand's topic mix (largest remainder, 100%);
  * the index is each rival vs the own brand (= 100). An empty selection says why, never goes blank.
  * Desktop uses selects and checkboxes; 390 uses an accordion of chips over the same state.
  */
 export function CompareBuilder() {
   const [own, setOwn] = useState<BrandKey>("aurora")
   const [comps, setComps] = useState<BrandKey[]>(others("aurora"))
-  const [platforms, setPlatforms] = useState<Network[]>(networkOrder)
+  const [topics, setTopics] = useState<CompareTopic[]>([...compareTopics])
   const [metrics, setMetrics] = useState<Metric[]>(c.metrics.filter((x) => x.on).map((x) => x.value))
   const [range, setRange] = useState("30d")
   const [granularity, setGranularity] = useState(c.granularities[0])
@@ -62,11 +60,11 @@ export function CompareBuilder() {
   const rangeLabel = (rangeOption && "preview" in rangeOption ? rangeOption.preview : undefined) ?? rangeOption?.label ?? ""
 
   /* --------------------------------- Preview --------------------------------- */
-  const weight = (b: BrandKey) => platforms.reduce((sum, p) => sum + compare.platformShare[b][p] / 100, 0)
+  const weight = (b: BrandKey) => topics.reduce((sum, p) => sum + compare.topicShare[b][p] / 100, 0)
   const set = [own, ...comps]
   const shares = largestRemainder(set.map((b) => compare.raw.mentions[b] * weight(b)))
   const total = shares.reduce((a, b) => a + b, 0)
-  const empty = !platforms.length ? c.empty.platform : !comps.length ? c.empty.competitor : !metrics.length ? c.empty.metric : null
+  const empty = !topics.length ? c.empty.platform : !comps.length ? c.empty.competitor : !metrics.length ? c.empty.metric : null
   const index = (metric: IndexMetric, b: BrandKey) => {
     const w = (x: BrandKey) => (metric === "sentiment" ? 1 : weight(x))
     return Math.round(((compare.raw[metric][b] * w(b)) / (compare.raw[metric][own] * w(own))) * 100)
@@ -101,14 +99,13 @@ export function CompareBuilder() {
     </div>
   )
 
-  const platformChips = (
+  const topicChips = (
     <div className="flex flex-wrap gap-2">
-      {networkOrder.map((p) => {
-        const on = platforms.includes(p)
+      {compareTopics.map((p) => {
+        const on = topics.includes(p)
         return (
-          <button key={p} type="button" aria-pressed={on} onClick={() => setPlatforms((s) => toggle(s, p))} className={cn(chip, chipOn, !on && "text-muted-foreground line-through")}>
-            <NetworkIcon network={p} className="size-4" />
-            {networks[p]}
+          <button key={p} type="button" aria-pressed={on} onClick={() => setTopics((s) => toggle(s, p))} className={cn(chip, chipOn, !on && "text-muted-foreground line-through")}>
+            {p}
           </button>
         )
       })}
@@ -118,7 +115,7 @@ export function CompareBuilder() {
   const summary: Record<string, string> = {
     own: brands[own].name,
     comps: c.summary.selected(comps.length),
-    platform: platforms.length === networkOrder.length ? c.summary.allPlatforms : c.summary.selected(platforms.length),
+    platform: topics.length === compareTopics.length ? c.summary.allPlatforms : c.summary.selected(topics.length),
     metric: c.summary.selected(metrics.length),
     range: `${rangeLabel} · ${granularity}`,
   }
@@ -138,7 +135,7 @@ export function CompareBuilder() {
       ),
     },
     { value: "comps", label: c.competitors, body: competitorChips },
-    { value: "platform", label: c.platform, body: platformChips },
+    { value: "platform", label: c.platform, body: topicChips },
     {
       value: "metric",
       label: c.metricMobile,
@@ -227,7 +224,7 @@ export function CompareBuilder() {
           </div>
           <div className="flex flex-col gap-1.5">
             <span className={groupLabel}>{c.platform}</span>
-            {platformChips}
+            {topicChips}
           </div>
           <fieldset className="flex flex-col gap-1.5">
             <legend className={cn(groupLabel, "mb-1.5")}>{c.metric}</legend>

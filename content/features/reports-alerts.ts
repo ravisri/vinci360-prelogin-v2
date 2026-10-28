@@ -76,7 +76,7 @@ export const reportsHero = {
   thisWeek: "This week",
   lastWeek: "Last week",
   changedLabel: "What changed:",
-  changed: "Instagram drove 38% of mentions; charging complaints eased after Wednesday.",
+  changed: "Mentions peaked on Saturday; charging complaints eased after Wednesday.",
   hotspots: [
     { title: "Change, not just level", text: "Every number is compared with the period before." },
     { title: "What changed", text: "A one-line summary so the reader doesn’t have to hunt." },
@@ -135,8 +135,8 @@ export const reportsBuilder = {
     { value: "custom", label: "Custom…", factor: 1, prev: "the equivalent previous range" },
   ],
   rangeCustom: "Custom range",
-  platform: "Platform",
-  platforms: "Platforms",
+  platform: "Topic",
+  platforms: "Topics",
   platCount: (n: number) => `${n} of 4`,
   output: "Output",
   outputs: [
@@ -171,12 +171,12 @@ export const reportsBuilder = {
   topics: "Top topics",
   tags: "Top hashtags",
   tagsShort: "Hashtags",
-  platformSplit: "Platform split",
-  noPlatform: "No platform selected.",
+  platformSplit: "Topic split",
+  noPlatform: "No topic selected.",
   changed: "What changed:",
   filters: "Filters:",
-  allPlatforms: "All platforms",
-  noPlatformShort: "No platform",
+  allPlatforms: "All topics",
+  noPlatformShort: "No topic",
   outputLabel: "Output:",
   none: "none",
   sent: (every: string, time: string) => `Sent ${every} at ${time}`,
@@ -199,14 +199,14 @@ export const reportsPartA = {
   items: [
     {
       title: "Keyword-wise analysis",
-      lead: "A complete report for the keywords you choose: mentions, sentiment, topics, hashtags, platforms and engagement, on a daily, weekly or monthly cycle.",
+      lead: "A complete report for the keywords you choose: mentions, sentiment, topics, hashtags, reach and engagement, on a daily, weekly or monthly cycle.",
       tells: { label: "What it tells you:", text: "how a campaign term or product phrase is doing, and how that changed since last time." },
-      metrics: ["Mentions", "Sentiment", "Topics", "Hashtags", "Platforms", "Engagement"],
+      metrics: ["Mentions", "Sentiment", "Topics", "Hashtags", "Reach", "Engagement"],
       hint: "Export it, or schedule it to arrive on its own.",
     },
     {
       title: "Entity-wise analysis",
-      lead: "The same report structure for a brand, product, organisation or person, across all four networks.",
+      lead: "The same report structure for a brand, product, organisation or person, across social media.",
       tells: { label: "What it tells you:", text: "how a name is being talked about, wherever it is mentioned." },
       metrics: ["Brand", "Product", "Organisation", "Person"],
       hint: "",
@@ -226,10 +226,10 @@ export const reportsPartA = {
     typeLabel: "Entity type",
     types: ["Brand", "Product", "Organisation", "Person"],
     labels: { mentions: "Mentions", engagement: "Engagement", reach: "Reach *" },
-    platforms: "Platform split",
+    platforms: "Topic split",
     estimate: "* estimate",
     figcaption:
-      "Sample entity-wise monthly report for the brand Aurora Mobile: 48,214 mentions up 18%, 1.92M engagement up 10%, 12.4M estimated reach up 6%, sentiment 54% positive, with Instagram the largest platform.",
+      "Sample entity-wise monthly report for the brand Aurora Mobile: 48,214 mentions up 18%, 1.92M engagement up 10%, 12.4M estimated reach up 6%, sentiment 54% positive, with Launch the largest topic.",
   },
 }
 
@@ -250,7 +250,7 @@ export const reportsAlerts = {
       title: "The alert itself",
       lead: "What moved, by how much, where and when, with a link straight to the posts behind it.",
       tells: { label: "What it tells you:", text: "whether to act now, and where to look first." },
-      metrics: ["Severity", "Subject", "What moved", "Platform", "Time"],
+      metrics: ["Severity", "Subject", "What moved", "Topic", "Time"],
       hint: "",
     },
   ] satisfies WalkthroughItem[],
@@ -287,7 +287,7 @@ export const reportsAlerts = {
     float: "Drill from the alert to the posts behind it.",
     note: "Sample data · Severity is always shown as a word, not only a colour.",
     caption:
-      "Three sample notifications: High, #AuroraLaunch, negative mentions up 38% in a day on Instagram at 9:12 AM; Medium, Aurora Care Plus, net sentiment down 12 points in 7 days on X yesterday; Info, Night Mode, mentions 2.1 times the usual daily level on YouTube on Monday.",
+      "Three sample notifications: High, #AuroraLaunch, negative mentions up 38% in a day on Launch at 9:12 AM; Medium, Aurora Care Plus, net sentiment down 12 points in 7 days on Battery yesterday; Info, Night Mode, mentions 2.1 times the usual daily level on Camera on Monday.",
   },
 }
 
@@ -300,13 +300,13 @@ export const reportsControl = {
   views: {
     title: "Saved views",
     text: "Name a filter combination and make it your default.",
-    items: ["Monday leadership read", "Instagram · negative only"],
+    items: ["Monday leadership read", "Battery · negative only"],
     default: "Default",
   },
   export: {
     title: "Export",
     text: "Any widget to Excel or CSV, any page to PDF, with the active filters printed on it.",
-    filters: "Filters: Aurora Mobile · Last 30 days · All platforms · Positive + Negative",
+    filters: "Filters: Aurora Mobile · Last 30 days · All topics · Positive + Negative",
   },
   access: {
     title: "Role-based access",

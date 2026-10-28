@@ -15,7 +15,7 @@ export const plainChip = "inline-flex items-center gap-1.5 rounded-full border b
 /** Selected chip on the text-safe magenta fill (white on reports-text). */
 export const solidChip = "inline-flex items-center gap-1.5 rounded-full bg-reports-text px-2.5 py-1 text-xs leading-[1.3] font-semibold text-primary-foreground"
 
-/** Toggle chip in the builder (platform / output): 44px target, pressed = tint + magenta border. */
+/** Toggle chip in the builder (topic / output): 44px target, pressed = tint + magenta border. */
 export const toggleChip =
   "inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-border bg-card px-3.5 text-sm font-semibold text-muted-foreground transition-colors hover:bg-reports-tint aria-pressed:border-reports-text aria-pressed:bg-reports-tint aria-pressed:text-reports-text"
 

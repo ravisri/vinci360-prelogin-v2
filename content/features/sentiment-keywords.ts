@@ -103,7 +103,7 @@ export const sentimentPage = {
         accent: "channels",
         label: "Source Analysis",
         prompt: "Go deeper on mentions, reach and interactions.",
-        href: "/features/channel-analysis",
+        href: "/features/source-analysis",
         linkLabel: "Explore Source Analysis",
       },
     ],

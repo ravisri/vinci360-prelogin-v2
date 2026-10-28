@@ -16,7 +16,7 @@ export const comparePage = {
   seo: {
     title: "Brand Compare",
     description:
-      "Measure your brand against named competitors on Facebook, X, YouTube and Instagram: share of voice, indexed engagement, sentiment, reach and topic overlap.",
+      "Measure your brand against named competitors across social media: share of voice, indexed engagement, sentiment, reach and topic overlap, side by side.",
   },
   hero: {
     breadcrumb: [{ label: "Platform", href: "/features" }, { label: "Brand Compare" }],
@@ -241,7 +241,7 @@ export const compareBuilder = {
   remove: (name: string) => `Remove ${name}`,
   add: (name: string) => `Add ${name}`,
   addShort: "Add",
-  platform: "Platform",
+  platform: "Topic",
   metric: "Metric",
   metricMobile: "Metrics",
   metrics: [
@@ -269,7 +269,7 @@ export const compareBuilder = {
   granularities: ["Weekly", "Monthly", "Quarterly", "Yearly"],
   summary: {
     selected: (n: number) => `${n} selected`,
-    allPlatforms: "All four",
+    allPlatforms: "All topics",
   },
   preview: "Live preview",
   sovTotal: (total: number) => `Share of voice (total ${total}%)`,
@@ -278,7 +278,7 @@ export const compareBuilder = {
   topics: (n: number, names: string) => `Topics: ${n} shared with ${names}`,
   hashtags: "Hashtags: #NightMode and #FestiveDeals shared by all",
   empty: {
-    platform: "No platform selected. Pick at least one network to compare.",
+    platform: "No topic selected. Pick at least one topic to compare.",
     competitor: "No competitor in the set. Add at least one rival to compare against.",
     metric: "No metric selected. Tick at least one metric to see a comparison.",
   },
@@ -294,7 +294,7 @@ export const compareTrust = {
     { title: "Export to Excel, CSV or PDF", text: "With the filters printed on it, so nobody misreads the scope." },
     { title: "Schedule it as a standing report", text: "The same comparison in leadership’s inbox every month.", href: "/features/reports-alerts", linkLabel: "Reports & Alerts" },
   ],
-  sheet: { title: "Filters", rows: ["30 days", "All platforms", "Nimbus, Kestrel"], formats: ["XLS", "CSV", "PDF"] },
+  sheet: { title: "Filters", rows: ["30 days", "All topics", "Nimbus, Kestrel"], formats: ["XLS", "CSV", "PDF"] },
 }
 
 /* ------------------------------ How to use it ------------------------------ */

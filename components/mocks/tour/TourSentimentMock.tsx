@@ -1,15 +1,15 @@
 "use client"
 
 import { useId, useState } from "react"
+import { TriangleAlert } from "lucide-react"
 
 import { StackedBar100 } from "@/components/charts/StackedBar100"
 import { Delta } from "@/components/mocks/Delta"
 import { FloatCard } from "@/components/mocks/FloatCard"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { Panel, TourFrame, TourHotspot } from "@/components/mocks/tour/TourFrame"
 import { CountUp } from "@/components/motion/CountUp"
 import { useTour } from "@/components/sections/tour/tour-context"
-import { networks, sentimentByPlatform, tour } from "@/content/sample-data"
+import { tour } from "@/content/sample-data"
 import { tourPage } from "@/content/tour"
 import { sentimentText } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
@@ -18,7 +18,7 @@ const step = tourPage.steps[3]
 const c = tourPage.mocks.sentiment
 const t = tour.threshold
 
-/** Step 4 · Sentiment Analysis: overall net, threshold slider that flags platforms, platform bars and hashtag-wise sentiment. */
+/** Step 4 · Sentiment Analysis: overall net, threshold slider that flags topics, topic bars and hashtag-wise sentiment. */
 export function TourSentimentMock() {
   const { range } = useTour()
   const id = useId()
@@ -26,7 +26,7 @@ export function TourSentimentMock() {
   const overall = tour.overall[range]
   const rows = tour.platformNet.map((p) => ({ ...p, n: p.net[range], d: p.delta[range], flag: p.net[range] < thr }))
   const flagged = rows.filter((r) => r.flag).length
-  const ig = tour.platformNet.find((p) => p.network === "instagram")!
+  const ig = tour.platformNet.find((p) => p.label === "Battery & charging")!
 
   return (
     <TourFrame
@@ -34,7 +34,7 @@ export function TourSentimentMock() {
       float={
         <FloatCard className="flex flex-col gap-0.5 px-3.5 py-3 tabular md:relative md:mt-3.5 md:w-fit xl:absolute xl:-right-3.5 xl:bottom-7.5 xl:mt-0 xl:w-60">
           <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <NetworkIcon network="instagram" className="size-3.25" />
+            <TriangleAlert aria-hidden="true" strokeWidth={2} className="size-3.25 text-neg" />
             {c.float.network}
           </p>
           <p className="font-heading text-base font-extrabold">
@@ -92,13 +92,13 @@ export function TourSentimentMock() {
           </div>
           <ul className="flex flex-col gap-2.5">
             {rows.map((r) => (
-              <li key={r.network} className="grid grid-cols-[4.375rem_minmax(0,1fr)_7rem] items-center gap-2">
-                <span className="font-semibold">{networks[r.network]}</span>
+              <li key={r.label} className="grid grid-cols-[6.5rem_minmax(0,1fr)_7rem] items-center gap-2">
+                <span className="font-semibold leading-tight">{r.label}</span>
                 <StackedBar100
-                  data={sentimentByPlatform[r.network]}
+                  data={r.split}
                   height={20}
                   className={cn("[&_text]:text-[0.6875rem]", r.flag && "outline-2 outline-offset-2 outline-amber-on-dark")}
-                  ariaLabel={`${networks[r.network]}: positive ${sentimentByPlatform[r.network][0]}%, neutral ${sentimentByPlatform[r.network][1]}%, negative ${sentimentByPlatform[r.network][2]}%`}
+                  ariaLabel={`${r.label}: positive ${r.split[0]}%, neutral ${r.split[1]}%, negative ${r.split[2]}%`}
                 />
                 <span className="flex flex-col leading-[1.25]">
                   <span>

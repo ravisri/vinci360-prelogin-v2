@@ -7,7 +7,6 @@ import { m } from "motion/react"
 import { HBar } from "@/components/charts/HBar"
 import { StackedBar100 } from "@/components/charts/StackedBar100"
 import { Delta } from "@/components/mocks/Delta"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { SampleDataChip } from "@/components/mocks/SampleDataChip"
 import { largestRemainder } from "@/components/mocks/compare/brand"
 import { fieldLabel, kpiTile, paper, recipChip, toggleChip } from "@/components/mocks/reports/styles"
@@ -21,7 +20,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { reportsBuilder as c } from "@/content/features/reports-alerts"
-import { networks, reports, type Network, type ReportSubject } from "@/content/sample-data"
+import { reports, reportTopics, type ReportSubject, type ReportTopic } from "@/content/sample-data"
 import { crossFade } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
@@ -29,7 +28,6 @@ type ReportType = (typeof c.types)[number]["value"]
 type Period = (typeof c.periods)[number]["value"]
 type Output = (typeof c.outputs)[number]["value"]
 
-const networkOrder: Network[] = ["facebook", "x", "youtube", "instagram"]
 const outputIcon: Record<Output, ReactNode> = {
   screen: <Monitor strokeWidth={1.8} className="size-4" />,
   pdf: <FileText strokeWidth={1.8} className="size-4" />,
@@ -51,7 +49,7 @@ type State = {
   si: number
   period: Period
   range: string
-  plats: Record<Network, boolean>
+  plats: Record<ReportTopic, boolean>
   outs: Record<Output, boolean>
   sched: boolean
   tod: string
@@ -63,7 +61,7 @@ function derive(s: State, recipients: readonly string[]) {
   const R = c.ranges.find((r) => r.value === s.range) ?? c.ranges[1]
   const P = c.periods.find((p) => p.value === s.period) ?? c.periods[1]
   const time = c.times.find((t) => t.value === s.tod)?.label ?? ""
-  const platOn = networkOrder.filter((n) => s.plats[n])
+  const platOn = reportTopics.filter((n) => s.plats[n])
   const f = R.factor * (platOn.reduce((a, n) => a + S.pl[n], 0) / 100)
   const shares = largestRemainder(platOn.map((n) => S.pl[n]))
   const outOn = c.outputs.filter((o) => s.outs[o.value]).map((o) => o.label)
@@ -80,12 +78,12 @@ function derive(s: State, recipients: readonly string[]) {
       { label: "Net sentiment", short: "Net sent.", val: signed(S.s), delta: `${Math.abs(S.ds)} pts ${c.vsPrev}`, trend: trendOf(S.ds) },
       { label: "Engagement", short: "Engage.", val: big(S.e * f), delta: `${Math.abs(S.de)}% ${c.vsPrev}`, trend: trendOf(S.de) },
     ],
-    plats: platOn.map((n, i) => ({ label: networks[n], value: shares[i], display: `${shares[i]}%` })),
+    plats: platOn.map((n, i) => ({ label: n, value: shares[i], display: `${shares[i]}%` })),
     schedText: s.sched ? c.scheduleText(P.label, P.every, time) : c.scheduleOff,
     filters: [
       S.name,
       rangeLabel,
-      platOn.length === 4 ? c.allPlatforms : platOn.map((n) => networks[n]).join(", ") || c.noPlatformShort,
+      platOn.length === 4 ? c.allPlatforms : platOn.join(", ") || c.noPlatformShort,
       `${c.outputLabel} ${outOn.join(", ") || c.none}`,
       ...(s.sched ? [c.sent(P.every, time)] : []),
     ].join(" · "),
@@ -284,7 +282,7 @@ function SubjectPicker({ type, si, onPick }: { type: ReportType; si: number; onP
 }
 
 /**
- * "Build a report": report type, subject, period, range, platforms, output, recipients and the
+ * "Build a report": report type, subject, period, range, topics, output, recipients and the
  * schedule drive a live preview of the report email. From md the form and the preview sit side by
  * side in one card; at 390 they are two tabs (Settings with an accordion per group, then Preview).
  */
@@ -294,7 +292,7 @@ export function ReportBuilder() {
     si: 0,
     period: "W",
     range: "7",
-    plats: { facebook: true, x: true, youtube: true, instagram: true },
+    plats: { Launch: true, Camera: true, Battery: true, Pricing: true },
     outs: { screen: true, pdf: true, excel: false, email: true },
     sched: true,
     tod: "08:45",
@@ -358,10 +356,9 @@ export function ReportBuilder() {
   )
   const platformControl = (
     <div role="group" aria-label={c.platform} className="flex flex-wrap gap-1.5">
-      {networkOrder.map((n) => (
+      {reportTopics.map((n) => (
         <button key={n} type="button" aria-pressed={s.plats[n]} onClick={() => update({ plats: { ...s.plats, [n]: !s.plats[n] } })} className={toggleChip}>
-          <NetworkIcon network={n} className="size-4" />
-          {networks[n]}
+          {n}
         </button>
       ))}
     </div>

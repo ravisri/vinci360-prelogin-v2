@@ -101,7 +101,6 @@ export function SupportingPostsWidget() {
             tone="dark"
             initials={p.initials}
             handle={p.handle}
-            network={p.network}
             text={`“${p.text}”`}
             sentiment="pos"
             metrics={

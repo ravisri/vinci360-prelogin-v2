@@ -5,7 +5,7 @@ import { Check, Filter, Info } from "lucide-react"
 import { m, useReducedMotion } from "motion/react"
 
 import { checkBadge, pickerItem } from "@/components/mocks/channels/styles"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
+import { ViewIcon } from "@/components/mocks/channels/ViewIcon"
 import { SampleDataChip } from "@/components/mocks/SampleDataChip"
 import { Reveal } from "@/components/motion/Reveal"
 import { SectionHeader } from "@/components/sections/SectionHeader"
@@ -60,13 +60,13 @@ function Field({ label, value, options, onChange, highlight }: { label: React.Re
 }
 
 /**
- * "Narrow it down": the same filter bar on every network; only the object filter (Page, Channel or
- * User) changes its name. Four widgets recompute together, flag "Updated" and pulse once; the
+ * "Narrow it down": the same filter bar on every view; only the object filter (Profile, Post or
+ * Author) changes its name. Four widgets recompute together, flag "Updated" and pulse once; the
  * results are announced politely. Ends with the "says why instead of going blank" empty state.
  */
 export function ChannelsFilterShowcase() {
   const reduced = useReducedMotion()
-  const [s, setS] = useState<State>({ net: "facebook", obj: 0, grp: 0, ...f.defaults, upd: f.updates.net, flip: 0 })
+  const [s, setS] = useState<State>({ net: "interactions", obj: 0, grp: 0, ...f.defaults, upd: f.updates.net, flip: 0 })
   const n = channelNetworks[s.net]
   const nf = n.filter
 
@@ -105,7 +105,7 @@ export function ChannelsFilterShowcase() {
           >
             {channelOrder.map((k) => (
               <ToggleGroupItem key={k} value={k} className={cn(pickerItem, "w-auto gap-2 px-3.5 text-sm font-semibold")}>
-                <NetworkIcon network={k} className="size-4.5" />
+                <ViewIcon view={k} className="size-4.5" />
                 {channelNetworks[k].name}
                 <span aria-hidden="true" className={checkBadge}>
                   <Check strokeWidth={3.5} className="size-2.5" />

@@ -13,7 +13,7 @@ export type FeatureSlug =
   | "brand-compare"
   | "promotable-stories"
   | "reports-alerts"
-  | "channel-analysis"
+  | "source-analysis"
 
 /**
  * Everything FeaturePageTemplate needs to render the shared blocks of a feature page. Data only:

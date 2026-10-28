@@ -1,12 +1,11 @@
 import Link from "next/link"
-import { Bell, ExternalLink, Info, TriangleAlert, type LucideIcon } from "lucide-react"
+import { Bell, ExternalLink, Info, Tag, TriangleAlert, type LucideIcon } from "lucide-react"
 
 import { Delta } from "@/components/mocks/Delta"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { reportsAlerts } from "@/content/features/reports-alerts"
-import { networks, reports } from "@/content/sample-data"
+import { reports } from "@/content/sample-data"
 import { cn } from "@/lib/utils"
 
 const c = reportsAlerts.notifications
@@ -61,8 +60,8 @@ export function AlertNotifications() {
                   </span>
                   <span className="flex items-center gap-2.5 text-xs text-muted-foreground">
                     <span className="inline-flex items-center gap-1">
-                      <NetworkIcon network={n.network} className="size-3.25" />
-                      {networks[n.network]}
+                      <Tag aria-hidden="true" strokeWidth={2} className="size-3.25" />
+                      {n.topic}
                     </span>
                     <Link
                       href="/features/sentiment-keywords"

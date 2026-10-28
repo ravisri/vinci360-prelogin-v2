@@ -1,6 +1,6 @@
 import { MoveHorizontal } from "lucide-react"
 
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
+import { ViewIcon } from "@/components/mocks/channels/ViewIcon"
 import { Reveal } from "@/components/motion/Reveal"
 import { SectionHeader } from "@/components/sections/SectionHeader"
 import { channelNetworks, channelOrder } from "@/content/channels-data"
@@ -32,7 +32,7 @@ export function NetworkTerms() {
               {cells.map((cell) => (
                 <th key={cell.k} scope="col" className="border-b border-border p-4 font-heading text-base font-bold">
                   <span className="inline-flex items-center gap-2">
-                    <NetworkIcon network={cell.k} />
+                    <ViewIcon view={cell.k} />
                     {cell.name}
                   </span>
                 </th>
@@ -60,7 +60,7 @@ export function NetworkTerms() {
         {cells.map((cell) => (
           <li key={cell.k} className="flex w-68 flex-none snap-start flex-col gap-3 rounded-lg bg-card p-4 shadow-card">
             <h3 className="flex items-center gap-2 text-[1.0625rem]">
-              <NetworkIcon network={cell.k} />
+              <ViewIcon view={cell.k} />
               {cell.name}
             </h3>
             <dl className="flex flex-col gap-2 text-sm [&_dt]:text-xs [&_dt]:font-semibold [&_dt]:text-neutral-text">

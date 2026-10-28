@@ -1,5 +1,5 @@
 import { ShareBar } from "@/components/mocks/channels/ShareBar"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
+import { ViewIcon } from "@/components/mocks/channels/ViewIcon"
 import { SampleDataChip } from "@/components/mocks/SampleDataChip"
 import { SentimentChip } from "@/components/mocks/SentimentChip"
 import { Reveal } from "@/components/motion/Reveal"
@@ -96,7 +96,7 @@ export function NetworkInsights() {
             return (
               <li key={k} className="flex flex-col gap-3.5 rounded-lg bg-card p-6 shadow-card">
                 <span className="flex items-center gap-2 text-[0.8125rem] font-semibold">
-                  <NetworkIcon network={k} className="size-4.5" />
+                  <ViewIcon view={k} className="size-4.5" />
                   {channelNetworks[k].name}
                 </span>
                 <figure className="on-dark relative flex flex-col gap-2 rounded-lg bg-background px-3.5 pt-3.5 pb-10 text-[0.6875rem] text-foreground tabular">

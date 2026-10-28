@@ -306,7 +306,6 @@ export function StoryReview() {
                     tone="dark"
                     initials={p.initials}
                     handle={p.handle}
-                    network={p.network}
                     text={p.text}
                     sentiment="pos"
                     metrics={{ likes: p.likes, comments: p.comments, shares: p.shares }}

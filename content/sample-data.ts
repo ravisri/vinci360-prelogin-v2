@@ -484,13 +484,13 @@ export const trends = {
   ] as { topic: string; sub: string; mentions: [number, number, number]; engagementK: [number, number, number]; net: [number, number, number]; highlight?: boolean }[],
   /** Platform split order is Instagram · X · YouTube · Facebook, as in the reference's bar. */
   hashtags: [
-    { tag: "#AuroraLaunch", usage: 4120, mentions: 6300, engagement: "210K", reach: "3.1M", growth: 184, sentiment: "pos", spark: [2, 3, 3, 5, 7, 10, 14, 16], split: { instagram: 52, x: 28, youtube: 12, facebook: 8 } },
-    { tag: "#NightModeTips", usage: 2940, mentions: 4100, engagement: "142K", reach: "1.9M", growth: 88, sentiment: "pos", spark: [4, 5, 5, 6, 8, 9, 10, 12], split: { instagram: 61, x: 14, youtube: 18, facebook: 7 } },
-    { tag: "#ShotOnX2", usage: 2410, mentions: 3560, engagement: "121K", reach: "1.6M", growth: 41, sentiment: "pos", spark: [6, 7, 6, 8, 8, 9, 9, 10], split: { instagram: 70, x: 10, youtube: 12, facebook: 8 } },
-    { tag: "#ChargerFail", usage: 2280, mentions: 3900, engagement: "64K", reach: "1.1M", growth: 122, sentiment: "neg", spark: [2, 2, 3, 4, 6, 8, 11, 13], split: { instagram: 18, x: 48, youtube: 8, facebook: 26 } },
-    { tag: "#FestiveDeals", usage: 1310, mentions: 1980, engagement: "22K", reach: "0.8M", growth: 12, sentiment: "neu", spark: [7, 7, 8, 7, 8, 8, 8, 9], split: { instagram: 30, x: 18, youtube: 8, facebook: 44 } },
-    { tag: "#GiftWithAurora", usage: 760, mentions: 1020, engagement: "48K", reach: "0.5M", growth: 210, sentiment: "pos", spark: [1, 1, 2, 2, 4, 6, 9, 12], split: { instagram: 64, x: 10, youtube: 6, facebook: 20 } },
-  ] as { tag: string; usage: number; mentions: number; engagement: string; reach: string; growth: number; sentiment: Sentiment; spark: number[]; split: Record<Network, number> }[],
+    { tag: "#AuroraLaunch", usage: 4120, mentions: 6300, engagement: "210K", reach: "3.1M", growth: 184, sentiment: "pos", spark: [2, 3, 3, 5, 7, 10, 14, 16] },
+    { tag: "#NightModeTips", usage: 2940, mentions: 4100, engagement: "142K", reach: "1.9M", growth: 88, sentiment: "pos", spark: [4, 5, 5, 6, 8, 9, 10, 12] },
+    { tag: "#ShotOnX2", usage: 2410, mentions: 3560, engagement: "121K", reach: "1.6M", growth: 41, sentiment: "pos", spark: [6, 7, 6, 8, 8, 9, 9, 10] },
+    { tag: "#ChargerFail", usage: 2280, mentions: 3900, engagement: "64K", reach: "1.1M", growth: 122, sentiment: "neg", spark: [2, 2, 3, 4, 6, 8, 11, 13] },
+    { tag: "#FestiveDeals", usage: 1310, mentions: 1980, engagement: "22K", reach: "0.8M", growth: 12, sentiment: "neu", spark: [7, 7, 8, 7, 8, 8, 8, 9] },
+    { tag: "#GiftWithAurora", usage: 760, mentions: 1020, engagement: "48K", reach: "0.5M", growth: 210, sentiment: "pos", spark: [1, 1, 2, 2, 4, 6, 9, 12] },
+  ] as { tag: string; usage: number; mentions: number; engagement: string; reach: string; growth: number; sentiment: Sentiment; spark: number[] }[],
   /** Hashtag cloud (presentation view): font size in px as drawn in the reference, plus mood. */
   hashtagCloud: [
     { term: "#AuroraLaunch", weight: 28, sentiment: "pos", usage: 4120 },
@@ -764,6 +764,10 @@ export const sentiment = {
 /* --------------------------------------------------------------------------
    Brand Compare (Compare.dc.html)
    -------------------------------------------------------------------------- */
+/** Topic filter in the Brand Compare builder. */
+export const compareTopics = ["Launch", "Camera", "Battery", "Pricing"] as const
+export type CompareTopic = (typeof compareTopics)[number]
+
 export const compare = {
   shareOfVoice: { aurora: 38, nimbus: 36, kestrel: 26 },
   /** Raw 30-day figures the index, share of voice and builder are computed from. */
@@ -800,11 +804,12 @@ export const compare = {
     { brand: "nimbus", text: "“Nimbus fast-charge challenge is everywhere this week”", meta: "Nimbus · Instagram" },
     { brand: "aurora", text: "“Aurora X2 night-mode review, full walkthrough”", meta: "Aurora · YouTube" },
   ] as const,
-  platformShare: {
-    aurora: { instagram: 62, x: 18, facebook: 13, youtube: 7 },
-    nimbus: { instagram: 48, x: 22, facebook: 18, youtube: 12 },
-    kestrel: { instagram: 40, x: 30, facebook: 20, youtube: 10 },
-  },
+  /** Each brand's mention mix by topic (%), used to weight share of voice in the builder. */
+  topicShare: {
+    aurora: { Launch: 62, Camera: 18, Battery: 13, Pricing: 7 },
+    nimbus: { Launch: 48, Camera: 22, Battery: 18, Pricing: 12 },
+    kestrel: { Launch: 40, Camera: 30, Battery: 20, Pricing: 10 },
+  } as Record<"aurora" | "nimbus" | "kestrel", Record<CompareTopic, number>>,
   topicOverlap: {
     aurora: "12 · 7",
     nimbus: "13 · 9",
@@ -944,9 +949,13 @@ export const stories = {
 /* --------------------------------------------------------------------------
    Reports & Alerts (Reports.dc.html)
    -------------------------------------------------------------------------- */
+/** Topic filter in the report builder (same mapping as Brand Compare). */
+export const reportTopics = ["Launch", "Camera", "Battery", "Pricing"] as const
+export type ReportTopic = (typeof reportTopics)[number]
+
 export const reports = {
   email: { ...weekly, range: "5–11 Oct vs 28 Sep–4 Oct", sent: "Mon 8:45 AM", schedule: "Every Monday 8:45" },
-  heroAlert: { severity: "High", text: "Negative mentions ▲ +38% today", network: "instagram" as Network },
+  heroAlert: { severity: "High", text: "Negative mentions ▲ +38% today", topic: "Launch" },
   keywordReport,
   entityMonthly: {
     brand: "Aurora Mobile",
@@ -955,17 +964,17 @@ export const reports = {
       { key: "engagement", display: "1.92M", delta: "10%", trend: "up" as Trend },
       { key: "reach", display: "12.4M", delta: "6%", trend: "up" as Trend },
     ],
-    platforms: [
-      { network: "instagram" as Network, share: 62 },
-      { network: "x" as Network, share: 18 },
-      { network: "facebook" as Network, share: 13 },
-      { network: "youtube" as Network, share: 7 },
+    topics: [
+      { label: "Launch", share: 62 },
+      { label: "Camera", share: 18 },
+      { label: "Battery", share: 13 },
+      { label: "Pricing", share: 7 },
     ],
   },
   notifications: [
-    { severity: "High", subject: "#AuroraLaunch", time: "9:12 AM", metric: "Negative mentions", delta: "+38%", trend: "up" as Trend, tone: "neg" as Sentiment, tail: "in a day", network: "instagram" as Network },
-    { severity: "Medium", subject: "Aurora Care Plus", time: "Yesterday", metric: "Net sentiment", delta: "12 pts", trend: "down" as Trend, tone: "neg" as Sentiment, tail: "in 7 days", network: "x" as Network },
-    { severity: "Info", subject: "Night Mode", time: "Mon", metric: "Mentions", delta: "2.1×", trend: "up" as Trend, tone: "pos" as Sentiment, tail: "the usual daily level", network: "youtube" as Network },
+    { severity: "High", subject: "#AuroraLaunch", time: "9:12 AM", metric: "Negative mentions", delta: "+38%", trend: "up" as Trend, tone: "neg" as Sentiment, tail: "in a day", topic: "Launch" },
+    { severity: "Medium", subject: "Aurora Care Plus", time: "Yesterday", metric: "Net sentiment", delta: "12 pts", trend: "down" as Trend, tone: "neg" as Sentiment, tail: "in 7 days", topic: "Battery" },
+    { severity: "Info", subject: "Night Mode", time: "Mon", metric: "Mentions", delta: "2.1×", trend: "up" as Trend, tone: "pos" as Sentiment, tail: "the usual daily level", topic: "Camera" },
   ],
   defaultRule: "negative mentions rise 30% within 1 day",
   /** Hero email chart: mentions this week vs last week (viewBox 420×80, y down). */
@@ -973,17 +982,17 @@ export const reports = {
     thisWeek: "0,58 60,50 120,54 180,38 240,40 300,22 360,30 420,26",
     lastWeek: "0,64 60,62 120,60 180,58 240,56 300,54 360,54 420,52",
   },
-  /** Report builder subjects (Reports.dc.html script): 30-day figures, scaled by range and platforms. */
+  /** Report builder subjects (Reports.dc.html script): 30-day figures, scaled by range and topics. */
   builder: {
     keyword: [
-      { name: "Night Mode", kind: "Keyword", m: 8960, dm: 24, s: 62, ds: 3, e: 512000, de: 31, sp: [71, 20, 9] as Split, topics: ["Low-light photos", "City nights", "Astro shots"], tags: ["#NightModeTips", "#ShotOnX2", "#AuroraNights"], pl: { instagram: 61, youtube: 24, facebook: 9, x: 6 }, changed: "Engagement grew fastest on YouTube; tone stayed positive." },
-      { name: "#AuroraLaunch", kind: "Keyword", m: 12480, dm: 38, s: 29, ds: -4, e: 640000, de: 22, sp: [52, 25, 23] as Split, topics: ["Unboxing", "Camera", "Pricing"], tags: ["#AuroraLaunch", "#X2Unboxing", "#LaunchDayFail"], pl: { instagram: 54, youtube: 21, facebook: 15, x: 10 }, changed: "Volume up 38%, but the negative share rose on X." },
-      { name: "Aurora Care Plus", kind: "Keyword", m: 2140, dm: -8, s: -18, ds: -9, e: 48000, de: -12, sp: [24, 34, 42] as Split, topics: ["Repairs", "Claim process", "Wait times"], tags: ["#AuroraCare", "#ChargerFail", "#WarrantyHelp"], pl: { facebook: 44, x: 31, instagram: 17, youtube: 8 }, changed: "Complaints about wait times pulled sentiment down." },
+      { name: "Night Mode", kind: "Keyword", m: 8960, dm: 24, s: 62, ds: 3, e: 512000, de: 31, sp: [71, 20, 9] as Split, topics: ["Low-light photos", "City nights", "Astro shots"], tags: ["#NightModeTips", "#ShotOnX2", "#AuroraNights"], pl: { Launch: 61, Pricing: 24, Battery: 9, Camera: 6 }, changed: "Engagement grew fastest on low-light video; tone stayed positive." },
+      { name: "#AuroraLaunch", kind: "Keyword", m: 12480, dm: 38, s: 29, ds: -4, e: 640000, de: 22, sp: [52, 25, 23] as Split, topics: ["Unboxing", "Camera", "Pricing"], tags: ["#AuroraLaunch", "#X2Unboxing", "#LaunchDayFail"], pl: { Launch: 54, Pricing: 21, Battery: 15, Camera: 10 }, changed: "Volume up 38%, but the negative share rose on launch-day issues." },
+      { name: "Aurora Care Plus", kind: "Keyword", m: 2140, dm: -8, s: -18, ds: -9, e: 48000, de: -12, sp: [24, 34, 42] as Split, topics: ["Repairs", "Claim process", "Wait times"], tags: ["#AuroraCare", "#ChargerFail", "#WarrantyHelp"], pl: { Battery: 44, Camera: 31, Launch: 17, Pricing: 8 }, changed: "Complaints about wait times pulled sentiment down." },
     ],
     entity: [
-      { name: "Aurora Mobile", kind: "Brand", m: 48214, dm: 18, s: 36, ds: -3, e: 1920000, de: 10, sp: [54, 28, 18] as Split, topics: ["Battery & charging", "Night photography", "X2 launch"], tags: ["#AuroraX2Launch", "#ShotOnX2", "#ChargerFail"], pl: { instagram: 62, x: 18, facebook: 13, youtube: 7 }, changed: "Mentions up 18%; charging complaints kept sentiment from rising." },
-      { name: "Aurora X2", kind: "Product", m: 31200, dm: 26, s: 41, ds: 2, e: 1300000, de: 14, sp: [58, 25, 17] as Split, topics: ["Camera", "Battery", "Price"], tags: ["#ShotOnX2", "#X2Unboxing", "#NightModeTips"], pl: { instagram: 60, youtube: 18, x: 14, facebook: 8 }, changed: "Camera praise outweighed battery complaints." },
-      { name: "Aurora Care", kind: "Organisation", m: 3880, dm: -4, s: -10, ds: -6, e: 82000, de: -9, sp: [30, 30, 40] as Split, topics: ["Support tickets", "Repairs", "Store visits"], tags: ["#AuroraCare", "#SupportFail", "#WarrantyHelp"], pl: { facebook: 46, x: 30, instagram: 16, youtube: 8 }, changed: "Support response times are the main complaint." },
+      { name: "Aurora Mobile", kind: "Brand", m: 48214, dm: 18, s: 36, ds: -3, e: 1920000, de: 10, sp: [54, 28, 18] as Split, topics: ["Battery & charging", "Night photography", "X2 launch"], tags: ["#AuroraX2Launch", "#ShotOnX2", "#ChargerFail"], pl: { Launch: 62, Camera: 18, Battery: 13, Pricing: 7 }, changed: "Mentions up 18%; charging complaints kept sentiment from rising." },
+      { name: "Aurora X2", kind: "Product", m: 31200, dm: 26, s: 41, ds: 2, e: 1300000, de: 14, sp: [58, 25, 17] as Split, topics: ["Camera", "Battery", "Price"], tags: ["#ShotOnX2", "#X2Unboxing", "#NightModeTips"], pl: { Launch: 60, Pricing: 18, Camera: 14, Battery: 8 }, changed: "Camera praise outweighed battery complaints." },
+      { name: "Aurora Care", kind: "Organisation", m: 3880, dm: -4, s: -10, ds: -6, e: 82000, de: -9, sp: [30, 30, 40] as Split, topics: ["Support tickets", "Repairs", "Store visits"], tags: ["#AuroraCare", "#SupportFail", "#WarrantyHelp"], pl: { Battery: 46, Camera: 30, Launch: 16, Pricing: 8 }, changed: "Support response times are the main complaint." },
     ],
     recipients: ["leadership@example.com", "brand-team@example.com"],
   },
@@ -1214,11 +1223,11 @@ export const tour = {
     "7d": { net: 21, delta: "2 pts vs last period", trend: "down" },
   } as Record<TourRange, { net: number; delta: string; trend: Trend }>,
   platformNet: [
-    { network: "facebook", net: { "30d": 34, "7d": 31 }, delta: { "30d": 2, "7d": -3 } },
-    { network: "x", net: { "30d": 10, "7d": 8 }, delta: { "30d": -1, "7d": -3 } },
-    { network: "youtube", net: { "30d": 43, "7d": 40 }, delta: { "30d": 3, "7d": 1 } },
-    { network: "instagram", net: { "30d": 9, "7d": 4 }, delta: { "30d": -12, "7d": -17 } },
-  ] as { network: Network; net: Record<TourRange, number>; delta: Record<TourRange, number> }[],
+    { label: "Aurora X2 launch", split: [52, 30, 18] as Split, net: { "30d": 34, "7d": 31 }, delta: { "30d": 2, "7d": -3 } },
+    { label: "Price & offers", split: [38, 34, 28] as Split, net: { "30d": 10, "7d": 8 }, delta: { "30d": -1, "7d": -3 } },
+    { label: "Night photography", split: [57, 29, 14] as Split, net: { "30d": 43, "7d": 40 }, delta: { "30d": 3, "7d": 1 } },
+    { label: "Battery & charging", split: [41, 27, 32] as Split, net: { "30d": 9, "7d": 4 }, delta: { "30d": -12, "7d": -17 } },
+  ] as { label: string; split: Split; net: Record<TourRange, number>; delta: Record<TourRange, number> }[],
   threshold: { min: 0, max: 50, initial: 15 },
   hashtagNet: [
     { tag: "#ShotOnX2", net: "+64", move: "5", trend: "up", note: "" },
@@ -1244,14 +1253,14 @@ export const tour = {
         { label: "Net sentiment", value: 12, display: "+12", delta: "9 pts", trend: "down" },
       ],
     } as Record<TourRange, Kpi[]>,
-    platforms: [
-      { network: "instagram", share: 46 },
-      { network: "youtube", share: 28 },
-      { network: "facebook", share: 20 },
-      { network: "x", share: 6 },
-    ] as { network: Network; share: number }[],
-    strongest: { network: "youtube" as Network, net: "+52" },
-    weakest: { network: "x" as Network, net: "−8" },
+    subtopics: [
+      { label: "Night photography", share: 46 },
+      { label: "Ad creative", share: 28 },
+      { label: "Pricing", share: 20 },
+      { label: "Charger complaints", share: 6 },
+    ],
+    strongest: { label: "Ad creative", net: "+52" },
+    weakest: { label: "Charger complaints", net: "−8" },
     split: [49, 30, 21] as Split,
     articles: [
       { network: "youtube", text: "“Bright Nights ad is gorgeous.”", sentiment: "pos" },

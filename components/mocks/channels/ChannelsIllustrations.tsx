@@ -1,7 +1,7 @@
 import { Mail } from "lucide-react"
 
 import { mchip } from "@/components/mocks/channels/styles"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
+import { ViewIcon } from "@/components/mocks/channels/ViewIcon"
 import { channelsSteps as c } from "@/content/features/channel-analysis"
 import { cn } from "@/lib/utils"
 
@@ -10,7 +10,7 @@ export const channelsStepIllustrations = [
   <div key="pick" className="flex h-full items-center justify-center gap-1 text-xs font-semibold">
     {c.tabs.map((t, i) => (
       <span key={t} className={cn("inline-flex items-center gap-1.5 px-2.5 py-2", i === 0 ? "border-b-3 border-channels-text font-extrabold" : "text-neutral-text")}>
-        {i === 0 && <NetworkIcon network="facebook" className="size-3.5" />}
+        {i === 0 && <ViewIcon view="interactions" className="size-3.5" />}
         {t}
         {i === 0 && " ✓"}
       </span>

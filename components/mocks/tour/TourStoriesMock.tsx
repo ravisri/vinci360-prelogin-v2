@@ -3,12 +3,11 @@
 import { useId, useState } from "react"
 import { CalendarPlus, Check, Sparkles, X } from "lucide-react"
 
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { ReachNote } from "@/components/mocks/ReachNote"
 import { fmt } from "@/components/mocks/home/kpi"
 import { catChip, hitArea, Panel, tagChip, TourFrame, TourHotspot } from "@/components/mocks/tour/TourFrame"
 import { CountUp } from "@/components/motion/CountUp"
-import { networks, tour } from "@/content/sample-data"
+import { tour } from "@/content/sample-data"
 import { tourPage } from "@/content/tour"
 import { cn } from "@/lib/utils"
 
@@ -117,8 +116,6 @@ export function TourStoriesMock() {
                   {p.initials}
                 </span>
                 <span className="flex-1">{p.text}</span>
-                <NetworkIcon network={p.network} className="size-3.5 text-muted-foreground" />
-                <span className="sr-only">{networks[p.network]}</span>
               </li>
             ))}
             <TourHotspot step={step} i={2} className="top-1/2 left-[84%]" />

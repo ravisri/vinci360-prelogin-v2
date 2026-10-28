@@ -169,7 +169,7 @@ export const featuresOverview = {
         title: "How is the conversation performing?",
         modules: ["Mentions & reach", "Interactions", "Audience growth", "Top voices"],
         glyph: "channels",
-        href: "/features/channel-analysis",
+        href: "/features/source-analysis",
       },
     ] as MapTile[],
   },
@@ -458,7 +458,7 @@ export const featuresOverview = {
         ],
         action: {
           label: "Explore Source Analysis",
-          href: "/features/channel-analysis",
+          href: "/features/source-analysis",
         },
         hotspots: [
           {
@@ -558,7 +558,7 @@ export const featuresOverview = {
     },
     channels: {
       chrome: "Source analysis",
-      metrics: ["Mentions", "Reach", "Interactions", "Engagement rate"],
+      metrics: ["Interactions", "Top content", "Top voices", "Amplification"],
       pages: "Top profiles",
       reactions: "Interaction mix",
       growth: "Audience growth · 30 days",

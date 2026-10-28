@@ -18,7 +18,7 @@ export const features: FeatureNavItem[] = [
   { label: "Brand Compare", href: "/features/brand-compare", blurb: "You vs your competitors", accent: "cmp", dotClass: "bg-cmp" },
   { label: "Promotable Stories", href: "/features/promotable-stories", blurb: "Content ideas with evidence", accent: "stories", dotClass: "bg-stories" },
   { label: "Reports & Alerts", href: "/features/reports-alerts", blurb: "Insights that come to you", accent: "reports", dotClass: "bg-reports" },
-  { label: "Channel Analysis", href: "/features/channel-analysis", blurb: "How each of your channels performs", accent: "channels", dotClass: "bg-channels" },
+  { label: "Source Analysis", href: "/features/source-analysis", blurb: "Interactions, top content, voices and amplification", accent: "channels", dotClass: "bg-channels" },
 ]
 
 export const platformLink: NavItem = { label: "Platform", href: "/features" }

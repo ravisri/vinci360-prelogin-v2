@@ -9,7 +9,7 @@ import { SectionHeader } from "@/components/sections/SectionHeader"
 import { channelOrder, channelNetworks, depthCompare as data } from "@/content/channels-data"
 import { channelsDepth as c } from "@/content/features/channel-analysis"
 
-/** "Whole picture or channel depth?": the cross-platform view (links to SMI) next to this page's single-network depth. */
+/** "Whole picture or view depth?": the overview (links to SMI) next to this page's single-view depth. */
 export function DepthCompare() {
   return (
     <section aria-labelledby="depth-h" className="container-site flex flex-col gap-7 pt-16 md:pt-24">
