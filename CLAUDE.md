@@ -4,7 +4,8 @@ Read this file fully before every task. It is the contract for this repo.
 
 ## 1. Product
 
-- **vinci360°** — social media intelligence for **Facebook, X, YouTube and Instagram**. A product by **MSRcosmos**.
+- **vinci360°** — social media intelligence for brands. A product by **MSRcosmos**.
+- **Never name individual sources** (YouTube API policy): no network names, logos or per-source splits anywhere on the site. Present outcomes Brand24-style (mentions, reach, interactions, sentiment, topics, hashtags, competitors).
 - This repo is the **pre-login marketing site only** (no app, no auth backend). "Log in" is a UI page that hands off to the product.
 - **Twelve modules in seven feature areas:**
 
@@ -16,7 +17,7 @@ Read this file fully before every task. It is the contract for this repo.
 | Brand Compare | Brand Compare Analysis | `cmp` |
 | Promotable Stories | Promotable Stories | `stories` |
 | Reports & Alerts | SMA Reports | `reports` |
-| Channel Analysis | Facebook, YouTube, Instagram, X analysis | `channels` |
+| Source Analysis | Interactions, Top content, Top voices, Amplification (views, not networks) | `channels` |
 
 - **Audiences (Solutions):** Brand managers (`?role=brand`), PR & communications (`pr`), Agencies (`agencies`), Leadership (`leadership`).
 
@@ -34,6 +35,7 @@ Read this file fully before every task. It is the contract for this repo.
 
 - Mockups are exported to `/design-ref/*.dc.html` (one file per artboard; `*Mobile` = 390px; `*Errors|Sending|Success|…` = states).
 - **Match the reference** for layout, copy, order and states. Do not redesign. Do not add sections.
+- **Intentional divergence:** the references still show Facebook/X/YouTube/Instagram. Keep each section's layout and components, but swap any per-network dimension for topics, sub-topics or Source Analysis views (see §7).
 - The "vinci360° Design System" board (`design-ref/DesignSystem.dc.html`) is the token source. `app/globals.css` mirrors it 1:1.
 
 ## 4. Folder structure
@@ -52,8 +54,7 @@ app/
     features/brand-compare/page.tsx
     features/promotable-stories/page.tsx
     features/reports-alerts/page.tsx
-    features/channel-analysis/page.tsx
-    product-tour/page.tsx
+    features/source-analysis/page.tsx            # was channel-analysis (308 redirect in next.config.ts)
     solutions/page.tsx                         # ?role= deep links
     request-demo/page.tsx
     about/page.tsx
@@ -135,7 +136,7 @@ All buttons: min touch target 44×44, visible 2px focus ring, and loading state 
 - **Header (sticky, 64/72px):**
   - Logo "vinci360°".
   - **Platform**: links to `/features`. A mega menu on hover or focus lists the 7 feature pages with accent dots.
-  - Then Solutions · Product tour · About · Contact · ghost "Log in" · cta "Request a demo".
+  - Then Solutions · About · Contact · ghost "Log in" · cta "Request a demo". (The product tour was retired: `/product-tour` 308-redirects to `/request-demo`; secondary hero buttons read "Explore the features".)
   - Active link: underline + bold + `aria-current="page"`.
   - Mobile: logo, Log in, menu button that opens a Sheet.
 - **Footer:**
@@ -159,6 +160,7 @@ All buttons: min touch target 44×44, visible 2px focus ring, and loading state 
 ## 7. Content rules (strict)
 
 - **Never invent facts:** no customer names, logos, metrics, prices, certifications, addresses, dates or testimonials.
+- **No source names:** never mention Facebook, X/Twitter, YouTube, Instagram or network-only terms (Page, Channel, Subscribers, Reels, Reposts) in copy, data, alt text, captions or SEO. Use "across social media", topics, sub-topics and outcome metrics. The `twitter:` metadata tags are the only allowed exception.
 - Unknown values keep the bracketed placeholder from the reference, e.g. `[Testimonial quote from a real client, to be supplied.]`, styled with `placeholder-inline` or `placeholder-block`.
 - **Sample data only:** the fictional brand **Aurora Mobile** and competitors **Nimbus** and **Kestrel**. Keep all sample data in `content/sample-data.ts`.
 - **Avatars are initials only** (e.g. "RK"), never photos of people.

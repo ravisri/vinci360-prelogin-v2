@@ -16,16 +16,16 @@ export const aboutPage = {
   meta: {
     title: "About",
     description:
-      "Vinci360, a product by MSRcosmos, gives brands a real-time view of the conversation on Facebook, X, YouTube and Instagram. Read what we believe and how we work.",
+      "Vinci360, a product by MSRcosmos, gives brands a real-time view of the conversation across social media. Read what we believe and how we work, and why.",
   },
   hero: {
     chip: "About",
     title: "Know first. Act before your competition does.",
-    lead: "Vinci360 gives brands a real-time view of the conversation across Facebook, X, YouTube and Instagram, so they hear good and bad news early and can act before it spreads.",
-    leadMobile: "A real-time view of the conversation across Facebook, X, YouTube and Instagram, so you hear good and bad news early.",
+    lead: "Vinci360 gives brands a real-time view of the conversation across social media, so they hear good and bad news early and can act before it spreads.",
+    leadMobile: "A real-time view of the conversation across social media, so you hear good and bad news early.",
     primary: { label: "Request a demo", href: "/request-demo" },
     secondary: { label: "Meet the team", href: "#team" },
-    caption: "Illustration: the four networks, Facebook, X, YouTube and Instagram, each connected to one Vinci360 dashboard.",
+    caption: "Illustration: mentions, reach, interactions and sentiment, each connected to one Vinci360 dashboard.",
   },
   beliefs: {
     title: "What we believe",
@@ -41,9 +41,9 @@ export const aboutPage = {
       {
         id: "native",
         icon: Layers,
-        title: "Each network in its own terms",
-        lines: ["We report a network’s native metrics instead of flattening them.", "Reactions, subscribers, reposts and influence stay as they are."],
-        caption: "Mini illustration: native metric chips for each network.",
+        title: "Every metric in plain terms",
+        lines: ["We report mentions, reach, interactions and sentiment the same clear way.", "Nothing is flattened into a single vanity score."],
+        caption: "Mini illustration: metric chips.",
       },
       {
         id: "estimates",
@@ -64,7 +64,7 @@ export const aboutPage = {
     art: {
       openPosts: "→ open the posts",
       mentions: "mentions",
-      metrics: ["Facebook · Reactions by type", "YouTube · Subscribers", "X · Reposts", "Instagram · Influence"],
+      metrics: ["Mentions · volume", "Reach · estimated", "Interactions · by type", "Sentiment · ▲ ▼ –"],
       reach: "Reach",
       estimate: "Estimate",
       suggested: "Suggested story",
@@ -74,7 +74,7 @@ export const aboutPage = {
   },
   does: {
     title: "What Vinci360 does",
-    fact: "12 modules · 4 networks",
+    fact: "12 modules · one view",
     link: { label: "See all features", href: "/features" },
     /** Question per feature area, in navigation order. */
     questions: [
@@ -84,7 +84,7 @@ export const aboutPage = {
       "How do we compare with rivals?",
       "What is worth promoting?",
       "What changed since last time?",
-      "How is each network performing?",
+      "How is the conversation performing?",
     ],
   },
   msr: {
@@ -133,7 +133,7 @@ export const aboutPage = {
     title: "Keep exploring",
     items: [
       { id: "features", chip: "Features overview", text: "See what Vinci360 does.", link: "Explore the features", href: "/features" },
-      { id: "tour", chip: "Product tour", text: "Follow one story in seven steps.", link: "Take the tour", href: "/product-tour" },
+      { id: "source", chip: "Source Analysis", text: "Interactions, top content, voices and amplification.", link: "Explore Source Analysis", href: "/features/source-analysis" },
       { id: "contact", chip: "Contact", text: "Talk to us.", link: "Get in touch", href: "/contact" },
     ],
   },

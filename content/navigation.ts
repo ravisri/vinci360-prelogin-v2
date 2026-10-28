@@ -23,16 +23,16 @@ export const features: FeatureNavItem[] = [
 
 export const platformLink: NavItem = { label: "Platform", href: "/features" }
 
-export const tourLink = {
-  label: "Take the product tour",
-  href: "/product-tour",
-  blurb: "See the platform in about 15 minutes",
+/** Last row of the Platform mega menu and mobile sheet. */
+export const overviewLink = {
+  label: "Explore all features",
+  href: "/features",
+  blurb: "Twelve modules, one clear picture",
 }
 
 /** Header links after "Platform" (which opens the mega menu). */
 export const primaryNav: NavItem[] = [
   { label: "Solutions", href: "/solutions" },
-  { label: "Product tour", href: "/product-tour" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ]

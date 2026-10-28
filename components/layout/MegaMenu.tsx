@@ -3,10 +3,10 @@
 import { useId, useRef, useState, type FocusEvent, type KeyboardEvent, type PointerEvent } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronDown, PlayCircle } from "lucide-react"
+import { ChevronDown, LayoutGrid } from "lucide-react"
 
 import { NavLink, useIsActive } from "@/components/layout/NavLink"
-import { features, platformLink, primaryNav, tourLink, type FeatureNavItem } from "@/content/navigation"
+import { features, platformLink, primaryNav, overviewLink, type FeatureNavItem } from "@/content/navigation"
 import { cn } from "@/lib/utils"
 
 const row = "flex min-h-11 items-start gap-3 rounded-sm px-3 py-2.5 text-foreground no-underline hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-ring"
@@ -102,11 +102,11 @@ export function MegaMenu() {
           {features.map((item) => (
             <FeatureLink key={item.href} item={item} />
           ))}
-          <Link href={tourLink.href} className={cn(row, "bg-muted hover:bg-accent")}>
-            <PlayCircle aria-hidden="true" strokeWidth={2} className="mt-0.5 size-5 flex-none text-primary" />
+          <Link href={overviewLink.href} className={cn(row, "bg-muted hover:bg-accent")}>
+            <LayoutGrid aria-hidden="true" strokeWidth={2} className="mt-0.5 size-5 flex-none text-primary" />
             <span>
-              <span className="block font-semibold text-primary-700">{tourLink.label}</span>
-              <span className="block text-[0.8125rem] text-muted-foreground">{tourLink.blurb}</span>
+              <span className="block font-semibold text-primary-700">{overviewLink.label}</span>
+              <span className="block text-[0.8125rem] text-muted-foreground">{overviewLink.blurb}</span>
             </span>
           </Link>
         </div>

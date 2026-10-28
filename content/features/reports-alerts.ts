@@ -21,7 +21,7 @@ export const reportsPage = {
     title: "Insights that arrive on their own.",
     lead: "Standing reports for any keyword or brand, delivered daily, weekly or monthly, plus alerts when volume or sentiment moves beyond its normal range.",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
+    secondary: { label: "Explore the features", href: "/features" },
   },
   personas: {
     title: "Who opens this page",

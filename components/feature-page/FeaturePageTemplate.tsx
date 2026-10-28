@@ -1,6 +1,5 @@
 import type { ReactNode } from "react"
 
-import { NetworkRow } from "@/components/sections/NetworkRow"
 import { CtaBand } from "@/components/sections/CtaBand"
 import { Hero } from "@/components/sections/Hero"
 import { HowToUse } from "@/components/sections/HowToUse"
@@ -63,8 +62,6 @@ export function FeaturePageTemplate({ config, heroVisual, heroChipExtra, heroTra
           heroTrailing ??
           (hero.metricsLine ? (
             <p className="text-sm text-muted-foreground">{hero.metricsLine}</p>
-          ) : hero.networks ? (
-            <NetworkRow label={hero.networks} />
           ) : undefined)
         }
         visual={heroVisual}

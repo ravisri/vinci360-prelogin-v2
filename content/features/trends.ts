@@ -21,7 +21,7 @@ export const trendsPage = {
     title: "Spot what is rising, not just what is big.",
     lead: "Topics and hashtags ranked by momentum, so you can decide which conversations to join this week.",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
+    secondary: { label: "Explore the features", href: "/features" },
   },
   personas: {
     title: "Who opens this page",

@@ -13,7 +13,6 @@ import { FloatCard } from "@/components/mocks/FloatCard"
 import { Hotspot } from "@/components/mocks/Hotspot"
 import { KpiCard } from "@/components/mocks/KpiCard"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { PostCard } from "@/components/mocks/PostCard"
 import { ReachNote } from "@/components/mocks/ReachNote"
 import { SampleDataChip } from "@/components/mocks/SampleDataChip"
@@ -25,7 +24,6 @@ import { FeatureSplit } from "@/components/sections/FeatureSplit"
 import { Hero } from "@/components/sections/Hero"
 import { HowToUse } from "@/components/sections/HowToUse"
 import { ModuleChip } from "@/components/sections/ModuleChip"
-import { NetworkRow } from "@/components/sections/NetworkRow"
 import { OutcomeGrid } from "@/components/sections/OutcomeGrid"
 import { PlaceholderInline } from "@/components/sections/PlaceholderBlock"
 import { ProofPlaceholder } from "@/components/sections/ProofPlaceholder"
@@ -35,7 +33,7 @@ import { VisualPanel } from "@/components/sections/VisualPanel"
 import { WhoOpensThisPage } from "@/components/sections/WhoOpensThisPage"
 import { kit } from "@/content/kit"
 import { features } from "@/content/navigation"
-import { home, kpis30d, networks, smi, trends, type Kpi } from "@/content/sample-data"
+import { home, kpis30d, smi, trends, type Kpi } from "@/content/sample-data"
 import { buildMetadata } from "@/lib/seo"
 
 export const metadata = buildMetadata({
@@ -81,7 +79,7 @@ export default function KitPage() {
       </div>
 
       {/* ------------------------------ Sections ------------------------------ */}
-      <KitBlock label="Hero · split (feature template) · VisualPanel · MockFrame · KpiCard · Bars · FloatCard + PostCard · Hotspot · NetworkRow">
+      <KitBlock label="Hero · split (feature template) · VisualPanel · MockFrame · KpiCard · Bars · FloatCard + PostCard · Hotspot · metrics line">
         <Hero
           breadcrumb={kit.hero.breadcrumb}
           chip={{ label: kit.hero.chip, accent: "smi", variant: "solid" }}
@@ -89,7 +87,7 @@ export default function KitPage() {
           lead={kit.hero.lead}
           primary={kit.hero.primary}
           secondary={kit.hero.secondary}
-          trailing={<NetworkRow label={kit.hero.networks} />}
+          trailing={<p className="text-sm text-muted-foreground">{kit.hero.metricsLine}</p>}
           visual={
             <VisualPanel accent="smi" dots="br" className="md:pb-14">
               <div className="relative md:w-[94%]">
@@ -123,7 +121,6 @@ export default function KitPage() {
                   initials={smi.articles[0].initials}
                   handle={smi.articles[0].handle}
                   time={kit.hero.post.time}
-                  network={smi.articles[0].network}
                   text={kit.hero.post.text}
                   sentiment="neg"
                   engagement={kit.hero.post.engagement}
@@ -370,7 +367,6 @@ export default function KitPage() {
                   initials={p.initials}
                   handle={p.handle}
                   time={p.time}
-                  network={p.network}
                   text={p.text}
                   sentiment={p.sentiment}
                   metrics={{ likes: fmt(p.likes), comments: fmt(p.comments), shares: fmt(p.shares), views: p.views }}
@@ -457,17 +453,13 @@ export default function KitPage() {
 
           <MockFrame
             title="HBar"
-            caption={`Sample share of mentions by platform: ${home.dashboard.platformShare.map((p) => `${networks[p.network]} ${p.share}%`).join(", ")}. Overall sentiment: positive ${fmt(smi.sentiment.counts[0])}, neutral ${fmt(smi.sentiment.counts[1])}, negative ${fmt(smi.sentiment.counts[2])}.`}
+            caption={`Sample top topics by momentum: ${home.risingTopics.rows.slice(0, 4).map((t) => `${t.topic} ${t.score}`).join(", ")}. Overall sentiment: positive ${fmt(smi.sentiment.counts[0])}, neutral ${fmt(smi.sentiment.counts[1])}, negative ${fmt(smi.sentiment.counts[2])}.`}
           >
             <HBar
               ariaLabel={kit.charts.platformShare}
-              labelClassName="w-17.5"
-              data={home.dashboard.platformShare.map((p) => ({
-                label: networks[p.network],
-                value: p.share,
-                display: `${p.share}%`,
-                icon: <NetworkIcon network={p.network} className="size-4" />,
-              }))}
+              labelClassName="w-32"
+              max={100}
+              data={home.risingTopics.rows.slice(0, 4).map((t) => ({ label: t.topic, value: t.score, display: String(t.score) }))}
             />
             <HBar
               ariaLabel={kit.charts.overall}

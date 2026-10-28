@@ -12,7 +12,7 @@ import { MockFrame } from "@/components/mocks/MockFrame"
 import { ReachNote } from "@/components/mocks/ReachNote"
 import { SentimentChip } from "@/components/mocks/SentimentChip"
 import { aiChipDark } from "@/components/mocks/stories/styles"
-import { brands, networks, solutions as data, type SolutionsStat } from "@/content/sample-data"
+import { brands, solutions as data, type SolutionsStat } from "@/content/sample-data"
 import { solutionsPage, type Role } from "@/content/solutions"
 import { sentimentText, trendGlyph, trendText, trendWord } from "@/lib/sentiment"
 import { cn } from "@/lib/utils"
@@ -181,21 +181,21 @@ function PrView() {
           </ul>
         </div>
         <div className={cn(dk, "flex flex-col gap-2.5")}>
-          <p className={wt}>Sentiment by platform</p>
+          <p className={wt}>Sentiment by topic</p>
           <ul className="flex flex-col gap-2.5">
-            {p.platforms.map((row) => {
+            {p.topics.map((row) => {
               const neg = row.slipping
               return (
                 <li
-                  key={row.network}
-                  className={cn("grid grid-cols-[4rem_minmax(0,1fr)] items-center gap-2 text-xs md:grid-cols-[4rem_minmax(0,1fr)_4.75rem]", neg && "rounded-xs font-bold outline-2 outline-offset-4 outline-neg")}
+                  key={row.label}
+                  className={cn("grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-2 text-xs md:grid-cols-[6.5rem_minmax(0,1fr)_4.75rem]", neg && "rounded-xs font-bold outline-2 outline-offset-4 outline-neg")}
                 >
-                  <span>{networks[row.network]}</span>
+                  <span className="leading-tight">{row.label}</span>
                   <StackedBar100
                     data={row.split}
                     height={10}
                     labels={false}
-                    ariaLabel={`${networks[row.network]}: ${row.split[0]}% positive, ${row.split[1]}% neutral, ${row.split[2]}% negative`}
+                    ariaLabel={`${row.label}: ${row.split[0]}% positive, ${row.split[1]}% neutral, ${row.split[2]}% negative`}
                   />
                   <span className={cn("max-md:hidden", neg ? "text-neg" : "text-pos")}>
                     <span aria-hidden="true">{neg ? "▼" : "▲"} </span>
@@ -217,7 +217,7 @@ function PrView() {
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-[0.6875rem] text-muted-foreground">
-                    {networks[post.network]} · {post.time}
+                    {post.time}
                   </span>
                   “{post.text}”
                 </span>

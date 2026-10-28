@@ -22,7 +22,7 @@ export const sentimentPage = {
     lead: "See where the favourable and adverse conversation sits, and how any keyword or campaign term performs across every topic.",
     leadMobile: "See where the favourable and adverse conversation sits, and how any keyword performs across every topic.",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
+    secondary: { label: "Explore the features", href: "/features" },
   },
   personas: {
     title: "Who opens this page",

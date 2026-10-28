@@ -22,7 +22,7 @@ export const storiesPage = {
     lead: "Vinci360 reads what people are saying around your trending hashtags and proposes stories worth promoting, each with the proof behind it.",
     leadMobile: "Vinci360 proposes stories worth promoting from what people say around your trending hashtags, each with its proof.",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
+    secondary: { label: "Explore the features", href: "/features" },
   },
   personas: {
     title: "Who opens this page",

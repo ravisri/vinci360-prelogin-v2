@@ -89,7 +89,7 @@ export const featuresOverview = {
     /** Desktop only: 390 ends the lead at "brand." */
     leadTail: ", from what is being said to what is worth promoting",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
+    secondary: { label: "See solutions by role", href: "/solutions", icon: Users },
     metricsLine: "Mentions · Reach · Interactions · Sentiment, analysed in one place",
     chrome: "vinci360 · Aurora Mobile",
     chromeMobile: "Aurora Mobile",

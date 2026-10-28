@@ -1,12 +1,13 @@
+import { Heart, MessageSquare, Radio, Smile } from "lucide-react"
+
 import { LineArea } from "@/components/charts/LineArea"
 import { SentimentLegend } from "@/components/charts/StackedBar100"
 import { FloatCard } from "@/components/mocks/FloatCard"
 import { KpiCard } from "@/components/mocks/KpiCard"
 import { MockFrame } from "@/components/mocks/MockFrame"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { PostCard } from "@/components/mocks/PostCard"
 import { login } from "@/content/login"
-import { loginPreview, networks, weekly, type Network } from "@/content/sample-data"
+import { loginPreview, weekly } from "@/content/sample-data"
 
 const p = login.preview
 const kpis = [weekly.mentions, weekly.engagement, weekly.netSentiment] as const
@@ -15,7 +16,7 @@ const kpiFormats = [undefined, { notation: "compact" } as const, { signDisplay: 
 /**
  * Log in right panel: a 3-KPI Social Media Intelligence preview for Aurora Mobile (this week), the
  * mention volume line and a negative @kr_tech mention floating off the bottom-left corner, clear of
- * the KPI labels. Followed by the tagline and the four networks.
+ * the KPI labels. Followed by the tagline and the four headline metrics.
  */
 export function LoginPreviewMock() {
   const mention = loginPreview.mention
@@ -62,7 +63,6 @@ export function LoginPreviewMock() {
           <PostCard
             initials={mention.initials}
             handle={mention.handle}
-            network={mention.network as Network}
             text={mention.text}
             sentiment={mention.sentiment}
             className="p-0"
@@ -73,11 +73,11 @@ export function LoginPreviewMock() {
         <p className="font-heading text-2xl leading-[1.25] font-extrabold">{p.tagline}</p>
         <p className="flex items-center gap-3 text-[0.90625rem] text-muted-foreground">
           <span aria-hidden="true" className="flex gap-2.5">
-            {(Object.keys(networks) as Network[]).map((n) => (
-              <NetworkIcon key={n} network={n} className="size-5" />
+            {[MessageSquare, Radio, Heart, Smile].map((Icon, i) => (
+              <Icon key={i} strokeWidth={1.8} className="size-5 flex-none" />
             ))}
           </span>
-          {p.networks}
+          {p.metricsLine}
         </p>
       </div>
     </div>

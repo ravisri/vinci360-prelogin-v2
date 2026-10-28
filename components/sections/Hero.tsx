@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
-import { PlayCircle, type LucideIcon } from "lucide-react"
+import { LayoutGrid, type LucideIcon } from "lucide-react"
 
 import { ModuleChip } from "@/components/sections/ModuleChip"
 import { Button } from "@/components/ui/button"
@@ -21,7 +21,7 @@ type HeroProps = {
   lead: ReactNode
   /** Filled CTA ("Request a demo"). */
   primary: Action
-  /** Outline button with a play icon ("Take the product tour"). */
+  /** Outline button with an icon (default grid, e.g. "Explore the features"). */
   secondary?: Action
   /** Under the buttons: network row, "On this page" pills… */
   trailing?: ReactNode
@@ -55,10 +55,10 @@ function Breadcrumb({ items }: { items: readonly Crumb[] }) {
   )
 }
 
-/** Page hero: chip, H1, lead, CTA + tour buttons, optional trailing line and visual. */
+/** Page hero: chip, H1, lead, CTA + secondary buttons, optional trailing line and visual. */
 export function Hero({ variant = "split", breadcrumb, chip, chipExtra, title, lead, primary, secondary, trailing, visual, after, className }: HeroProps) {
   const center = variant === "center"
-  const SecondaryIcon = secondary?.icon ?? PlayCircle
+  const SecondaryIcon = secondary?.icon ?? LayoutGrid
   const moduleChip = chip && <ModuleChip size="md" accent={chip.accent} label={chip.label} variant={chip.variant} bordered={chip.bordered} />
   const text = (
     <div className={cn("flex flex-col gap-4 md:gap-5", center ? "mx-auto max-w-235 items-center text-center" : "min-w-0 lg:flex-[1_1_440px]")}>

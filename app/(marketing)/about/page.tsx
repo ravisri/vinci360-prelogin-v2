@@ -53,7 +53,7 @@ const exploreArt: Record<string, React.ReactNode> = {
       ))}
     </span>
   ),
-  tour: (
+  source: (
     <span className="flex items-center gap-2">
       {[0, 1, 2, 3].map((i) => (
         <span key={i} className="flex items-center gap-2">

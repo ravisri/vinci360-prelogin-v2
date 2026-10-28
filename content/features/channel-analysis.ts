@@ -23,7 +23,7 @@ export const channelsPage = {
     lead: "Four focused views on the conversation about your brand: interactions, top content, top voices and amplification, each with its own measures instead of one blended score.",
     leadMobile: "Four focused views on the conversation: interactions, top content, top voices and amplification.",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
+    secondary: { label: "Explore the features", href: "/features" },
   },
   personas: {
     title: "Who opens this page",

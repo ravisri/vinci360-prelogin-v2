@@ -92,7 +92,7 @@ export const contactSuccess = {
   title: (name: string) => `Thanks, ${name}. We’ve got your message.`,
   labels: { topic: "Topic", email: "Reply to" },
   responseTime: "[Typical response time: to be confirmed]",
-  tour: { label: "Take the product tour", href: "/product-tour" },
+  tour: { label: "Explore the features", href: "/features" },
   home: { label: "Back to home", href: "/" },
 } as const
 
@@ -151,7 +151,7 @@ export const contactFaq = {
   title: "Before you write",
   lead: "Three quick answers.",
   items: [
-    { question: "Which networks does Vinci360 cover?", answer: "Facebook, X (Twitter), YouTube and Instagram." },
+    { question: "What does Vinci360 monitor?", answer: "Public social media conversation about your brand, products and competitors: mentions, reach, interactions, sentiment, trends and hashtags." },
     { question: "Can I see my own brand in a demo?", answer: "Yes. Use the Request a demo page to tell us your brand and up to two competitors." },
     { question: "Is reach an exact number?", answer: "No. Reach is an estimate based on audience size and observed amplification." },
   ] as readonly Faq[],
@@ -173,7 +173,7 @@ export const contactMsr = {
 export const contactExplore = {
   title: "Keep exploring",
   items: [
-    { accent: "smi", label: "Product tour", prompt: "Follow one story in seven steps.", href: "/product-tour", linkLabel: "Take the tour" },
+    { accent: "smi", label: "Request a demo", prompt: "See it on your own brand and two competitors.", href: "/request-demo", linkLabel: "Request a demo" },
     { accent: "smi", label: "Features overview", prompt: "See what Vinci360 does.", href: "/features", linkLabel: "Explore the features" },
     { accent: "smi", label: "Solutions", prompt: "Find your role.", href: "/solutions", linkLabel: "See solutions by role" },
   ],

@@ -6,4 +6,4 @@ export const siteName = "vinci360°"
 export const defaultTitle = "vinci360° — Social media intelligence"
 
 export const defaultDescription =
-  "vinci360° brings Facebook, X, YouTube and Instagram into one view: trends, sentiment, competitor comparison, promotable stories and reports for your brand."
+  "vinci360° brings the conversation about your brand into one view: trends, sentiment, competitor comparison, promotable stories and reports, across social media."

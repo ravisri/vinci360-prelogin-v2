@@ -1,8 +1,7 @@
 import { ExternalLink, Eye, Heart, MessageCircle, Repeat2 } from "lucide-react"
 
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { SentimentChip } from "@/components/mocks/SentimentChip"
-import { networks, type Network, type Sentiment } from "@/content/sample-data"
+import type { Sentiment } from "@/content/sample-data"
 import { cn } from "@/lib/utils"
 
 type PostMetrics = { likes: string; comments: string; shares: string; views?: string }
@@ -13,8 +12,6 @@ type PostCardProps = {
   handle: string
   /** Omitted when the reference shows no time (Promotable Stories posts). */
   time?: string
-  /** Source-agnostic pages omit it: no icon and no network name are rendered. */
-  network?: Network
   text: string
   sentiment: Sentiment
   /** Light card footer, e.g. "2.4K engagements". */
@@ -28,7 +25,7 @@ type PostCardProps = {
   className?: string
 }
 
-type PostRowProps = Pick<PostCardProps, "initials" | "network" | "text" | "sentiment" | "linkLabel" | "className"> & {
+type PostRowProps = Pick<PostCardProps, "initials" | "text" | "sentiment" | "linkLabel" | "className"> & {
   /** e.g. "2.4K". */
   engagement: string
   /** Tooltip on the link label, e.g. "Opens the original post in the product". */
@@ -36,21 +33,15 @@ type PostRowProps = Pick<PostCardProps, "initials" | "network" | "text" | "senti
 }
 
 /**
- * One-line dark post row (avatar · network · text · sentiment · engagement · link), as in the
+ * One-line dark post row (avatar · text · sentiment · engagement · link), as in the
  * "posts behind a segment" lists. Wraps below sm so the text keeps a readable width.
  */
-export function PostRow({ initials, network, text, sentiment, engagement, linkLabel, linkTitle, className }: PostRowProps) {
+export function PostRow({ initials, text, sentiment, engagement, linkLabel, linkTitle, className }: PostRowProps) {
   return (
     <article className={cn("flex flex-wrap items-center gap-x-2.5 gap-y-1.5 border-t border-border py-2 text-[0.78125rem] sm:flex-nowrap", className)}>
       <span aria-hidden="true" className="grid size-7 flex-none place-items-center rounded-full bg-border text-[0.625rem] font-bold">
         {initials}
       </span>
-      {network && (
-        <span className="flex-none text-muted-foreground">
-          <NetworkIcon network={network} className="size-3.75" />
-          <span className="sr-only">{networks[network]}</span>
-        </span>
-      )}
       <p className="min-w-0 flex-[1_1_12rem]">{text}</p>
       <SentimentChip sentiment={sentiment} className="text-[0.65625rem]" />
       <span className="text-[0.6875rem] text-muted-foreground tabular">
@@ -74,8 +65,8 @@ const metricIcons = [
   { key: "views", Icon: Eye, label: "views" },
 ] as const
 
-/** Social post: initials avatar, handle, time, network, text, sentiment and engagement. */
-export function PostCard({ initials, handle, time, network, text, sentiment, engagement, metrics, linkLabel, tone = "light", className }: PostCardProps) {
+/** Social post: initials avatar, handle, time, text, sentiment and engagement. */
+export function PostCard({ initials, handle, time, text, sentiment, engagement, metrics, linkLabel, tone = "light", className }: PostCardProps) {
   const dark = tone === "dark"
   return (
     <article className={cn("flex flex-col gap-2 rounded-lg bg-card", dark ? "border border-border p-3" : "p-3.5", className)}>
@@ -99,12 +90,6 @@ export function PostCard({ initials, handle, time, network, text, sentiment, eng
           )}
         </p>
         <span className={cn("flex items-center gap-2", dark && "text-muted-foreground")}>
-          {network && (
-            <>
-              <NetworkIcon network={network} className={dark ? "size-4" : "size-4.5"} />
-              <span className="sr-only">{networks[network]}</span>
-            </>
-          )}
           {dark && <SentimentChip sentiment={sentiment} />}
         </span>
       </header>

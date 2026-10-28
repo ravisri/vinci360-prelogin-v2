@@ -3,7 +3,7 @@ import type { ComponentType, ReactNode } from "react"
 import { accents, type Accent } from "@/lib/accents"
 import { cn } from "@/lib/utils"
 
-/** Any lucide icon, or a NetworkIcon glyph (lucide ships no brand icons). */
+/** Any lucide icon (or a custom glyph component with the same props). */
 export type BenefitIcon = ComponentType<{ className?: string; strokeWidth?: number; "aria-hidden"?: boolean | "true" | "false" }>
 
 export type Benefit = { icon: BenefitIcon; title: string; text: ReactNode }

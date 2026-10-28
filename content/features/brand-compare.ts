@@ -25,7 +25,7 @@ export const comparePage = {
     lead: "Your brand and named competitors measured side by side on mentions, engagement, sentiment, reach and share of voice.",
     leadMobile: "Your brand and named competitors side by side on mentions, engagement, sentiment, reach and share of voice.",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
+    secondary: { label: "Explore the features", href: "/features" },
   },
   personas: {
     title: "Who opens this page",

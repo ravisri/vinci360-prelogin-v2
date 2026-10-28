@@ -50,7 +50,6 @@ shadcn primitives, edited in place (never wrapped in copies). All accept `classN
 - `ModuleChip` — `accent, label, variant, size, dot, bordered, className` — Module pill: tint + text-safe accent, optional dot in the module fill. (ModuleChip.tsx)
 - `ModuleMap` — `tiles, link, className` — "The module map": seven solid-accent tiles (SMI and Source Analysis wide; Source Analysis shows 4 metric icons), each with its modules and a link to its page. (ModuleMap.tsx)
 - `IconGrid` — `title, items, after, className` — White strip: centred H2 + four items, each a lucide icon tile beside a bold title and one line (Home "Every metric that matters"). (IconGrid.tsx)
-- `NetworkRow` — `label, align, className` — Four network glyphs + a line of text, e.g. (NetworkRow.tsx)
 - `OutcomeGrid` — `title, items, accent, className` — "What it does for your brand": three large outcome tiles. (OutcomeGrid.tsx)
 - `PageAnatomy` — `className` — "Every page works the same way": the three-zone page anatomy. (PageAnatomy.tsx)
 - `PlaceholderBlock` — `title, badge, headingAs, children, className` — Dashed block for content still to be supplied. (PlaceholderBlock.tsx)
@@ -86,7 +85,7 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 - `contactExploreThumbnails` — array of 3 nodes — "Keep exploring" thumbnails (tour steps, feature grid, role pills). (ExploreThumbnails.tsx)
 
 ## components/sections/demo/
-- `DemoForm` — — — "Tell us about you" (#form): request type, names, email, company, role, brand, competitor chips (max 2), keyword, networks, notes (500), consent, honeypot; error summary, sending, success summary, failure + Retry; sticky submit bar below md. (DemoForm.tsx)
+- `DemoForm` — — — "Tell us about you" (#form): request type, names, email, company, role, brand, competitor chips (max 2), keyword, focus areas, notes (500), consent, honeypot; error summary, sending, success summary, failure + Retry; sticky submit bar below md. (DemoForm.tsx)
 - `DemoPreviewMock` — `className` — Hero sample preview: 3 KPIs + share-of-voice ring in a dark frame on the primary tint, with the "In your demo…" note. (DemoPreviewMock.tsx)
 - `DemoSteps` — `className` — "What happens next": 3 step cards with art (md+), compact badge rows at 390, `[Timing…]` placeholder. (DemoSteps.tsx)
 - `WhatYoullSee` — `className` — Sticky intro + seven-stop numbered timeline with module dots (lg); one accordion below lg. (WhatYoullSee.tsx)
@@ -95,7 +94,7 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 - `LinkBand` — `title, links, className` — Slim navy band: H2 + outline arrow links ("Still deciding? …"). (LinkBand.tsx)
 
 ## components/sections/about/
-- `NetworksHeroVisual` — `caption` — About hero (client): four network nodes wired by dashed connectors that draw in, hub pulses once, dark dashboard frame; compact 2-column version at 390. (NetworksHeroVisual.tsx)
+- `NetworksHeroVisual` — `caption` — About hero (client): four metric nodes wired by dashed connectors that draw in, hub pulses once, dark dashboard frame; compact 2-column version at 390. (NetworksHeroVisual.tsx)
 - `PrincipleCards` — `className` — "What we believe": four staggered principle cards; mini illustrations (posts, native metric chips, reach estimate, Accept/Dismiss) from md. (PrincipleCards.tsx)
 - `FeatureTiles` — `className` — "What Vinci360 does": seven feature link tiles (dot, name, question); swipe strip below md. (FeatureTiles.tsx)
 - `MsrcosmosBlock` — `className` — "A product from MSRcosmos": placeholder copy, placeholder "Visit msrcosmos.com" (tooltip, no navigation), logo placeholder card. (MsrcosmosBlock.tsx)
@@ -112,10 +111,6 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 - `RoleTabs` — `label, items, active` — "Choose your role" tablist (client island): roving tabindex, router.replace `?role=` with no scroll; sideways-scrolling sticky row below md. (RoleTabs.tsx)
 - `RoleSwitchButton` — `role, pressed, children, className` — Opens a role in the panel above and scrolls to #roles (matrix headers). (RoleTabs.tsx)
 - `StartPicker` — `labelledBy, describedBy` — "Which page should I start with?": toggle-group goal picker → "Start here" card + "Then try" card, aria-live. (StartPicker.tsx)
-
-## components/sections/tour/
-- `TourStepper` — `mocks` — The tour stage: step rail (or module menu in free explore), the active step's dark mock, and the "What you're seeing / Try this / Why it matters" panel. (TourStepper.tsx)
-- `TourContext`, `useTour()` — context — Tour range, view and nudge state shared with the step mocks (tour-context.tsx)
 
 ## components/feature-page/
 - `FeaturePageTemplate` — `config, heroVisual, heroChipExtra, heroTrailing, stepIllustrations, relatedThumbnails, children` — Shared skeleton of the seven feature pages (`hero.metricsLine` renders a source-agnostic text line in place of the network row), in the reference order: Hero → Who opens this page → [page sections] → How to use it → What it does for your bran… (FeaturePageTemplate.tsx)
@@ -158,9 +153,8 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 - `KpiCard` — `label, value, format, prefix, suffix, delta, trend, tone, spark, size, selected, className` — Dark KPI tile for mock frames (colours come from the frame's `on-dark` scope). (KpiCard.tsx)
 - `MetricStrip` — `items, size, sampleChip, tone, className` — Inside dark mock frames only (not page sections). Source-agnostic Brand24-style KPI row (Mentions · Social media reach · Interactions · Positive · Negative) from `overview.kpis`; figure + sr figcaption, optional Sample data chip, ReachNote when reach is shown. (MetricStrip.tsx)
 - `MockFrame` — `caption, chrome, title, actions, children, className, bodyClassName` — Dark dashboard window. (MockFrame.tsx)
-- `NetworkIcon` — `network, className` — Stroke glyph for Facebook / X / YouTube / Instagram (decorative; name always in text nearby). Also `networkGlyph(network)` for icon slots (NetworkIcon.tsx)
-- `PostRow` — `initials, network?, text, sentiment, engagement, linkLabel, linkTitle, className` — One-line dark post row (avatar · network · text · sentiment · engagement · link), as in the "posts behind a segment" lists. (PostCard.tsx)
-- `PostCard` — `initials, handle, time, network?, text, sentiment, engagement, metrics, linkLabel, tone, className` — Social post: initials avatar, handle, time, network, text, sentiment and engagement. (PostCard.tsx)
+- `PostRow` — `initials, text, sentiment, engagement, linkLabel, linkTitle, className` — One-line dark post row (avatar · text · sentiment · engagement · link), as in the "posts behind a segment" lists. (PostCard.tsx)
+- `PostCard` — `initials, handle, time, text, sentiment, engagement, metrics, linkLabel, tone, className` — Social post: initials avatar, handle, time, text, sentiment and engagement. (PostCard.tsx)
 - `ReachNote` — `className` — Required wherever reach appears. (ReachNote.tsx)
 - `SampleDataChip` — `tone, className` — "Sample data" chip carried by every mock that shows numbers. (SampleDataChip.tsx)
 - `SentimentChip` — `sentiment, short, className` — "▼ Negative" chip. (SentimentChip.tsx)
@@ -188,7 +182,7 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 - `PausedChartMock` — — — 500: line stops part-way at a dashed pause line with a warning marker. (PausedChartMock.tsx)
 
 ## components/mocks/login/
-- `LoginPreviewMock` — — — Log in right panel: 3 weekly KPIs, mention volume line, light @kr_tech mention float (clear of KPI labels), tagline + networks. Place inside an `on-dark` aside. (LoginPreviewMock.tsx)
+- `LoginPreviewMock` — — — Log in right panel: 3 weekly KPIs, mention volume line, light @kr_tech mention float (clear of KPI labels), tagline + focus areas. Place inside an `on-dark` aside. (LoginPreviewMock.tsx)
 
 ## components/mocks/compare/
 - `BrandHatchDefs` — `id, brand, stretched, scaleX` — Brand-coloured hatch (base fill + dark stripes) for "owned alone" bars and the Kestrel segment. (BrandStack.tsx)
@@ -272,7 +266,7 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 - `frameChip`, `hitArea`, `darkCard`, `overlayButton` — class strings — Shared in-mock styles (styles.ts)
 
 ## components/mocks/solutions/
-- `FirstHourMock` — `role` — Solutions first-hour view, one data-driven frame for all four roles (brand KPIs + topics + story · PR alerts + platform sentiment + posts · agency index + report + schedules · leadership SOV + gap + brief); 2×2 KPIs at 390; two edge hotspots. (FirstHourMock.tsx)
+- `FirstHourMock` — `role` — Solutions first-hour view, one data-driven frame for all four roles (brand KPIs + topics + story · PR alerts + topic sentiment + posts · agency index + report + schedules · leadership SOV + gap + brief); 2×2 KPIs at 390; two edge hotspots. (FirstHourMock.tsx)
 
 ## components/mocks/stories/
 - `StoriesHeroMock` — — — Promotable Stories hero: two story candidates (lead with sources, evidence, Accept/Dismiss), hotspots on the chip row and beside the actions, "3 sample posts" float. (StoriesHeroMock.tsx)
@@ -299,19 +293,6 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 - `ReportsControl` — — — "Control who sees what and when": saved views, export, role access matrix; 390 = transposed matrix that scrolls sideways. (ReportsControl.tsx)
 - `reportsStepIllustrations`, `reportsRelatedThumbnails` — arrays of 3 nodes — Step and related thumbnails (ReportsIllustrations.tsx)
 - `paper`, `kpiTile`, `tintChip`, `plainChip`, `solidChip`, `toggleChip`, `fieldLabel`, `recipChip` — class strings — Shared in-mock styles (styles.ts)
-
-## components/mocks/tour/
-- `TourCompareMock` — — — Step 1 · Brand Compare: share-of-voice donut, indexed comparison, gap trend and figure table. (TourCompareMock.tsx)
-- `TourFrame` — `step, filters, children, float, after` — Dark dashboard window shared by the seven tour steps: chrome, page header with the date window and saved view, the filter bar, then the step's widgets. (TourFrame.tsx)
-- `Panel` — `title, children, className` — Dark widget panel inside the frame ("dk" in the reference). (TourFrame.tsx)
-- `TourHotspot` — `step, i, className` — Step hotspot i (0–2) with the step's copy and accent; only the first pulses and carries the idle nudge. (TourFrame.tsx)
-- `MoodLegend` — `short, className` — "▲ Positive – Neutral ▼ Negative" in the mood colours, under a sentiment bar. (TourFrame.tsx)
-- `TourKeywordMock` — — — Step 5 · Keyword Analysis: the "Bright Nights" campaign line on every widget. (TourKeywordMock.tsx)
-- `TourReportsMock` — — — Step 7 · SMA Reports: light report preview, report type / period / output settings, alert rule and delivery preview. (TourReportsMock.tsx)
-- `TourSentimentMock` — — — Step 4 · Sentiment Analysis: overall net, threshold slider that flags topics, topic bars and hashtag-wise sentiment. (TourSentimentMock.tsx)
-- `TourSmiMock` — — — Step 2 · Social Media Intelligence: KPI row, clickable week timeline, topic and sentiment split, article feed. (TourSmiMock.tsx)
-- `TourStoriesMock` — — — Step 6 · Promotable Stories: evidence threshold, the lead candidate with its evidence and actions, and the other candidates. (TourStoriesMock.tsx)
-- `TourTrendsMock` — — — Step 3 · Trending Topics: selectable momentum scoreboard, topic detail, topic cloud and "who owns it" strip. (TourTrendsMock.tsx)
 
 ## components/mocks/trends/
 - `CategoriesWidget` — — — Block A4 · Product categories: share of trending conversation per business line, with its mood. (CategoriesWidget.tsx)

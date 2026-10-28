@@ -1,13 +1,13 @@
 "use client"
 
 import Link from "next/link"
-import { Menu, PlayCircle } from "lucide-react"
+import { Menu, LayoutGrid } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { NavLink } from "@/components/layout/NavLink"
-import { features, loginLink, platformLink, primaryNav, tourLink } from "@/content/navigation"
+import { features, loginLink, platformLink, primaryNav, overviewLink } from "@/content/navigation"
 import { HeaderCta } from "@/components/layout/HeaderCta"
 import { cn } from "@/lib/utils"
 
@@ -42,11 +42,11 @@ export function MobileNav({ className }: { className?: string }) {
             <li>
               <SheetClose asChild>
                 <Link
-                  href={tourLink.href}
+                  href={overviewLink.href}
                   className="mt-1 flex min-h-11 items-center gap-3 rounded-sm bg-muted px-5 text-[0.9375rem] font-semibold text-primary-700 no-underline hover:bg-accent"
                 >
-                  <PlayCircle aria-hidden="true" strokeWidth={2} className="size-5 text-primary" />
-                  {tourLink.label}
+                  <LayoutGrid aria-hidden="true" strokeWidth={2} className="size-5 text-primary" />
+                  {overviewLink.label}
                 </Link>
               </SheetClose>
             </li>

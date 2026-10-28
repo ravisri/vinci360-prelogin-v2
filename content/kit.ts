@@ -33,10 +33,10 @@ export const kit = {
     breadcrumb: [{ label: "Platform", href: "/features" }, { label: "Social Media Intelligence" }],
     chip: "Social Media Intelligence",
     title: "Everything being said about your brand, in one view.",
-    lead: "See what people are saying about you, on which network, and in what tone, right now.",
+    lead: "See what people are saying about you, about what, and in what tone, right now.",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
-    networks: "Facebook · X · YouTube · Instagram",
+    secondary: { label: "Explore the features", href: "/features" },
+    metricsLine: "Mentions · Reach · Interactions · Sentiment, analysed in one place",
     chrome: "vinci360 · Social Media Intelligence",
     barsTitle: "Mentions this week",
     post: {
@@ -117,7 +117,7 @@ export const kit = {
     title: "What it does for your brand",
     items: [
       { icon: Bell, title: "Know first", text: "See sudden spikes and tone shifts before they become headlines." },
-      { icon: MapPin, title: "See where it’s happening", text: "Which network and which topic carry the conversation." },
+      { icon: MapPin, title: "See where it’s happening", text: "Which topics and hashtags carry the conversation." },
       { icon: ShieldCheck, title: "Report with confidence", text: "Every number traces back to real posts." },
     ] satisfies Benefit[],
   },
@@ -152,7 +152,7 @@ export const kit = {
   faq: {
     title: "Questions people ask",
     items: [
-      { question: "Which networks does Vinci360 cover?", answer: "Facebook, X (Twitter), YouTube and Instagram." },
+      { question: "What does Vinci360 monitor?", answer: "Public social media conversation about your brand, products and competitors: mentions, reach, interactions, sentiment, trends and hashtags." },
       { question: "Will I see my own brand?", answer: "Yes. In the demo we look at your brand and the competitors you choose." },
       { question: "Is reach an exact number?", answer: "No. Reach is an estimate based on audience size and observed amplification." },
       { question: "Do I need to install anything?", answer: "No. Vinci360 is a service you use in your browser." },
@@ -173,7 +173,7 @@ export const kit = {
     spike: "Spike",
     shareOfVoice: "Share of voice · 8 weeks",
     topics: "Topic sentiment",
-    platformShare: "Mentions by platform",
+    platformShare: "Top topics by momentum",
     overall: "Overall sentiment",
     hashtags: "Hashtag cloud",
     topicCloud: "Topic cloud",

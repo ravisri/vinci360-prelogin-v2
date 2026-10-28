@@ -1,4 +1,5 @@
-import { CalendarDays } from "lucide-react"
+import { ArrowRight, CalendarDays } from "lucide-react"
+import Link from "next/link"
 
 import { Reveal } from "@/components/motion/Reveal"
 import { Stagger, StaggerItem } from "@/components/motion/Stagger"
@@ -14,6 +15,7 @@ import { RolePanel } from "@/components/sections/solutions/RolePanel"
 import { RoleTabs } from "@/components/sections/solutions/RoleTabs"
 import { StartPicker } from "@/components/sections/solutions/StartPicker"
 import { parseRole, roleKeys, roles, solutionsPage as page } from "@/content/solutions"
+import { accents } from "@/lib/accents"
 import { breadcrumb, buildMetadata, JsonLd } from "@/lib/seo"
 import { cn } from "@/lib/utils"
 
@@ -61,7 +63,7 @@ const exploreArt: Record<string, React.ReactNode> = {
       ))}
     </span>
   ),
-  tour: (
+  source: (
     <span className="flex items-center gap-2">
       {[0, 1, 2, 3].map((i) => (
         <span key={i} className="flex items-center gap-2">
@@ -99,6 +101,27 @@ export default async function SolutionsPage({ searchParams }: Props) {
           items={roleKeys.map((k) => ({ key: k, label: roles[k].label, initial: roles[k].initial, question: roles[k].question }))}
         />
         <RolePanel role={roles[role]} />
+      </section>
+
+      <section id="ai" aria-labelledby="ai-h" className="container-site flex scroll-mt-20 flex-col gap-7 pt-16 lg:pt-24">
+        <Reveal>
+          <SectionHeader id="ai-h" title={page.ai.title} lead={page.ai.lead} size="display" />
+        </Reveal>
+        <Stagger as="ul" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {page.ai.items.map(({ icon: Icon, accent, title, text, link, href }) => (
+            <StaggerItem as="li" key={title} className="flex flex-col gap-3 rounded-lg bg-card p-6 shadow-card">
+              <span aria-hidden="true" className={cn("grid size-11 place-items-center rounded-lg", accents[accent].tint, accents[accent].text)}>
+                <Icon strokeWidth={2} className="size-5.5" />
+              </span>
+              <h3 className="text-lg font-extrabold">{title}</h3>
+              <p className="flex-1 text-[0.90625rem] text-muted-foreground">{text}</p>
+              <Link href={href} className="inline-flex min-h-11 items-center gap-1.5 self-start text-sm font-semibold text-primary-700 underline-offset-4 hover:underline">
+                {link}
+                <ArrowRight aria-hidden="true" strokeWidth={2} className="size-4" />
+              </Link>
+            </StaggerItem>
+          ))}
+        </Stagger>
       </section>
 
       <section aria-labelledby="matrix-h" className="container-site flex flex-col gap-6 pt-16 lg:pt-24">

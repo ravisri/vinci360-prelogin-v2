@@ -40,7 +40,7 @@ const tileIcons: Record<ErrorTileIcon, LucideIcon> = {
   mail: Mail,
 }
 
-const actionIcons: Record<ErrorActionIcon, LucideIcon> = { home: House, play: CirclePlay, retry: RotateCcw }
+const actionIcons: Record<ErrorActionIcon, LucideIcon> = { home: House, grid: LayoutGrid, retry: RotateCcw }
 
 const accentDot: Record<NonNullable<ErrorTile["accent"]>, string> = { smi: "bg-smi", trends: "bg-trends", cmp: "bg-cmp" }
 
@@ -60,7 +60,7 @@ function Action({ action, variant }: { action: ErrorAction; variant: "default" |
   const Icon = actionIcons[action.icon]
   const content = (
     <>
-      <Icon aria-hidden="true" strokeWidth={action.icon === "play" ? 1.8 : 2} className="size-5" />
+      <Icon aria-hidden="true" strokeWidth={2} className="size-5" />
       {action.label}
     </>
   )

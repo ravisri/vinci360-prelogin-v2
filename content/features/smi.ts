@@ -21,7 +21,7 @@ export const smiPage = {
     title: "Everything being said about your brand, in one view.",
     lead: "See what people are saying about you, about what, and in what tone, right now.",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
+    secondary: { label: "Explore the features", href: "/features" },
     metricsLine: "Mentions · Reach · Interactions · Sentiment, analysed in one place",
   },
   personas: {

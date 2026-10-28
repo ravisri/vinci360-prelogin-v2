@@ -1,7 +1,7 @@
 /**
  * Sample data for every mock and illustration. Fictional brand Aurora Mobile vs Nimbus and Kestrel.
  * Values are copied verbatim from /design-ref. The references are not consistent with each other
- * (share of voice, competitor totals, platform split…), so data is grouped by the page whose
+ * (share of voice, competitor totals, topic split…), so data is grouped by the page whose
  * reference it comes from. Never "fix" a value here without checking the reference first.
  *
  * Main.dc.html and Features.dc.html name the third brand "Vertex Devices"; CLAUDE.md §7 limits
@@ -10,7 +10,6 @@
 
 export type Trend = "up" | "down" | "flat"
 export type Sentiment = "pos" | "neu" | "neg"
-export type Network = "facebook" | "x" | "youtube" | "instagram"
 
 /** Positive / neutral / negative shares in %. */
 export type Split = readonly [pos: number, neu: number, neg: number]
@@ -32,13 +31,6 @@ export const brands = {
   kestrel: { name: "Kestrel", short: "Kestrel" },
 } as const
 
-export const networks: Record<Network, string> = {
-  facebook: "Facebook",
-  x: "X",
-  youtube: "YouTube",
-  instagram: "Instagram",
-}
-
 /* --------------------------------------------------------------------------
    Shared: the 30-day Aurora Mobile KPIs (Main, Features, SMI, Compare, Tour)
    -------------------------------------------------------------------------- */
@@ -51,7 +43,7 @@ export const kpis30d = {
 } satisfies Record<string, Kpi>
 
 /* --------------------------------------------------------------------------
-   Source-agnostic overview (Brand24-style KPIs). No network is named or split out.
+   Source-agnostic overview (Brand24-style KPIs). No source is named or split out.
    Positive / negative counts are kpis30d.mentions × home.dashboard.sentimentSplit (54 / 18 %).
    -------------------------------------------------------------------------- */
 export type OverviewKpi = Kpi & {
@@ -80,14 +72,6 @@ export const weekly = {
   netSentiment: { label: "Net sentiment", value: 24, display: "+24", delta: "2 pts", trend: "down" },
   insight: "Mentions peaked on Saturday.",
 } as const
-
-/** Sentiment by platform, pos/neu/neg % (Main, Features, SMI, Sentiment, Tour). */
-export const sentimentByPlatform: Record<Network, Split> = {
-  facebook: [52, 30, 18],
-  x: [38, 34, 28],
-  youtube: [57, 29, 14],
-  instagram: [41, 27, 32],
-}
 
 /** Keyword-wise report rows "5–11 Oct" (Features, Reports, Tour). */
 export const keywordReport = [
@@ -132,14 +116,8 @@ export const home = {
     netSentimentSeries: [142.8, 138.6, 147, 134.4, 130.2, 138.6, 151.2, 142.8, 134.4, 138.6, 147, 142.8, 138.6, 130.2, 134.4, 142.8, 138.6, 117.6, 46.2, 71.4, 100.8, 113.4, 121.8, 126, 130.2, 126, 134.4, 130.2, 134.4, 134.4],
     spikeIndex: 18,
     sentimentSplit: [54, 28, 18] as Split,
-    platformShare: [
-      { network: "instagram", share: 38 },
-      { network: "x", share: 27 },
-      { network: "facebook", share: 21 },
-      { network: "youtube", share: 14 },
-    ] as { network: Network; share: number }[],
     feedPost: { handle: "@riya.k", initials: "RK", time: "2 min ago", sentiment: "neg" as Sentiment, engagement: "2.4K" },
-    alert: { label: "Alert · just now", text: "Mentions +212% vs normal", network: "instagram" as Network },
+    alert: { label: "Alert · just now", text: "Mentions +212% vs normal" },
   },
   snapshot: {
     label: "This week · Aurora Mobile",
@@ -150,10 +128,10 @@ export const home = {
     /** Mentions per day, Mon–Sun: relative bar heights read off the reference SVG (not counts). */
     daily: { labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], short: ["M", "T", "W", "T", "F", "S", "S"], values: [48, 56, 52, 64, 70, 92, 74], peak: 5 },
     feed: [
-      { network: "youtube", text: "“X2 night mode review — honestly stunning.”", short: "“X2 night mode review, stunning.”", sentiment: "pos" },
-      { network: "x", text: "“Aurora store opening in Pune this weekend.”", short: null, sentiment: "neu" },
-      { network: "facebook", text: "“Charger died again after the update.”", short: "“Charger died again after the update.”", sentiment: "neg" },
-    ] as { network: Network; text: string; short: string | null; sentiment: Sentiment }[],
+      { text: "“X2 night mode review — honestly stunning.”", short: "“X2 night mode review, stunning.”", sentiment: "pos" },
+      { text: "“Aurora store opening in Pune this weekend.”", short: null, sentiment: "neu" },
+      { text: "“Charger died again after the update.”", short: "“Charger died again after the update.”", sentiment: "neg" },
+    ] as { text: string; short: string | null; sentiment: Sentiment }[],
   },
   risingTopics: {
     label: "Rising topics · last 24h",
@@ -177,9 +155,8 @@ export const home = {
     ] as { term: string; weight: number; sentiment: Sentiment; mobile: number | null }[],
   },
   sentiment: {
-    byPlatform: sentimentByPlatform,
     topNegativeKeywords: ["charging", "support ticket", "update"],
-    callout: { network: "instagram" as Network, label: "Instagram · this week", metric: "Net sentiment", delta: "−12 pts", trend: "down" as Trend, driver: "Main driver: “charging”" },
+    callout: { label: "Battery & charging · this week", metric: "Net sentiment", delta: "−12 pts", trend: "down" as Trend, driver: "Main driver: “charging”" },
   },
   shareOfVoice: {
     label: "Share of voice · 8 weeks",
@@ -198,10 +175,10 @@ export const home = {
     ...leadStory,
     tags: ["#AuroraNights", "#ShotOnX2", "#NightMode"],
     posts: [
-      { initials: "AM", network: "instagram", text: "“Took this at 11 PM with no tripod. Unreal.”" },
-      { initials: "JS", network: "x", text: "“Night mode on the X2 beats my old camera.”" },
-      { initials: "PN", network: "youtube", text: "“City lights test, 4 shots, zero editing.”" },
-    ] as { initials: string; network: Network; text: string }[],
+      { initials: "AM", text: "“Took this at 11 PM with no tripod. Unreal.”" },
+      { initials: "JS", text: "“Night mode on the X2 beats my old camera.”" },
+      { initials: "PN", text: "“City lights test, 4 shots, zero editing.”" },
+    ] as { initials: string; text: string }[],
   },
   brief: {
     range: "5–11 Oct",
@@ -210,7 +187,7 @@ export const home = {
     topRising: { tag: "#AuroraX2Launch", delta: "2 ranks", trend: "up" as Trend },
     insight: weekly.insight,
   },
-  alertRule: "When Instagram mentions go above 2× the 7-day average",
+  alertRule: "When Aurora Mobile mentions go above 2× the 7-day average",
 }
 
 /* --------------------------------------------------------------------------
@@ -274,17 +251,10 @@ export const featuresOverview = {
     peak: 5,
   },
   smiKpis: [kpis30d.mentions, kpis30d.engagement, kpis30d.reach, kpis30d.posts, { ...kpis30d.sentiment, label: "Sentiment" }] as Kpi[],
-  platformShare: [
-    { network: "instagram", share: 38 },
-    { network: "x", share: 27 },
-    { network: "facebook", share: 21 },
-    { network: "youtube", share: 14 },
-  ] as { network: Network; share: number }[],
   post: {
     handle: "@riya.k",
     initials: "RK",
     time: "Sat · 9:12 PM",
-    network: "instagram" as Network,
     sentiment: "neg" as Sentiment,
     engagement: "2.4K",
     text: "Third Aurora X2 charger this year. Support keeps closing my ticket without a fix.",
@@ -364,7 +334,7 @@ export const smi = {
     { topic: "Price & offers", volume: 4130, engagement: "148K", split: [40, 45, 15] as Split },
     { topic: "Customer support", volume: 3040, engagement: "96K", split: [18, 32, 50] as Split },
   ],
-  /** Topic breakdown (source-agnostic): the reference's per-network numbers, relabelled to topics. */
+  /** Topic breakdown (source-agnostic): the reference numbers, relabelled to topics. */
   topicBreakdown: [
     { topic: "Aurora X2 launch", mentions: 29890, engagement: "1.11M", share: 62, engagementShare: 58 },
     { topic: "Night photography", mentions: 8680, engagement: "173K", share: 18, engagementShare: 9 },
@@ -373,10 +343,10 @@ export const smi = {
   ] as { topic: string; mentions: number; engagement: string; share: number; engagementShare: number }[],
   sentiment: { split: [54, 28, 18] as Split, counts: [26036, 13500, 8678], net: "+36" },
   articles: [
-    { handle: "@riya.k", initials: "RK", time: "Tue 9:12 PM", network: "instagram", sentiment: "neg", text: "Third Aurora X2 charger this year. Support keeps closing my ticket without a fix.", likes: 1920, comments: 311, shares: 164, views: "48K" },
-    { handle: "@meera.v", initials: "MV", time: "Mon 6:40 PM", network: "youtube", sentiment: "pos", text: "X2 night mode review: shot an entire city walk with no tripod.", likes: 8450, comments: 620, shares: 1040, views: "212K" },
-    { handle: "@technest", initials: "TN", time: "Mon 11:05 AM", network: "x", sentiment: "neu", text: "Aurora confirms a new flagship store in Pune opening this weekend.", likes: 402, comments: 38, shares: 96, views: "14K" },
-  ] as { handle: string; initials: string; time: string; network: Network; sentiment: Sentiment; text: string; likes: number; comments: number; shares: number; views: string }[],
+    { handle: "@riya.k", initials: "RK", time: "Tue 9:12 PM", sentiment: "neg", text: "Third Aurora X2 charger this year. Support keeps closing my ticket without a fix.", likes: 1920, comments: 311, shares: 164, views: "48K" },
+    { handle: "@meera.v", initials: "MV", time: "Mon 6:40 PM", sentiment: "pos", text: "X2 night mode review: shot an entire city walk with no tripod.", likes: 8450, comments: 620, shares: 1040, views: "212K" },
+    { handle: "@technest", initials: "TN", time: "Mon 11:05 AM", sentiment: "neu", text: "Aurora confirms a new flagship store in Pune opening this weekend.", likes: 402, comments: 38, shares: 96, views: "14K" },
+  ] as { handle: string; initials: string; time: string; sentiment: Sentiment; text: string; likes: number; comments: number; shares: number; views: string }[],
   hashtags: [
     { tag: "#AuroraX2Launch", usage: 4820, reach: "3.4M", growth: 22, sentiment: "pos" },
     { tag: "#ShotOnX2", usage: 3110, reach: "2.1M", growth: 64, sentiment: "pos" },
@@ -482,7 +452,6 @@ export const trends = {
     { topic: "Festive gifting", sub: "Industry-wide", mentions: [2140, 4860, 1800], engagementK: [156, 402, 98], net: [64, 59, 48], highlight: true },
     { topic: "Battery & charging", sub: "Aurora-heavy, negative", mentions: [8420, 3900, 2700], engagementK: [312, 190, 88], net: [-26, 8, 12] },
   ] as { topic: string; sub: string; mentions: [number, number, number]; engagementK: [number, number, number]; net: [number, number, number]; highlight?: boolean }[],
-  /** Platform split order is Instagram · X · YouTube · Facebook, as in the reference's bar. */
   hashtags: [
     { tag: "#AuroraLaunch", usage: 4120, mentions: 6300, engagement: "210K", reach: "3.1M", growth: 184, sentiment: "pos", spark: [2, 3, 3, 5, 7, 10, 14, 16] },
     { tag: "#NightModeTips", usage: 2940, mentions: 4100, engagement: "142K", reach: "1.9M", growth: 88, sentiment: "pos", spark: [4, 5, 5, 6, 8, 9, 10, 12] },
@@ -505,36 +474,36 @@ export const trends = {
   /** Posts carrying each tag (initials only). */
   tagPosts: {
     "#AuroraLaunch": [
-      { initials: "PN", handle: "@priya.n", time: "Mon 7:10 PM", network: "instagram", text: "Unboxed the X2 today. That camera bump is worth it. #AuroraLaunch", sentiment: "pos", likes: "4,210", comments: "312", shares: "188" },
-      { initials: "TN", handle: "@technest", time: "Mon 11:05 AM", network: "x", text: "Launch-day prices for the X2 are out. Thread below. #AuroraLaunch", sentiment: "neu", likes: "902", comments: "144", shares: "410" },
-      { initials: "MV", handle: "@meera.v", time: "Sun 6:40 PM", network: "youtube", text: "First 24 hours with the X2: full review. #AuroraLaunch", sentiment: "pos", likes: "8,450", comments: "620", shares: "1,040" },
+      { initials: "PN", handle: "@priya.n", time: "Mon 7:10 PM", text: "Unboxed the X2 today. That camera bump is worth it. #AuroraLaunch", sentiment: "pos", likes: "4,210", comments: "312", shares: "188" },
+      { initials: "TN", handle: "@technest", time: "Mon 11:05 AM", text: "Launch-day prices for the X2 are out. Thread below. #AuroraLaunch", sentiment: "neu", likes: "902", comments: "144", shares: "410" },
+      { initials: "MV", handle: "@meera.v", time: "Sun 6:40 PM", text: "First 24 hours with the X2: full review. #AuroraLaunch", sentiment: "pos", likes: "8,450", comments: "620", shares: "1,040" },
     ],
     "#NightModeTips": [
-      { initials: "AM", handle: "@arun.m", time: "Tue 11:02 PM", network: "instagram", text: "Hold still for 3 seconds and let the X2 do the rest. #NightModeTips", sentiment: "pos", likes: "2,880", comments: "204", shares: "96" },
-      { initials: "JS", handle: "@jas.s", time: "Mon 10:30 PM", network: "youtube", text: "Five night-mode settings nobody talks about. #NightModeTips", sentiment: "pos", likes: "5,120", comments: "388", shares: "612" },
-      { initials: "LP", handle: "@lena.p", time: "Mon 9:15 PM", network: "x", text: "Turn off the flash, trust the sensor. #NightModeTips", sentiment: "pos", likes: "640", comments: "41", shares: "88" },
+      { initials: "AM", handle: "@arun.m", time: "Tue 11:02 PM", text: "Hold still for 3 seconds and let the X2 do the rest. #NightModeTips", sentiment: "pos", likes: "2,880", comments: "204", shares: "96" },
+      { initials: "JS", handle: "@jas.s", time: "Mon 10:30 PM", text: "Five night-mode settings nobody talks about. #NightModeTips", sentiment: "pos", likes: "5,120", comments: "388", shares: "612" },
+      { initials: "LP", handle: "@lena.p", time: "Mon 9:15 PM", text: "Turn off the flash, trust the sensor. #NightModeTips", sentiment: "pos", likes: "640", comments: "41", shares: "88" },
     ],
     "#ShotOnX2": [
-      { initials: "AM", handle: "@arun.m", time: "Tue 11:02 PM", network: "instagram", text: "City lights, no tripod. #ShotOnX2", sentiment: "pos", likes: "3,410", comments: "220", shares: "140" },
-      { initials: "DS", handle: "@dev.s", time: "Mon 8:12 PM", network: "instagram", text: "Rain at night actually looks good now. #ShotOnX2", sentiment: "pos", likes: "1,980", comments: "96", shares: "54" },
-      { initials: "GD", handle: "@gadgetdesk", time: "Sun 2:00 PM", network: "youtube", text: "X2 vs last year’s flagship, night samples. #ShotOnX2", sentiment: "neu", likes: "6,020", comments: "512", shares: "730" },
+      { initials: "AM", handle: "@arun.m", time: "Tue 11:02 PM", text: "City lights, no tripod. #ShotOnX2", sentiment: "pos", likes: "3,410", comments: "220", shares: "140" },
+      { initials: "DS", handle: "@dev.s", time: "Mon 8:12 PM", text: "Rain at night actually looks good now. #ShotOnX2", sentiment: "pos", likes: "1,980", comments: "96", shares: "54" },
+      { initials: "GD", handle: "@gadgetdesk", time: "Sun 2:00 PM", text: "X2 vs last year’s flagship, night samples. #ShotOnX2", sentiment: "neu", likes: "6,020", comments: "512", shares: "730" },
     ],
     "#ChargerFail": [
-      { initials: "RK", handle: "@riya.k", time: "Tue 9:12 PM", network: "x", text: "Third charger this year. Support keeps closing my ticket. #ChargerFail", sentiment: "neg", likes: "1,920", comments: "311", shares: "164" },
-      { initials: "AB", handle: "@arjun.b", time: "Tue 6:48 PM", network: "x", text: "Anyone else’s charger overheating after the update? #ChargerFail", sentiment: "neg", likes: "840", comments: "226", shares: "98" },
-      { initials: "NK", handle: "@nikhil.k", time: "Mon 4:20 PM", network: "facebook", text: "Replacement arrived in 2 days, credit where due. #ChargerFail", sentiment: "pos", likes: "310", comments: "44", shares: "12" },
+      { initials: "RK", handle: "@riya.k", time: "Tue 9:12 PM", text: "Third charger this year. Support keeps closing my ticket. #ChargerFail", sentiment: "neg", likes: "1,920", comments: "311", shares: "164" },
+      { initials: "AB", handle: "@arjun.b", time: "Tue 6:48 PM", text: "Anyone else’s charger overheating after the update? #ChargerFail", sentiment: "neg", likes: "840", comments: "226", shares: "98" },
+      { initials: "NK", handle: "@nikhil.k", time: "Mon 4:20 PM", text: "Replacement arrived in 2 days, credit where due. #ChargerFail", sentiment: "pos", likes: "310", comments: "44", shares: "12" },
     ],
     "#FestiveDeals": [
-      { initials: "SR", handle: "@shop.radar", time: "Tue 9:00 AM", network: "facebook", text: "Every phone deal this festive week, one list. #FestiveDeals", sentiment: "neu", likes: "1,240", comments: "96", shares: "388" },
-      { initials: "PN", handle: "@priya.n", time: "Mon 6:10 PM", network: "instagram", text: "Got the X2 bundle with earbuds. #FestiveDeals", sentiment: "pos", likes: "620", comments: "38", shares: "14" },
-      { initials: "TN", handle: "@technest", time: "Mon 10:00 AM", network: "x", text: "Are festive discounts real this year? #FestiveDeals", sentiment: "neu", likes: "402", comments: "160", shares: "52" },
+      { initials: "SR", handle: "@shop.radar", time: "Tue 9:00 AM", text: "Every phone deal this festive week, one list. #FestiveDeals", sentiment: "neu", likes: "1,240", comments: "96", shares: "388" },
+      { initials: "PN", handle: "@priya.n", time: "Mon 6:10 PM", text: "Got the X2 bundle with earbuds. #FestiveDeals", sentiment: "pos", likes: "620", comments: "38", shares: "14" },
+      { initials: "TN", handle: "@technest", time: "Mon 10:00 AM", text: "Are festive discounts real this year? #FestiveDeals", sentiment: "neu", likes: "402", comments: "160", shares: "52" },
     ],
     "#GiftWithAurora": [
-      { initials: "KA", handle: "@kavya.a", time: "Tue 8:25 PM", network: "instagram", text: "Wrapped the X2 for my dad. He cried. #GiftWithAurora", sentiment: "pos", likes: "3,880", comments: "264", shares: "120" },
-      { initials: "MV", handle: "@meera.v", time: "Mon 5:30 PM", network: "instagram", text: "Gift guide: phones for parents who hate tech. #GiftWithAurora", sentiment: "pos", likes: "2,140", comments: "140", shares: "210" },
-      { initials: "RJ", handle: "@rahul.j", time: "Mon 1:15 PM", network: "facebook", text: "Delivery promised before the festival, fingers crossed. #GiftWithAurora", sentiment: "neu", likes: "220", comments: "31", shares: "8" },
+      { initials: "KA", handle: "@kavya.a", time: "Tue 8:25 PM", text: "Wrapped the X2 for my dad. He cried. #GiftWithAurora", sentiment: "pos", likes: "3,880", comments: "264", shares: "120" },
+      { initials: "MV", handle: "@meera.v", time: "Mon 5:30 PM", text: "Gift guide: phones for parents who hate tech. #GiftWithAurora", sentiment: "pos", likes: "2,140", comments: "140", shares: "210" },
+      { initials: "RJ", handle: "@rahul.j", time: "Mon 1:15 PM", text: "Delivery promised before the festival, fingers crossed. #GiftWithAurora", sentiment: "neu", likes: "220", comments: "31", shares: "8" },
     ],
-  } as Record<string, { initials: string; handle: string; time: string; network: Network; text: string; sentiment: Sentiment; likes: string; comments: string; shares: string }[]>,
+  } as Record<string, { initials: string; handle: string; time: string; text: string; sentiment: Sentiment; likes: string; comments: string; shares: string }[]>,
   /** "Narrow it down": slider range and the growth % a topic needs to pass "Growth only". */
   filters: { minVolume: { min: 0, max: 10000, step: 250 }, minUsage: 100, growthOnlyFrom: 20 },
   ranges: ["Today", "7 days", "30 days", "Custom"],
@@ -801,8 +770,8 @@ export const compare = {
   },
   /** Posts behind a selected point on the gap trend. */
   pointPosts: [
-    { brand: "nimbus", text: "“Nimbus fast-charge challenge is everywhere this week”", meta: "Nimbus · Instagram" },
-    { brand: "aurora", text: "“Aurora X2 night-mode review, full walkthrough”", meta: "Aurora · YouTube" },
+    { brand: "nimbus", text: "“Nimbus fast-charge challenge is everywhere this week”", meta: "Nimbus · trending post" },
+    { brand: "aurora", text: "“Aurora X2 night-mode review, full walkthrough”", meta: "Aurora · long-form review" },
   ] as const,
   /** Each brand's mention mix by topic (%), used to weight share of voice in the builder. */
   topicShare: {
@@ -830,7 +799,7 @@ export const compare = {
    Promotable Stories (Stories.dc.html)
    -------------------------------------------------------------------------- */
 export type StoryPriority = "High" | "Medium" | "Low"
-export type StoryPost = { initials: string; handle: string; network: Network; text: string; likes: string; comments: string; shares: string }
+export type StoryPost = { initials: string; handle: string; text: string; likes: string; comments: string; shares: string }
 export type StoryCandidate = {
   title: string
   /** Shortlist label. */
@@ -860,9 +829,9 @@ export const stories = {
       tags: ["#AuroraNights", "#ShotOnX2", "#NightModeTips"], keywords: ["night mode", "no tripod"],
       volume: 3420, volumeDelta: 64, engagement: 214000, engagementDelta: 48, reach: 1800000, reachDelta: 31, split: [81, 14, 5], sentimentDelta: 4, support: 42,
       posts: [
-        { initials: "AM", handle: "@arun.m", network: "instagram", text: "Took this at 11 PM with no tripod. Unreal.", likes: "3,410", comments: "220", shares: "140" },
-        { initials: "JS", handle: "@jas.s", network: "x", text: "Night mode on the X2 beats my old camera.", likes: "1,120", comments: "84", shares: "210" },
-        { initials: "PN", handle: "@priya.n", network: "youtube", text: "City lights test, 4 shots, zero editing.", likes: "6,020", comments: "512", shares: "730" },
+        { initials: "AM", handle: "@arun.m", text: "Took this at 11 PM with no tripod. Unreal.", likes: "3,410", comments: "220", shares: "140" },
+        { initials: "JS", handle: "@jas.s", text: "Night mode on the X2 beats my old camera.", likes: "1,120", comments: "84", shares: "210" },
+        { initials: "PN", handle: "@priya.n", text: "City lights test, 4 shots, zero editing.", likes: "6,020", comments: "512", shares: "730" },
       ],
       more: ["“Rain at night actually looks good now.”", "“Shot my daughter’s recital in a dark hall. Clear.”", "“Astro attempt #3 — getting there!”"],
     },
@@ -871,9 +840,9 @@ export const stories = {
       tags: ["#X2Unboxing", "#PuneTech"], keywords: ["unboxing", "Pune store"],
       volume: 1120, volumeDelta: 74, engagement: 62000, engagementDelta: 40, reach: 600000, reachDelta: 22, split: [72, 22, 6], sentimentDelta: 2, support: 18,
       posts: [
-        { initials: "RJ", handle: "@rahul.j", network: "youtube", text: "Pune store had the X2 in stock on day one. Unboxing inside.", likes: "2,140", comments: "188", shares: "96" },
-        { initials: "KA", handle: "@kavya.a", network: "instagram", text: "The box design alone. Love it.", likes: "980", comments: "54", shares: "20" },
-        { initials: "TN", handle: "@technest", network: "x", text: "Pune queues for the X2 were longer than expected.", likes: "402", comments: "61", shares: "88" },
+        { initials: "RJ", handle: "@rahul.j", text: "Pune store had the X2 in stock on day one. Unboxing inside.", likes: "2,140", comments: "188", shares: "96" },
+        { initials: "KA", handle: "@kavya.a", text: "The box design alone. Love it.", likes: "980", comments: "54", shares: "20" },
+        { initials: "TN", handle: "@technest", text: "Pune queues for the X2 were longer than expected.", likes: "402", comments: "61", shares: "88" },
       ],
       more: ["“First impressions from FC Road.”", "“Staff walked me through setup.”", "“Unboxed with my dad, he loved it.”"],
     },
@@ -882,9 +851,9 @@ export const stories = {
       tags: ["#TrekWithAurora", "#BatteryLife"], keywords: ["battery", "trek"],
       volume: 860, volumeDelta: 69, engagement: 41000, engagementDelta: 35, reach: 400000, reachDelta: 18, split: [77, 18, 5], sentimentDelta: 6, support: 14,
       posts: [
-        { initials: "NK", handle: "@nikhil.k", network: "instagram", text: "Three days on the trail, 22% battery left.", likes: "1,260", comments: "73", shares: "40" },
-        { initials: "SV", handle: "@sana.v", network: "facebook", text: "Took 600 photos on the trek and still had charge.", likes: "540", comments: "38", shares: "22" },
-        { initials: "DS", handle: "@dev.s", network: "x", text: "Battery saver mode is the trek hero nobody talks about.", likes: "310", comments: "19", shares: "46" },
+        { initials: "NK", handle: "@nikhil.k", text: "Three days on the trail, 22% battery left.", likes: "1,260", comments: "73", shares: "40" },
+        { initials: "SV", handle: "@sana.v", text: "Took 600 photos on the trek and still had charge.", likes: "540", comments: "38", shares: "22" },
+        { initials: "DS", handle: "@dev.s", text: "Battery saver mode is the trek hero nobody talks about.", likes: "310", comments: "19", shares: "46" },
       ],
       more: ["“Navigation all day, no power bank.”", "“Cold weather didn’t drain it.”", "“Summit selfie at 8%.”"],
     },
@@ -893,9 +862,9 @@ export const stories = {
       tags: ["#GiftWithAurora", "#EasyMode"], keywords: ["simple mode", "parents"],
       volume: 640, volumeDelta: 52, engagement: 28000, engagementDelta: 21, reach: 300000, reachDelta: 9, split: [84, 13, 3], sentimentDelta: 3, support: 11,
       posts: [
-        { initials: "MV", handle: "@meera.v", network: "facebook", text: "Set up simple mode for my mum in 2 minutes.", likes: "880", comments: "64", shares: "30" },
-        { initials: "AB", handle: "@arjun.b", network: "instagram", text: "Dad finally video-calls us on his own.", likes: "1,420", comments: "96", shares: "18" },
-        { initials: "LP", handle: "@lena.p", network: "youtube", text: "Simple mode walkthrough for grandparents.", likes: "2,010", comments: "140", shares: "220" },
+        { initials: "MV", handle: "@meera.v", text: "Set up simple mode for my mum in 2 minutes.", likes: "880", comments: "64", shares: "30" },
+        { initials: "AB", handle: "@arjun.b", text: "Dad finally video-calls us on his own.", likes: "1,420", comments: "96", shares: "18" },
+        { initials: "LP", handle: "@lena.p", text: "Simple mode walkthrough for grandparents.", likes: "2,010", comments: "140", shares: "220" },
       ],
       more: ["“Big icons, no confusion.”", "“Best gift this festive season.”", "“My aunt asked where to buy one.”"],
     },
@@ -904,9 +873,9 @@ export const stories = {
       tags: ["#AuroraStore", "#PuneLaunch"], keywords: ["store staff", "helpful"],
       volume: 410, volumeDelta: 33, engagement: 12000, engagementDelta: 10, reach: 200000, reachDelta: 5, split: [88, 10, 2], sentimentDelta: 1, support: 7,
       posts: [
-        { initials: "GD", handle: "@gadgetdesk", network: "x", text: "Shout-out to the Aurora store team for the transfer help.", likes: "220", comments: "12", shares: "30" },
-        { initials: "PN", handle: "@priya.n", network: "instagram", text: "Staff stayed late to set up my phone.", likes: "640", comments: "41", shares: "8" },
-        { initials: "RK", handle: "@riya.k", network: "facebook", text: "Finally, a store that listens.", likes: "180", comments: "22", shares: "6" },
+        { initials: "GD", handle: "@gadgetdesk", text: "Shout-out to the Aurora store team for the transfer help.", likes: "220", comments: "12", shares: "30" },
+        { initials: "PN", handle: "@priya.n", text: "Staff stayed late to set up my phone.", likes: "640", comments: "41", shares: "8" },
+        { initials: "RK", handle: "@riya.k", text: "Finally, a store that listens.", likes: "180", comments: "22", shares: "6" },
       ],
       more: ["“Patient and friendly.”", "“Explained every setting.”", "“Fixed my old phone too.”"],
     },
@@ -937,7 +906,7 @@ export const stories = {
     { tag: "#ShotOnX2", growth: 41 },
     { tag: "#X2Unboxing", growth: 52 },
   ],
-  /** Walkthrough widget 3: the YouTube post shows views instead of shares. */
+  /** Walkthrough widget 3: the long-form post shows views instead of shares. */
   walkthroughViews: "48K",
   /** Walkthrough widget 4: the candidate on the decision panel and the two shortlisted ideas. */
   decision: { candidate: 2, shortlist: [0, 1] },
@@ -1008,317 +977,6 @@ export const reports = {
 export type ReportSubject = (typeof reports.builder.keyword)[number]
 
 /* --------------------------------------------------------------------------
-   Channel Analysis (Channels.dc.html)
-   -------------------------------------------------------------------------- */
-export const channels = {
-  facebook: {
-    page: "Aurora Mobile",
-    followers: "1.24M",
-    kpis: [
-      { label: "Posts", display: "46", delta: "8%", trend: "up" },
-      { label: "Reactions", display: "182K", delta: "14%", trend: "up" },
-      { label: "Comments", display: "21.4K", delta: "6%", trend: "up" },
-      { label: "Shares", display: "9.8K", delta: "3%", trend: "down" },
-      { label: "Engagement rate", display: "3.9%", delta: "0.4 pts", trend: "up" },
-    ],
-    reactions: { like: 58, love: 22, wow: 7, haha: 6, angry: 4, sad: 3 },
-    followerGrowth: { delta: "38.2K", pct: "+3.2%", from: "1.20M", to: "1.24M" },
-    sentiment: [61, 25, 14] as Split,
-  },
-  youtube: {
-    channel: "Aurora Mobile Official",
-    subscribers: "412K",
-    videos: 12,
-    kpis: [
-      { label: "Views", display: "4.1M", delta: "21%", trend: "up" },
-      { label: "Likes", display: "171K", delta: "9%", trend: "up" },
-      { label: "Comments", display: "20.6K", delta: "15%", trend: "up" },
-      { label: "Engagement rate", display: "4.6%", delta: "0.3 pts", trend: "down" },
-    ],
-    topVideos: [
-      { title: "X2 Night Mode: full camera test", views: "1.42M", likes: "61K", comments: "6.8K", positive: 72, sentiment: "pos" },
-      { title: "X2 software update 4.2 explained", views: "0.94M", likes: "22K", comments: "5.9K", negative: 54, sentiment: "neg" },
-      { title: "Aurora X2 battery: 3-day trek", views: "0.86M", likes: "38K", comments: "4.1K", positive: 68, sentiment: "pos" },
-      { title: "Unboxing the Aurora X2", views: "0.38M", likes: "27K", comments: "1.4K", positive: 64, sentiment: "pos" },
-    ],
-    subscribersFlow: { gained: "12.1K", lost: "2.7K", net: "+9.4K" },
-  },
-  instagram: {
-    handle: "@aurora.mobile",
-    followers: "2.1M",
-    followerDelta: "1.8%",
-    influence: 71,
-    kpis: [
-      { label: "Posts", display: "38", delta: "4", trend: "up" },
-      { label: "Reels", display: "14", delta: "3", trend: "up" },
-      { label: "Likes", display: "486K", delta: "11%", trend: "up" },
-      { label: "Comments", display: "12.9K", delta: "4%", trend: "up" },
-      { label: "Engagement rate", display: "2.4%", delta: "0.2", trend: "up" },
-    ],
-    sentiment: [58, 27, 15] as Split,
-    topContent: [{ type: "Reel", engagement: "84K" }, { type: "Post", engagement: "52K" }, { type: "Reel", engagement: "31K" }],
-  },
-  x: {
-    handle: "@AuroraMobile",
-    range: "Last 7 days",
-    kpis: [
-      { label: "Posts", display: "124" },
-      { label: "Replies", display: "312" },
-      { label: "Reposts", display: "8.4K" },
-      { label: "Quotes", display: "1.9K" },
-      { label: "Impressions", display: "4.8M", delta: "26%", trend: "up" },
-      { label: "Engagement rate", display: "1.7%", delta: "0.1", trend: "up" },
-    ],
-    influence: 64,
-    sentiment: [44, 31, 25] as Split,
-    amplification: "Original 124 · Reposts + quotes 10.3K · 83× more amplified",
-  },
-  entityByNetwork: {
-    facebook: [{ brand: "aurora", mentions: "4,820", engagement: "96K", change: "22%", trend: "up" }, { brand: "nimbus", mentions: "3,910", engagement: "71K", change: "4%", trend: "up" }, { brand: "kestrel", mentions: "2,140", engagement: "38K", change: "11%", trend: "down" }],
-    youtube: [{ brand: "aurora", mentions: "1,260", engagement: "148K", change: "31%", trend: "up" }, { brand: "nimbus", mentions: "1,480", engagement: "162K", change: "6%", trend: "up" }, { brand: "kestrel", mentions: "610", engagement: "51K", change: "0%", trend: "flat" }],
-    instagram: [{ brand: "aurora", mentions: "6,140", engagement: "412K", change: "19%", trend: "up" }, { brand: "nimbus", mentions: "4,880", engagement: "356K", change: "8%", trend: "up" }, { brand: "kestrel", mentions: "1,920", engagement: "98K", change: "6%", trend: "down" }],
-    x: [{ brand: "aurora", mentions: "8,920", engagement: "64K", change: "12%", trend: "up" }, { brand: "nimbus", mentions: "7,310", engagement: "52K", change: "17%", trend: "up" }, { brand: "kestrel", mentions: "3,050", engagement: "21K", change: "3%", trend: "down" }],
-  },
-  filterPreview: {
-    facebook: { mentions: 10870, engagementRate: "3.9%", split: [61, 25, 14] as Split },
-    youtube: { mentions: 3350, engagementRate: "4.6%", split: [62, 22, 16] as Split },
-    instagram: { mentions: 13940, engagementRate: "2.4%", split: [58, 27, 15] as Split },
-    x: { mentions: 19280, engagementRate: "1.7%", split: [44, 31, 25] as Split },
-  },
-}
-
-/* --------------------------------------------------------------------------
-   Product tour (Tour.dc.html, TourMobile.dc.html). Two date windows: "30d" and "7d".
-   -------------------------------------------------------------------------- */
-export type TourRange = "30d" | "7d"
-export type TourMetric = "mentions" | "engagement"
-export type TourBrand = keyof typeof brands
-type Three = readonly [number, number, number]
-
-const kpis7d = {
-  mentions: { label: "Mentions", value: 11382, display: "11,382", delta: "12.0%", trend: "up" },
-  engagement: { label: "Engagement", value: 446000, display: "446K", delta: "7.1%", trend: "up" },
-  reach: { label: "Reach", value: 2900000, display: "2.9M", delta: "4.0%", trend: "up" },
-  posts: { label: "Posts", value: 2301, display: "2,301", delta: "2.2%", trend: "up" },
-  sentiment: { label: "Sentiment score", value: 60, display: "60/100", delta: "2 pts", trend: "down" },
-} satisfies Record<string, Kpi>
-
-const tourKpis = (k: Record<"mentions" | "engagement" | "reach" | "posts" | "sentiment", Kpi>): Kpi[] =>
-  [k.mentions, k.engagement, k.reach, k.posts, k.sentiment].map((x) => ({ ...x, delta: x.delta.replace(" vs prev.", "") }))
-
-export const tour = {
-  ranges: { "30d": "Last 30 days · 14 Sep – 13 Oct", "7d": "Last 7 days · 7 – 13 Oct" } as Record<TourRange, string>,
-  rangesShort: { "30d": "last 30 days", "7d": "last 7 days" } as Record<TourRange, string>,
-  rangesChip: { "30d": "Last 30 days", "7d": "Last 7 days" } as Record<TourRange, string>,
-
-  /* Step 1 · Brand Compare (series always in this order) */
-  brandOrder: ["aurora", "nimbus", "kestrel"] as TourBrand[],
-  competitors: {
-    "30d": [
-      { mentions: "48,214", engagement: "1.92M", net: "+24" },
-      { mentions: "41,160", engagement: "2.74M", net: "+19" },
-      { mentions: "28,230", engagement: "1.16M", net: "+11" },
-    ],
-    "7d": [
-      { mentions: "11,382", engagement: "446K", net: "+22" },
-      { mentions: "9,002", engagement: "604K", net: "+18" },
-      { mentions: "6,088", engagement: "262K", net: "+10" },
-    ],
-  } as Record<TourRange, { mentions: string; engagement: string; net: string }[]>,
-  /** Share of voice, adds up to 100. */
-  shareOfVoice: {
-    mentions: { "30d": [41, 35, 24], "7d": [43, 34, 23] },
-    engagement: { "30d": [33, 47, 20], "7d": [34, 46, 20] },
-  } as Record<TourMetric, Record<TourRange, Three>>,
-  /** Indexed vs category average (100); bars are drawn against 150. */
-  indexVsCategory: [
-    { metric: "Mentions", values: [123, 105, 72] as Three },
-    { metric: "Engagement", values: [99, 141, 60] as Three },
-    { metric: "Sentiment", values: [108, 101, 91] as Three },
-  ],
-  /** Weekly share, Wk 34–Wk 41. */
-  gap: {
-    mentions: [
-      [37, 38, 40, 39, 41, 42, 42, 41],
-      [36, 36, 35, 36, 35, 34, 35, 35],
-      [27, 26, 25, 25, 24, 24, 23, 24],
-    ],
-    engagement: [
-      [36, 35, 35, 34, 34, 33, 33, 33],
-      [40, 41, 42, 44, 44, 45, 46, 47],
-      [24, 24, 23, 22, 22, 22, 21, 20],
-    ],
-  } as Record<TourMetric, readonly (readonly number[])[]>,
-  gapAxis: ["Wk 34", "Wk 41"],
-
-  /* Step 2 · Social Media Intelligence */
-  kpis: { "30d": tourKpis(kpis30d), "7d": tourKpis(kpis7d) } as Record<TourRange, Kpi[]>,
-  /** KPI sparklines in KPI order (shape only, 0–24 plot units: 24 − y from the reference). */
-  sparks: [
-    [2, 4, 4.5, 7, 10, 7.4, 4.2, 9.3, 8.5, 7.5, 14.2, 15.5, 20.6, 22],
-    [3.4, 2, 4.4, 8.6, 10.1, 13.4, 16, 14, 17.3, 19.3, 19.1, 16.7, 20.9, 22],
-    [2, 5.1, 7.3, 10.7, 11, 13.7, 14.4, 17.8, 20.9, 19.6, 18.5, 17.8, 21.4, 22],
-    [3.4, 2.4, 2.9, 2.6, 2, 3.1, 4.2, 7.7, 9.5, 13.1, 16.2, 20.3, 22, 20],
-    [19.7, 15.3, 22, 14.6, 9.3, 16.4, 20, 19.1, 14.2, 19, 15.9, 15.1, 9, 2],
-  ],
-  week: {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    full: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    short: ["M", "T", "W", "T", "F", "S", "S"],
-    volume: [1480, 1620, 1550, 1790, 1880, 2410, 2040],
-    /** Net sentiment per day, drawn on a 0–30 scale. */
-    net: [28, 26, 27, 22, 24, 12, 20],
-  },
-  platformShare: featuresOverview.platformShare,
-  sentimentSplit: [54, 28, 18] as Split,
-  feed: {
-    all: [
-      { initials: "MV", handle: "@meera.v", text: "X2 night mode review is honestly stunning.", network: "youtube", sentiment: "pos" },
-      { initials: "TN", handle: "@technest", text: "Aurora opening a flagship store in Pune this weekend.", network: "x", sentiment: "neu" },
-      { initials: "DS", handle: "@dev.s", text: "Charger died again after the update.", network: "facebook", sentiment: "neg" },
-    ],
-    /** Saturday, the spike day. */
-    spike: [
-      { initials: "RK", handle: "@riya.k", text: "Third Aurora X2 charger this year. Support keeps closing my ticket.", network: "instagram", sentiment: "neg" },
-      { initials: "AB", handle: "@arjun.b", text: "Is anyone else’s X2 charger overheating after the update?", network: "x", sentiment: "neg" },
-      { initials: "LP", handle: "@lena.p", text: "Aurora support replied in 10 minutes, fixed it.", network: "instagram", sentiment: "pos" },
-    ],
-  } as Record<"all" | "spike", { initials: string; handle: string; text: string; network: Network; sentiment: Sentiment }[]>,
-  spikeDay: 5,
-  post: {
-    initials: "RK",
-    handle: "@riya.k",
-    time: "Sat · 9:12 PM",
-    network: "instagram" as Network,
-    text: "Third Aurora X2 charger this year. Support keeps closing my ticket.",
-    sentiment: "neg" as Sentiment,
-    engagement: "2.4K",
-  },
-
-  /* Step 3 · Trending Topics */
-  topics: [
-    { name: "#AuroraX2Launch", momentum: 94, move: 2, trend: "up", mentions: { "30d": 6210, "7d": 1690 }, tags: ["#AuroraX2Launch", "#X2Unboxing", "#ShotOnX2"], categories: ["Smartphones", "Accessories"], split: [64, 25, 11], owners: [62, 24, 14] },
-    { name: "Night photography", momentum: 91, move: 9, trend: "up", mentions: { "30d": 3402, "7d": 1240 }, tags: ["#ShotOnX2", "#NightMode", "#AuroraNights"], categories: ["Smartphones", "Camera"], split: [78, 17, 5], owners: [55, 30, 15] },
-    { name: "Battery & charging", momentum: 82, move: 4, trend: "up", mentions: { "30d": 4885, "7d": 1410 }, tags: ["#ChargerFail", "#FastCharge", "#BatteryLife"], categories: ["Accessories", "Service"], split: [22, 30, 48], owners: [48, 38, 14] },
-    { name: "Price drop", momentum: 74, move: 1, trend: "down", mentions: { "30d": 2760, "7d": 610 }, tags: ["#FestiveDeals", "#PriceDrop"], categories: ["Smartphones"], split: [40, 45, 15], owners: [33, 41, 26] },
-    { name: "Store openings", momentum: 63, move: 0, trend: "flat", mentions: { "30d": 1210, "7d": 330 }, tags: ["#AuroraStore", "#PuneLaunch"], categories: ["Retail"], split: [70, 26, 4], owners: [80, 12, 8] },
-  ] as { name: string; momentum: number; move: number; trend: Trend; mentions: Record<TourRange, number>; tags: string[]; categories: string[]; split: Split; owners: Three }[],
-  /** Selected on load: Night photography. */
-  topicInitial: 1,
-  topicCloud: [
-    { term: "#AuroraX2Launch", weight: 21, sentiment: "pos" },
-    { term: "Night photography", weight: 19, sentiment: "pos" },
-    { term: "Battery & charging", weight: 18, sentiment: "neg" },
-    { term: "#ChargerFail", weight: 14, sentiment: "neg" },
-    { term: "Price drop", weight: 16, sentiment: "neu" },
-    { term: "#FestiveDeals", weight: 13, sentiment: "neu" },
-    { term: "#ShotOnX2", weight: 17, sentiment: "pos" },
-    { term: "Store openings", weight: 13, sentiment: "pos" },
-    { term: "Support tickets", weight: 13, sentiment: "neg" },
-  ] as { term: string; weight: number; sentiment: Sentiment }[],
-
-  /* Step 4 · Sentiment Analysis */
-  overall: {
-    "30d": { net: 24, delta: "1 pt vs last period", trend: "up" },
-    "7d": { net: 21, delta: "2 pts vs last period", trend: "down" },
-  } as Record<TourRange, { net: number; delta: string; trend: Trend }>,
-  platformNet: [
-    { label: "Aurora X2 launch", split: [52, 30, 18] as Split, net: { "30d": 34, "7d": 31 }, delta: { "30d": 2, "7d": -3 } },
-    { label: "Price & offers", split: [38, 34, 28] as Split, net: { "30d": 10, "7d": 8 }, delta: { "30d": -1, "7d": -3 } },
-    { label: "Night photography", split: [57, 29, 14] as Split, net: { "30d": 43, "7d": 40 }, delta: { "30d": 3, "7d": 1 } },
-    { label: "Battery & charging", split: [41, 27, 32] as Split, net: { "30d": 9, "7d": 4 }, delta: { "30d": -12, "7d": -17 } },
-  ] as { label: string; split: Split; net: Record<TourRange, number>; delta: Record<TourRange, number> }[],
-  threshold: { min: 0, max: 50, initial: 15 },
-  hashtagNet: [
-    { tag: "#ShotOnX2", net: "+64", move: "5", trend: "up", note: "" },
-    { tag: "#AuroraX2Launch", net: "+41", move: "2", trend: "up", note: "" },
-    { tag: "#BrightNights", net: "+6", move: "18", trend: "down", note: "Campaign tag · slipping" },
-    { tag: "#ChargerFail", net: "−72", move: "4", trend: "down", note: "" },
-  ] as { tag: string; net: string; move: string; trend: Trend; note: string }[],
-
-  /* Step 5 · Keyword Analysis ("Bright Nights" campaign line) */
-  keyword: {
-    term: "“Bright Nights”",
-    kpis: {
-      "30d": [
-        { label: "Mentions", value: 6840, display: "6,840", delta: "220%", trend: "up" },
-        { label: "Engagement", value: 388000, display: "388K", delta: "140%", trend: "up" },
-        { label: "Reach", value: 3100000, display: "3.1M", delta: "96%", trend: "up" },
-        { label: "Net sentiment", value: 18, display: "+18", delta: "6 pts", trend: "down" },
-      ],
-      "7d": [
-        { label: "Mentions", value: 2110, display: "2,110", delta: "64%", trend: "up" },
-        { label: "Engagement", value: 121000, display: "121K", delta: "38%", trend: "up" },
-        { label: "Reach", value: 940000, display: "940K", delta: "30%", trend: "up" },
-        { label: "Net sentiment", value: 12, display: "+12", delta: "9 pts", trend: "down" },
-      ],
-    } as Record<TourRange, Kpi[]>,
-    subtopics: [
-      { label: "Night photography", share: 46 },
-      { label: "Ad creative", share: 28 },
-      { label: "Pricing", share: 20 },
-      { label: "Charger complaints", share: 6 },
-    ],
-    strongest: { label: "Ad creative", net: "+52" },
-    weakest: { label: "Charger complaints", net: "−8" },
-    split: [49, 30, 21] as Split,
-    articles: [
-      { network: "youtube", text: "“Bright Nights ad is gorgeous.”", sentiment: "pos" },
-      { network: "x", text: "“Another ad, still no charger fix.”", sentiment: "neg" },
-    ] as { network: Network; text: string; sentiment: Sentiment }[],
-    hashtags: [
-      { tag: "#NightMode", net: "+44", sentiment: "pos" },
-      { tag: "#AuroraNights", net: "+37", sentiment: "pos" },
-      { tag: "#BrightNights", net: "+18", sentiment: "neu" },
-      { tag: "#CampaignAd", net: "−12", sentiment: "neg" },
-    ] as { tag: string; net: string; sentiment: Sentiment }[],
-    categories: [
-      { label: "Camera", share: 54 },
-      { label: "Smartphones", share: 31 },
-      { label: "Accessories", share: 9 },
-      { label: "Service", share: 6 },
-    ],
-    trending: ["#BrightNights", "#NightMode", "#AuroraNights"],
-    topics: ["Night photography", "Low-light video", "Festive lights"],
-  },
-
-  /* Step 6 · Promotable Stories */
-  evidence: { min: 100, max: 2000, step: 100, initial: 500 },
-  candidates: [
-    { title: "Night-mode photos fans can’t stop sharing", posts: 3420 },
-    { title: "Unboxing videos rising in Pune", posts: 1120 },
-    { title: "Battery lasts the full trek", posts: 860 },
-    { title: "Store staff shout-outs", posts: 410 },
-  ],
-  story: {
-    tags: ["#AuroraNights", "#ShotOnX2"],
-    keywords: ["night mode", "no tripod"],
-    volume: leadStory.volume,
-    engagement: leadStory.engagement,
-    reach: { value: 1800000, display: leadStory.reach, unit: "estimated" },
-    positive: leadStory.positive,
-    posts: home.story.posts,
-  },
-
-  /* Step 7 · SMA Reports */
-  report: {
-    keyword: keywordReport.map((r) => ({ name: r.keyword, mentions: r.mentions, change: r.change, trend: r.trend as Trend, sentiment: r.sentiment as Sentiment })),
-    entity: [
-      { name: "Aurora X2", mentions: 8420, change: "22%", trend: "up", sentiment: "pos" },
-      { name: "Aurora Care", mentions: 1960, change: "35%", trend: "up", sentiment: "neg" },
-      { name: "Pune store", mentions: 540, change: "12%", trend: "up", sentiment: "pos" },
-      { name: "Aurora Buds", mentions: 410, change: "4%", trend: "down", sentiment: "neu" },
-    ] as { name: string; mentions: number; change: string; trend: Trend; sentiment: Sentiment }[],
-  },
-  /** Mentions scale with the period: a day is a seventh of the week, a month 4.3 weeks. */
-  periods: {
-    daily: { factor: 1 / 7, title: "Daily brief · 12 Oct", vs: "vs prev. day", when: "Every morning, 8:45 AM" },
-    weekly: { factor: 1, title: "Weekly brief · 5–11 Oct", vs: "vs prev. week", when: "Every Monday, 8:45 AM" },
-    monthly: { factor: 4.3, title: "Monthly brief · September", vs: "vs prev. month", when: "1st of each month, 8:45 AM" },
-  },
-}
-
-/* --------------------------------------------------------------------------
    Solutions (Solutions.dc.html)
    -------------------------------------------------------------------------- */
 /** A small stat tile: display string, change line and its direction (mobile first-hour KPIs). */
@@ -1330,7 +988,7 @@ export const solutions = {
     filters: [
       { k: "Brand", v: "Aurora Mobile" },
       { k: "Date", v: "Last 7 days" },
-      { k: "Networks", v: "All four" },
+      { k: "Topics", v: "All" },
     ],
     kpis: [
       { label: "Mentions", value: 48214, display: "48,214", note: "18%", trend: "up" },
@@ -1357,25 +1015,25 @@ export const solutions = {
       { label: "Alerts today", display: "1 High", note: "#AuroraLaunch", trend: "up", tone: "neg" },
       { label: "Negative mentions", display: "+38%", note: "in a day", trend: "up", tone: "neg" },
       { label: "Net sentiment", display: "+36", note: "3 pts", trend: "down" },
-      { label: "Networks slipping", display: "1 of 4", note: "X", trend: "flat" },
+      { label: "Topics slipping", display: "1 of 4", note: "Battery & charging", trend: "flat" },
     ] as readonly SolutionsStat[],
     alerts: [
       { level: "high", subject: "#AuroraLaunch", metric: "Negative mentions", change: "+38%", trend: "up", tone: "neg", when: "in a day" },
       { level: "medium", subject: "Aurora Care Plus", metric: "Net sentiment", change: "12 pts", trend: "down", tone: "neg", when: "in 7 days" },
       { level: "info", subject: "Night Mode", metric: "Mentions", change: "2.1×", trend: "up", tone: "pos", when: "usual level" },
     ] as readonly { level: "high" | "medium" | "info"; subject: string; metric: string; change: string; trend: Trend; tone: Sentiment; when: string }[],
-    platforms: [
-      { network: "facebook", split: [54, 28, 18] },
-      { network: "youtube", split: [61, 22, 17] },
-      { network: "instagram", split: [63, 24, 13] },
-      { network: "x", split: [38, 27, 35], slipping: true },
-    ] as readonly { network: Network; split: Split; slipping?: boolean }[],
+    topics: [
+      { label: "Aurora X2 launch", split: [54, 28, 18] },
+      { label: "Night photography", split: [61, 22, 17] },
+      { label: "Price & offers", split: [63, 24, 13] },
+      { label: "Battery & charging", split: [38, 27, 35], slipping: true },
+    ] as readonly { label: string; split: Split; slipping?: boolean }[],
     xNote: "X positive share ▼ 9 pts this week",
     posts: [
-      { initials: "KR", network: "x", time: "9:04 AM", text: "Update 4.2 drained my battery overnight." },
-      { initials: "TS", network: "x", time: "8:41 AM", text: "Still no reply from support after 3 days." },
-      { initials: "MA", network: "facebook", time: "8:12 AM", text: "Charger stopped working after a week." },
-    ] as readonly { initials: string; network: Network; time: string; text: string }[],
+      { initials: "KR", time: "9:04 AM", text: "Update 4.2 drained my battery overnight." },
+      { initials: "TS", time: "8:41 AM", text: "Still no reply from support after 3 days." },
+      { initials: "MA", time: "8:12 AM", text: "Charger stopped working after a week." },
+    ] as readonly { initials: string; time: string; text: string }[],
   },
   agencies: {
     kpis: [
@@ -1436,7 +1094,7 @@ export const solutions = {
 /* --------------------------------------------------------------------------
    About (About.dc.html) illustration
    -------------------------------------------------------------------------- */
-export const about = { mentions: "3,104 mentions", reach: "1.8M", scope: "12 modules · 4 networks" }
+export const about = { mentions: "3,104 mentions", reach: "1.8M", scope: "12 modules · one view" }
 
 /* --------------------------------------------------------------------------
    Request a demo (Demo.dc.html) hero preview
@@ -1467,7 +1125,7 @@ export const aboutPrinciples = {
    Log in preview (Login.dc.html): the weekly KPIs plus mention volume by day.
    -------------------------------------------------------------------------- */
 export const loginPreview = {
-  filters: ["Last 7 days", "All networks", "Brand: Aurora Mobile"],
+  filters: ["Last 7 days", "All topics", "Brand: Aurora Mobile"],
   /** Mention volume line, Mon–Sun (0–100 plot units), peaking on Thursday. */
   volume: [38, 46, 58, 86, 70, 54, 62],
   days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -1477,5 +1135,5 @@ export const loginPreview = {
     [6, 5, 8, 9, 11, 10, 14],
     [16, 14, 15, 12, 13, 10, 11],
   ],
-  mention: { initials: "KR", handle: "@kr_tech", network: "x", text: "“Update 4.2 drained my battery overnight.”", sentiment: "neg" },
+  mention: { initials: "KR", handle: "@kr_tech", text: "“Update 4.2 drained my battery overnight.”", sentiment: "neg" },
 } as const

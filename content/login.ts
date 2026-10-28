@@ -1,7 +1,7 @@
 /** Log in page copy (Login.dc.html · LoginMobile.dc.html). */
 export const login = {
   description:
-    "Log in to Vinci360 to see what is being said about your brand right now across Facebook, X, YouTube and Instagram, with sentiment, trends and alerts.",
+    "Log in to Vinci360 to see what is being said about your brand right now across social media, with sentiment, trends, hashtags and alerts in one clear view.",
   back: "Back to website",
   chip: "Welcome back",
   title: "Log in to Vinci360",
@@ -41,7 +41,7 @@ export const login = {
   questions: { text: "Questions?", link: "Contact us" },
   what: {
     title: "What is Vinci360?",
-    body: "Real-time social media intelligence for Facebook, X, YouTube and Instagram.",
+    body: "Real-time social media intelligence for your brand.",
     link: "See the features overview",
   },
   preview: {
@@ -51,6 +51,6 @@ export const login = {
       "Sample Social Media Intelligence view for Aurora Mobile over the last 7 days: 11,382 mentions up 12%, engagement 446 thousand up 7%, net sentiment +24 down 2 points, a mention volume timeline peaking on Thursday with mostly positive sentiment, and one negative mention about battery drain on X.",
     chart: "Mention volume and sentiment",
     tagline: "Know first. Act before your competition does.",
-    networks: "Facebook · X · YouTube · Instagram",
+    metricsLine: "Mentions · Reach · Interactions · Sentiment",
   },
 } as const

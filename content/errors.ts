@@ -1,7 +1,7 @@
 /** Copy for the 404 (app/not-found.tsx) and 500 (app/error.tsx) pages. Shared tiles and links follow the 404 reference. */
 
 export type ErrorTileIcon = "grid" | "play" | "users" | "chart" | "trend" | "compare" | "calendar" | "mail"
-export type ErrorActionIcon = "home" | "play" | "retry"
+export type ErrorActionIcon = "home" | "grid" | "retry"
 
 export type ErrorTile = {
   label: string
@@ -16,7 +16,7 @@ export const errorTilesTitle = "Where do you want to go?"
 
 export const errorTiles: ErrorTile[] = [
   { label: "Features", line: "See everything Vinci360 does", href: "/features", icon: "grid" },
-  { label: "Product tour", line: "Follow one story in seven steps", href: "/product-tour", icon: "play" },
+  { label: "Contact", line: "Talk to us", href: "/contact", icon: "mail" },
   { label: "Solutions", line: "Find the view for your role", href: "/solutions", icon: "users" },
   {
     label: "Social Media Intelligence",
@@ -55,7 +55,7 @@ export const notFound = {
   title: "We couldn’t find that page.",
   text: "The link may be broken or the page may have moved. Here are some ways back.",
   primary: { label: "Back to home", href: "/", icon: "home" as ErrorActionIcon },
-  secondary: { label: "Take the product tour", href: "/product-tour", icon: "play" as ErrorActionIcon },
+  secondary: { label: "Explore the features", href: "/features", icon: "grid" as ErrorActionIcon },
   chart: {
     caption: "A chart showing no results for this page: zero mentions, a flat line and the note “No mentions found”.",
     title: "Mentions · This page",

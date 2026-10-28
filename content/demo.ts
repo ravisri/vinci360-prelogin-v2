@@ -1,4 +1,4 @@
-import { BadgeCheck, Hash, Layers, Users, type LucideIcon } from "lucide-react"
+import { BadgeCheck, GitCompareArrows, Gauge, Hash, Layers, Smile, TrendingUp, Users, type LucideIcon } from "lucide-react"
 
 import type { Faq } from "@/components/sections/FaqAccordion"
 import type { Accent } from "@/content/navigation"
@@ -8,15 +8,15 @@ import type { Accent } from "@/content/navigation"
 export const demoMeta = {
   title: "Request a demo",
   description:
-    "Request a Vinci360 demo or free trial on your own brand and two competitors, and see where you stand across Facebook, X, YouTube and Instagram, step by step.",
+    "Request a Vinci360 demo or free trial on your own brand and two competitors, and see where you stand across social media, step by step, in one clear view.",
   path: "/request-demo",
 } as const
 
 export const demoHero = {
   chip: "Get started",
   title: "See Vinci360 on your own brand.",
-  lead: "Tell us your brand and two competitors, and we’ll show you where you stand across Facebook, X, YouTube and Instagram.",
-  leadMobile: "Your brand and two competitors, across all four networks.",
+  lead: "Tell us your brand and two competitors, and we’ll show you where you stand across social media.",
+  leadMobile: "Your brand and two competitors, across social media.",
   ticks: [
     "Your own brand and two competitors, not sample data",
     "A walkthrough of the pages that matter to your role",
@@ -38,7 +38,14 @@ export const requestTypes: readonly { value: RequestType; label: string; help: s
 
 export const demoRoles = ["Brand manager", "PR & communications", "Agency", "Leadership", "Other"] as const
 
-export const demoNetworks = ["Facebook", "X", "YouTube", "Instagram"] as const
+/** "What matters most to you" (optional): the areas the demo should focus on. */
+export const demoFocus = ["Brand health", "Sentiment", "Trends & hashtags", "Competitors"] as const
+export const demoFocusIcons: Record<(typeof demoFocus)[number], LucideIcon> = {
+  "Brand health": Gauge,
+  Sentiment: Smile,
+  "Trends & hashtags": TrendingUp,
+  Competitors: GitCompareArrows,
+}
 
 export const demoForm = {
   title: "Tell us about you",
@@ -54,7 +61,7 @@ export const demoForm = {
     brand: "Which brand should we look at?",
     competitors: "Up to two competitors",
     keyword: "A campaign keyword or hashtag you care about",
-    networks: "Networks you care about most",
+    focus: "What matters most to you",
     notes: "Anything else we should know?",
   },
   /** Short names used in the error summary. */
@@ -78,7 +85,7 @@ export const demoForm = {
     add: "Add",
     listLabel: "Competitors added",
   },
-  networksHelp: "Leave empty for all four.",
+  focusHelp: "Leave empty for everything.",
   notesMax: 500,
   consent: { before: "I agree to be contacted about Vinci360 and accept the ", link: "Privacy Policy", href: "/privacy-policy", after: "." },
   honeypot: "Leave this field empty",
@@ -90,13 +97,13 @@ export const demoForm = {
 export const demoSuccess = {
   title: (name: string) => `Thanks, ${name}. We’ve got your request.`,
   lead: "Here is what you sent us.",
-  labels: { type: "Request", brand: "Brand", competitors: "Competitors", networks: "Networks" },
+  labels: { type: "Request", brand: "Brand", competitors: "Competitors", focus: "Focus" },
   noCompetitors: "None added",
-  allNetworks: "All four (none selected)",
+  allFocus: "Everything (none selected)",
   nextTitle: "What happens next",
   next: ["We read your details and your brand.", "We set up your brand and competitors.", "You see Vinci360 on your own conversation."],
   responseTime: "[Typical response time: to be confirmed]",
-  tour: { label: "Take the product tour", href: "/product-tour" },
+  tour: { label: "Explore the features", href: "/features" },
   home: { label: "Back to home", href: "/" },
 } as const
 
@@ -126,7 +133,7 @@ export const demoSee = {
   title: "What you’ll see",
   lead: "The demo follows one story, from where you stand to the report that arrives on its own.",
   note: "The demo adapts to your role.",
-  tour: { before: "Prefer to look around first? ", label: "Take the product tour.", href: "/product-tour" },
+  tour: { before: "Prefer to look around first? ", label: "Explore the features.", href: "/features" },
   /** Mobile: one disclosure holding the seven stops. */
   summary: "The seven stops of the demo",
   items: [
@@ -134,7 +141,7 @@ export const demoSee = {
     { accent: "smi", title: "Social Media Intelligence", text: "The headline numbers and timeline." },
     { accent: "trends", title: "Trends", text: "What is rising, and by how much." },
     { accent: "sent", title: "Sentiment Analysis", text: "Where the tone is turning." },
-    { accent: "sent", title: "Keyword Analysis", text: "How your campaign term performs on each network." },
+    { accent: "sent", title: "Keyword Analysis", text: "How your campaign term performs across its sub-topics." },
     { accent: "stories", title: "Promotable Stories", text: "Ideas worth promoting, with the proof." },
     { accent: "reports", title: "SMA Reports", text: "The standing report that arrives on its own." },
   ] as readonly { accent: Accent; title: string; text: string }[],
@@ -147,14 +154,14 @@ export const demoBring = {
     { icon: BadgeCheck, label: "Your brand name" },
     { icon: Users, label: "Up to two competitors" },
     { icon: Hash, label: "A campaign keyword or hashtag you want to test" },
-    { icon: Layers, label: "The networks you care about most" },
+    { icon: Layers, label: "The areas you care about most" },
   ] as readonly { icon: LucideIcon; label: string }[],
 } as const
 
 export const demoFaq = {
   title: "Questions people ask",
   items: [
-    { question: "Which networks does Vinci360 cover?", answer: "Facebook, X (Twitter), YouTube and Instagram." },
+    { question: "What does Vinci360 monitor?", answer: "Public social media conversation about your brand, products and competitors: mentions, reach, interactions, sentiment, trends and hashtags." },
     { question: "Will I see my own brand?", answer: "Yes. In the demo we look at your brand and the competitors you choose." },
     { question: "Is reach an exact number?", answer: "No. Reach is an estimate based on audience size and observed amplification." },
     { question: "Do I need to install anything?", answer: "No. Vinci360 is a service you use in your browser." },

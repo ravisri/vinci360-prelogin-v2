@@ -1,4 +1,4 @@
-import { Bookmark, Download, ExternalLink, Lock } from "lucide-react"
+import { BellRing, Bookmark, Download, ExternalLink, Layers, Lock, Mail, Smile, Sparkles, TrendingUp, type LucideIcon } from "lucide-react"
 
 import type { Benefit } from "@/components/sections/BenefitList"
 import { features, type Accent } from "@/content/navigation"
@@ -68,14 +68,14 @@ export const roles: Record<RoleKey, Role> = {
     toolkit: [
       { feature: "smi", use: "Read the headline numbers and the mention timeline each morning." },
       { feature: "trends", use: "Spot rising topics and hashtags while there is still time to join." },
-      { feature: "sent", use: "See how your campaign term is landing, network by network." },
+      { feature: "sent", use: "See how your campaign term is landing, topic by topic." },
       { feature: "stories", use: "Pick content ideas that come with the posts behind them." },
     ],
     persona: { initials: "MK", title: "MK · Brand Manager, Aurora Mobile", chip: "Fictional persona" },
     week: [
       "Read the headline numbers and the timeline.",
       "Check trending topics and hashtags.",
-      "Review the campaign keyword by network.",
+      "Review the campaign keyword by sub-topic.",
       "Accept story ideas worth promoting.",
       "Export the week’s findings.",
     ],
@@ -101,14 +101,14 @@ export const roles: Record<RoleKey, Role> = {
     sub: "reputation, press and response",
     questions: ["Is something going wrong?", "Who is saying it, and where?", "What do I respond with?"],
     toolkit: [
-      { feature: "sent", use: "See which network’s tone is slipping, and the keywords driving it." },
+      { feature: "sent", use: "See which topic’s tone is slipping, and the keywords driving it." },
       { feature: "smi", use: "Find who is saying it, where, and how widely it travelled." },
       { feature: "reports", use: "Get an alert by email and in the app when negative mentions jump." },
-      { feature: "channels", use: "Read the channel where it started, in that network’s own terms." },
+      { feature: "channels", use: "See how it spread: interactions, top voices and amplification." },
     ],
     persona: { initials: "SR", title: "SR · Head of Communications", chip: "Fictional persona" },
     week: [
-      "See the weekend’s sentiment by platform.",
+      "See the weekend’s sentiment by topic.",
       "An alert arrives; open the posts behind it.",
       "Check the channel in depth.",
       "Draft the response with context.",
@@ -121,9 +121,9 @@ export const roles: Record<RoleKey, Role> = {
     ],
     firstHour: {
       caption:
-        "Sample first-hour view for PR: a high alert for negative mentions up 38% on #AuroraLaunch; positive sentiment on X slipped 9 points to 38% while the other networks stay above 54%; three negative posts about battery drain, support delays and a charger.",
+        "Sample first-hour view for PR: a high alert for negative mentions up 38% on #AuroraLaunch; positive sentiment on Battery & charging slipped 9 points to 38% while the other topics stay above 54%; three negative posts about battery drain, support delays and a charger.",
       hotspots: [
-        { title: "One network is slipping", text: "X turned more negative while the other three held steady." },
+        { title: "One topic is slipping", text: "Battery & charging turned more negative while the other three held steady." },
         { title: "The real posts, in front of you", text: "Respond to what people actually said, not to a number." },
       ],
     },
@@ -222,7 +222,7 @@ export const matrix: Record<Accent, readonly [Level, Level, Level, Level]> = {
 export type Pick = { label: string; start: Accent; why: string; then: Accent; thenWhy: string }
 
 export const picks: readonly Pick[] = [
-  { label: "Know what is being said", start: "smi", why: "Every mention across Facebook, X, YouTube and Instagram in one view, with sentiment and reach.", then: "channels", thenWhy: "Go deeper on one network in its own terms." },
+  { label: "Know what is being said", start: "smi", why: "Every mention across social media in one view, with sentiment and reach.", then: "channels", thenWhy: "Go deeper with Source Analysis: interactions, top content, voices and amplification." },
   { label: "Find what is rising", start: "trends", why: "Topics and hashtags ranked by momentum, so you see what is growing first.", then: "stories", thenWhy: "Turn a rising conversation into a content idea." },
   { label: "Spot a problem", start: "sent", why: "See where tone is turning negative, and which keywords are driving it.", then: "reports", thenWhy: "Get an alert the day it happens next time." },
   { label: "Compare with competitors", start: "cmp", why: "Your brand against Nimbus and Kestrel on share of voice, sentiment and growth.", then: "smi", thenWhy: "See the conversation behind each brand." },
@@ -234,14 +234,14 @@ export const solutionsPage = {
   meta: {
     title: "Solutions by role",
     description:
-      "See how brand managers, PR teams, agencies and leadership use vinci360°: the questions they ask, the pages they open and what their first hour looks like.",
+      "See how brand managers, PR teams, agencies and leadership use vinci360° and its AI: the questions they ask, the pages they open, and their first hour.",
   },
   hero: {
     chip: "Solutions",
     title: "Built for the people who speak for the brand.",
     lead: "Whether you manage the brand, protect its reputation, report to clients or answer to the board, Vinci360 gives you the view you need.",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
+    secondary: { label: "See the AI solutions", href: "#ai", icon: Sparkles },
     listLabel: "The four roles",
     /** The reference highlights PR & communications in the hero illustration. */
     highlight: "pr" as RoleKey,
@@ -291,6 +291,19 @@ export const solutionsPage = {
     then: "Then try",
     open: "Open",
   },
+  /** "AI solutions" (Brand24 AI-insights style). Only capabilities already described in the module pages. */
+  ai: {
+    title: "AI that reads the conversation for you",
+    lead: "Vinci360 uses AI to sort, score and summarise every mention, so your team spends its time acting, not reading.",
+    items: [
+      { icon: Smile, accent: "sent", title: "AI sentiment analysis", text: "Every mention scored positive, neutral or negative, always shown with ▲ ▼ – and a label.", link: "Explore Sentiment & Keywords", href: "/features/sentiment-keywords" },
+      { icon: Layers, accent: "trends", title: "Topic detection", text: "Groups posts into the subjects people discuss, with volume, reach and tone for each.", link: "Explore Trends", href: "/features/trends" },
+      { icon: TrendingUp, accent: "trends", title: "Trend & momentum detection", text: "Spots topics and hashtags gaining speed, not just the biggest ones.", link: "Explore Trends", href: "/features/trends" },
+      { icon: BellRing, accent: "reports", title: "Spike alerts", text: "Flags unusual jumps in mentions or negative tone, like “Mentions +212% vs normal”.", link: "Explore Reports & Alerts", href: "/features/reports-alerts" },
+      { icon: Mail, accent: "reports", title: "Weekly AI brief", text: "A summary of what changed and why, sent to your inbox every week.", link: "Explore Reports & Alerts", href: "/features/reports-alerts" },
+      { icon: Sparkles, accent: "stories", title: "Story suggestions", text: "Surfaces positive posts worth promoting; people always decide what goes out.", link: "Explore Promotable Stories", href: "/features/promotable-stories" },
+    ] as { icon: LucideIcon; accent: Accent; title: string; text: string; link: string; href: string }[],
+  },
   team: {
     title: "Works for the whole team",
     items: [
@@ -319,7 +332,7 @@ export const solutionsPage = {
     title: "Keep exploring",
     items: [
       { id: "features", chip: "Features overview", text: "See all twelve modules.", link: "Explore the features", href: "/features" },
-      { id: "tour", chip: "Product tour", text: "Follow one story in seven steps.", link: "Take the tour", href: "/product-tour" },
+      { id: "source", chip: "Source Analysis", text: "Interactions, top content, voices and amplification.", link: "Explore Source Analysis", href: "/features/source-analysis" },
       { id: "demo", chip: "Demo", text: "See it with your own brand and rivals.", link: "Request a demo", href: "#demo" },
     ],
   },

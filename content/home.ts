@@ -58,7 +58,7 @@ export const home = {
     /** Desktop only: 390 ends the lead at "competitors." */
     leadTail: ", on one screen",
     primary: { label: "Request a demo", href: "/request-demo" },
-    secondary: { label: "Take the product tour", href: "/product-tour" },
+    secondary: { label: "Explore the features", href: "/features" },
     chrome: "vinci360 · Social Media Intelligence",
     chromeMobile: "Social Media Intelligence",
     export: "Export",

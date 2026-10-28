@@ -13,7 +13,6 @@ import { FormLive, FormStatus } from "@/components/forms/FormStatus"
 import { FormStateSwap } from "@/components/forms/FormStateSwap"
 import { SubmitButton } from "@/components/forms/SubmitButton"
 import { useFormState } from "@/components/forms/useFormState"
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { PlaceholderInline } from "@/components/sections/PlaceholderBlock"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -21,12 +20,10 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupIndicator, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { demoFailure, demoForm as f, demoNetworks, demoRoles, demoSuccess, requestTypes, type RequestType } from "@/content/demo"
-import type { Network } from "@/content/sample-data"
+import { demoFailure, demoFocus, demoFocusIcons, demoForm as f, demoRoles, demoSuccess, requestTypes, type RequestType } from "@/content/demo"
 import { demoDefaults, demoErrorOrder, demoSchema, type DemoValues } from "@/lib/demo-schema"
 import { cn } from "@/lib/utils"
 
-const networkKey: Record<(typeof demoNetworks)[number], Network> = { Facebook: "facebook", X: "x", YouTube: "youtube", Instagram: "instagram" }
 const typeIcon = { demo: Play, trial: Sparkles } as const
 
 const fid = (name: string) => `f-${name}`
@@ -263,17 +260,18 @@ export function DemoForm() {
                 <Input type="text" autoComplete="off" {...register("keyword")} />
               </FormField>
 
-              {/* Networks */}
+              {/* Focus areas */}
               <fieldset aria-describedby="f-net-help" className="flex min-w-0 flex-col gap-2">
                 <legend className="mb-2 flex items-baseline gap-1.5 text-sm font-semibold">
-                  {f.fields.networks} <FieldMark optional />
+                  {f.fields.focus} <FieldMark optional />
                 </legend>
                 <Controller
                   control={control}
-                  name="networks"
+                  name="focus"
                   render={({ field }) => (
                     <div className="grid grid-cols-2 gap-2">
-                      {demoNetworks.map((n) => {
+                      {demoFocus.map((n) => {
+                        const Icon = demoFocusIcons[n]
                         const checked = field.value.includes(n)
                         return (
                           <label
@@ -285,7 +283,7 @@ export function DemoForm() {
                               onCheckedChange={(on) => field.onChange(on ? [...field.value, n] : field.value.filter((v) => v !== n))}
                               className="size-5"
                             />
-                            <NetworkIcon network={networkKey[n]} className="size-4.5" />
+                            <Icon aria-hidden="true" strokeWidth={1.8} className="size-4.5 flex-none" />
                             {n}
                           </label>
                         )
@@ -294,7 +292,7 @@ export function DemoForm() {
                   )}
                 />
                 <p id="f-net-help" className="text-[0.78125rem] text-muted-foreground">
-                  {f.networksHelp}
+                  {f.focusHelp}
                 </p>
               </fieldset>
 
@@ -419,7 +417,7 @@ function SuccessPanel({ values }: { values: DemoValues }) {
     [s.labels.type, t.summary],
     [s.labels.brand, values.brand.trim() || "—"],
     [s.labels.competitors, values.competitors.length ? values.competitors.join(", ") : s.noCompetitors],
-    [s.labels.networks, values.networks.length ? values.networks.join(", ") : s.allNetworks],
+    [s.labels.focus, values.focus.length ? values.focus.join(", ") : s.allFocus],
   ] as const
 
   return (

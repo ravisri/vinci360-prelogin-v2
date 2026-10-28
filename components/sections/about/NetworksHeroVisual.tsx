@@ -1,15 +1,15 @@
 "use client"
 
+import { Heart, MessageSquare, Radio, Smile, type LucideIcon } from "lucide-react"
 import { m, useReducedMotion } from "motion/react"
 
-import { NetworkIcon } from "@/components/mocks/NetworkIcon"
 import { VisualPanel } from "@/components/sections/VisualPanel"
 import { MiniBars } from "@/components/sections/solutions/MiniBars"
-import type { Network } from "@/content/sample-data"
 import { drawLine, pulseOnce, ringOnce, stagger, viewport } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
-const networks: readonly Network[] = ["facebook", "x", "youtube", "instagram"]
+/** Mentions, reach, interactions and sentiment: the four measures that feed the dashboard. */
+const metrics: readonly LucideIcon[] = [MessageSquare, Radio, Heart, Smile]
 
 /** Node centres in the 560×440 artboard; classes and path starts share them so the lines meet the nodes at any width. */
 const nodes = [
@@ -29,15 +29,15 @@ function Wordmark({ className }: { className?: string }) {
   )
 }
 
-function NetDot({ network, className, iconClassName }: { network: Network; className?: string; iconClassName?: string }) {
+function NetDot({ icon: Icon, className, iconClassName }: { icon: LucideIcon; className?: string; iconClassName?: string }) {
   return (
     <span className={cn("grid place-items-center rounded-full bg-card text-primary shadow-card", className)}>
-      <NetworkIcon network={network} className={iconClassName} />
+      <Icon aria-hidden="true" strokeWidth={1.8} className={cn("size-5 flex-none", iconClassName)} />
     </span>
   )
 }
 
-/** About hero: Facebook, X, YouTube and Instagram wired into one dashboard; the dashed connectors draw in, then the hub pulses once. */
+/** About hero: mentions, reach, interactions and sentiment flowing into one dashboard; the dashed connectors draw in, then the hub pulses once. */
 export function NetworksHeroVisual({ caption }: { caption: string }) {
   const reduced = useReducedMotion()
   return (
@@ -79,10 +79,10 @@ export function NetworksHeroVisual({ caption }: { caption: string }) {
 
           <Wordmark className="absolute top-[6%] left-[5%] px-4 py-3 text-[1.375rem]" />
 
-          {networks.map((network, i) => (
+          {metrics.map((icon, i) => (
             <NetDot
-              key={network}
-              network={network}
+              key={i}
+              icon={icon}
               className={cn("absolute left-[15%] size-12 -translate-x-1/2 -translate-y-1/2", nodes[i].top)}
               iconClassName="size-6"
             />
@@ -119,12 +119,12 @@ export function NetworksHeroVisual({ caption }: { caption: string }) {
         </div>
       </VisualPanel>
 
-      {/* 390: networks column beside the wordmark and a compact dashboard. */}
+      {/* 390: metrics column beside the wordmark and a compact dashboard. */}
       <VisualPanel accent="smi" dots="br" className="p-4.5 md:hidden">
         <div aria-hidden="true" className="grid grid-cols-[auto_1fr] items-center gap-4">
           <span className="flex flex-col gap-2.5">
-            {networks.map((network) => (
-              <NetDot key={network} network={network} className="size-10" iconClassName="size-5" />
+            {metrics.map((icon, i) => (
+              <NetDot key={i} icon={icon} className="size-10" iconClassName="size-5" />
             ))}
           </span>
           <span className="flex flex-col gap-2.5">
