@@ -96,9 +96,9 @@ export function ErrorView({ variant, chip, title, text, illustration, primary, s
             <Action action={primary} variant="default" />
             {secondary && <Action action={secondary} variant="outline" />}
           </div>
-          <p className="text-[0.90625rem] text-muted-foreground">
+          {/* <p className="text-[0.90625rem] text-muted-foreground">
             {reportProblem.lead} <PlaceholderInline>{reportProblem.placeholder}</PlaceholderInline>
-          </p>
+          </p> */}
         </div>
         <div className="relative rounded-lg bg-primary-tint p-4 md:px-9 md:pt-9 md:pb-19">
           <div aria-hidden="true" className="dot-grid absolute top-4 right-4 h-30 w-42.5" />

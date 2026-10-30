@@ -16,7 +16,7 @@ export const demoSchema = z.object({
   email: required(e.email).regex(emailPattern, e.emailInvalid),
   company: required(e.company),
   role: z.union([z.enum(demoRoles), z.literal("")]),
-  brand: required(e.brand),
+  brand: z.string().trim(),
   competitors: z.array(z.string().trim().min(1)).max(demoForm.competitors.max),
   keyword: z.string().trim(),
   focus: z.array(z.enum(demoFocus)),
@@ -45,4 +45,4 @@ export const demoDefaults: DemoValues = {
 }
 
 /** Error-summary order, as in the reference. */
-export const demoErrorOrder = ["first", "last", "email", "company", "brand", "consent"] as const
+export const demoErrorOrder = ["first", "last", "email", "company", "consent"] as const

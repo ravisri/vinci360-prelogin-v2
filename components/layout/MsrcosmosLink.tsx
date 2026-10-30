@@ -4,22 +4,26 @@ import type { ReactNode } from "react"
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-/** "MSRcosmos" placeholder link: focusable with a tooltip, no navigation until the URL is confirmed. `className` replaces the inline style (e.g. button classes on About). */
+const msrcosmosUrl = "https://www.msrcosmos.com/"
+const hint = "Opens msrcosmos.com in a new tab"
+
+/** "MSRcosmos" external link: opens msrcosmos.com in a new tab, with a tooltip saying so. `className` replaces the inline style (e.g. button classes on About). */
 export function MsrcosmosLink({ children = "MSRcosmos", className }: { children?: ReactNode; className?: string }) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <span
-          role="link"
-          tabIndex={0}
-          aria-disabled="true"
-          className={className ?? "cursor-help rounded-xs font-bold text-foreground underline decoration-dotted underline-offset-3"}
+        <a
+          href={msrcosmosUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className ?? "rounded-xs font-bold text-foreground underline decoration-dotted underline-offset-3 hover:decoration-solid"}
         >
           {children}
-        </span>
+          <span className="sr-only"> ({hint})</span>
+        </a>
       </TooltipTrigger>
       <TooltipContent side="top" sideOffset={6}>
-        Opens msrcosmos.com in a new tab
+        {hint}
       </TooltipContent>
     </Tooltip>
   )

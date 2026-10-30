@@ -136,14 +136,14 @@ All buttons: min touch target 44×44, visible 2px focus ring, and loading state 
 - **Header (sticky, 64/72px):**
   - Logo "vinci360°".
   - **Platform**: links to `/features`. A mega menu on hover or focus lists the 7 feature pages with accent dots.
-  - Then Solutions · About · Contact · ghost "Log in" · cta "Request a demo". (The product tour was retired: `/product-tour` 308-redirects to `/request-demo`; secondary hero buttons read "Explore the features".)
+  - Then Solutions · About · Contact · ghost "Log in" · cta "Request a demo". "Log in" (header, mobile sheet, 404 links) is hidden for now via `showLogin` in `content/navigation.ts`; `/login` stays live. (The product tour was retired: `/product-tour` 308-redirects to `/request-demo`; secondary hero buttons read "Explore the features".)
   - Active link: underline + bold + `aria-current="page"`.
   - Mobile: logo, Log in, menu button that opens a Sheet.
 - **Footer:**
   - Platform (7 features) · Solutions (4 role deep links) · Company (About, Contact) · Legal (Privacy Policy, Terms & Conditions).
-  - "Powered by **MSRcosmos**": an external placeholder link, focusable with the tooltip "Opens msrcosmos.com in a new tab", and no navigation until the URL is confirmed.
+  - "Powered by **MSRcosmos**": external link to https://www.msrcosmos.com/ (new tab, `rel="noopener noreferrer"`) with the tooltip "Opens msrcosmos.com in a new tab".
   - © 2026 Vinci360. All rights reserved.
-- **Sample data chip:** every mock or illustration that shows numbers carries a visible "Sample data" chip.
+- **Sample data chip:** every mock or illustration that shows numbers carries a visible "Sample data" chip. Exception: the About "What we believe" mini illustrations (`PrincipleCards`) carry none, by request.
 - **Reach note:** "* Reach is an estimate based on audience size and observed amplification." appears wherever reach appears.
 - **Hotspots** on mocks:
   - numbered button, ≥44px hit area
@@ -160,7 +160,7 @@ All buttons: min touch target 44×44, visible 2px focus ring, and loading state 
 ## 7. Content rules (strict)
 
 - **Never invent facts:** no customer names, logos, metrics, prices, certifications, addresses, dates or testimonials.
-- **No source names:** never mention Facebook, X/Twitter, YouTube, Instagram or network-only terms (Page, Channel, Subscribers, Reels, Reposts) in copy, data, alt text, captions or SEO. Use "across social media", topics, sub-topics and outcome metrics. The `twitter:` metadata tags are the only allowed exception.
+- **No source names:** never mention Facebook, X/Twitter, YouTube, Instagram or network-only terms (Page, Channel, Subscribers, Reels, Reposts) in copy, data, alt text, captions or SEO. Use "across social media", topics, sub-topics and outcome metrics. Exceptions: the `twitter:` metadata tags, and the legal pages (`/privacy-policy`, `/terms`, copy in `content/legal.ts`), which keep the YouTube/Google/Facebook API disclosures and links the API terms require.
 - Unknown values keep the bracketed placeholder from the reference, e.g. `[Testimonial quote from a real client, to be supplied.]`, styled with `placeholder-inline` or `placeholder-block`.
 - **Sample data only:** the fictional brand **Aurora Mobile** and competitors **Nimbus** and **Kestrel**. Keep all sample data in `content/sample-data.ts`.
 - **Avatars are initials only** (e.g. "RK"), never photos of people.

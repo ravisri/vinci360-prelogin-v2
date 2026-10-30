@@ -39,18 +39,18 @@ export default function ContactPage() {
         <ContactForm className="pt-12 md:pt-22" />
       </ContactTopicProvider>
 
-      <OfficeMap className="pt-12 md:pt-24" />
+      {/* <OfficeMap className="pt-12 md:pt-24" /> */}
 
       <FaqAccordion
         title={contactFaq.title}
         lead={contactFaq.lead}
         items={contactFaq.items}
         className="pb-0 md:pb-0"
-        after={
-          <div className="rounded-lg border border-dashed border-placeholder-border bg-placeholder px-4.5 py-4">
-            <PlaceholderInline>{contactFaq.pricing}</PlaceholderInline>
-          </div>
-        }
+        // after={
+        //   <div className="rounded-lg border border-dashed border-placeholder-border bg-placeholder px-4.5 py-4">
+        //     <PlaceholderInline>{contactFaq.pricing}</PlaceholderInline>
+        //   </div>
+        // }
       />
 
       <MsrcosmosCard className="pt-16 md:pt-22" />

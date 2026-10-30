@@ -39,15 +39,15 @@ export const contactRoutes = {
   title: "What do you need?",
   items: [
     { id: "demo", title: "See Vinci360 on your brand", text: "Tell us your brand and two competitors.", icon: "play", button: "Request a demo", href: "/request-demo" },
-    {
-      id: "users",
-      title: "I already use Vinci360",
-      text: "Sign in to your account.",
-      icon: "lock",
-      button: "Log in",
-      href: "/login",
-      placeholder: "[Help for existing users: route to be confirmed]",
-    },
+    // {
+    //   id: "users",
+    //   title: "I already use Vinci360",
+    //   text: "Sign in to your account.",
+    //   icon: "lock",
+    //   button: "Log in",
+    //   href: "/login",
+    //   placeholder: "[Help for existing users: route to be confirmed]",
+    // },
     { id: "partners", title: "Partnerships and media", text: "Working together or writing about Vinci360?", icon: "users", button: "Send a message", topic: "Partnership" },
     { id: "other", title: "Something else", text: "A general question about the product or the company.", icon: "message", button: "Send a message", topic: "General question" },
   ] as readonly ContactRoute[],
@@ -160,8 +160,7 @@ export const contactFaq = {
 
 export const contactMsr = {
   title: "Powered by MSRcosmos",
-  logo: "MSRcosmos logo",
-  logoLabel: "Placeholder for the MSRcosmos logo",
+  logoAlt: "MSRcosmos",
   links: [
     { label: "About", href: "/about" },
     { label: "Privacy Policy", href: "/privacy-policy" },

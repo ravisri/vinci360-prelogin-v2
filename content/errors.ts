@@ -1,4 +1,5 @@
 /** Copy for the 404 (app/not-found.tsx) and 500 (app/error.tsx) pages. Shared tiles and links follow the 404 reference. */
+import { showLogin } from "@/content/navigation"
 
 export type ErrorTileIcon = "grid" | "play" | "users" | "chart" | "trend" | "compare" | "calendar" | "mail"
 export type ErrorActionIcon = "home" | "grid" | "retry"
@@ -43,7 +44,7 @@ export const lostLinks = [
   { label: "Contact us", href: "/contact" },
   { label: "About", href: "/about" },
   { label: "Log in", href: "/login" },
-]
+].filter((l) => showLogin || l.href !== "/login")
 
 export const reportProblem = {
   lead: "Think something is broken?",

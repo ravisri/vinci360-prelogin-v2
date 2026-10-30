@@ -309,12 +309,11 @@ export const smi = {
     [3.4, 2.4, 2.9, 2.6, 2, 3.1, 4.2, 7.7, 9.5, 13.1, 16.2, 20.3, 22, 20],
     [19.7, 15.3, 22, 14.6, 9.3, 16.4, 20, 19.1, 14.2, 19, 15.9, 15.1, 9, 2],
   ],
-  /** Timeline by granularity. `spike` is the called-out bar; `full` names each interval for screen readers. */
+  /** Timeline by granularity, never beyond the last 30 days (YouTube policy). `spike` is the called-out bar; `full` names each interval for screen readers. */
   timeline: {
-    weekly: { labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], full: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], volume: [1480, 2610, 1720, 1690, 1810, 1950, 1700], net: [26, 6, 18, 22, 24, 25, 23], spike: 1, note: "Spike on Tue · mostly negative" },
-    monthly: { labels: ["Wk 37", "Wk 38", "Wk 39", "Wk 40", "Wk 41"], full: ["Week 37", "Week 38", "Week 39", "Week 40", "Week 41"], volume: [9800, 11200, 13900, 12400, 10900], net: [24, 22, 9, 18, 21], spike: 2, note: "Spike in Wk 39 · mostly negative" },
-    quarterly: { labels: ["Aug", "Sep", "Oct"], full: ["August", "September", "October"], volume: [41200, 46800, 48214], net: [26, 22, 20], spike: 2, note: "Highest: Oct · tone cooling" },
-    yearly: { labels: ["N", "D", "J", "F", "M", "A", "M", "J", "J", "A", "S", "O"], full: ["November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October"], volume: [28000, 31000, 35000, 30000, 33000, 36000, 38000, 37000, 40000, 41200, 46800, 48214], net: [30, 29, 28, 30, 31, 29, 27, 28, 26, 26, 22, 20], spike: 11, note: "Highest: Oct · tone cooling" },
+    daily: { range: "Last 7 days", labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], full: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], volume: [1480, 2610, 1720, 1690, 1810, 1950, 1700], net: [26, 6, 18, 22, 24, 25, 23], spike: 1, note: "Spike on Tue · mostly negative" },
+    weekly: { range: "Last 4 weeks", labels: ["Wk 38", "Wk 39", "Wk 40", "Wk 41"], full: ["Week 38", "Week 39", "Week 40", "Week 41"], volume: [11150, 13840, 12340, 10884], net: [22, 9, 18, 21], spike: 1, note: "Spike in Wk 39 · mostly negative" },
+    custom: { range: "2–11 Oct · custom (up to 30 days)", labels: ["2", "3", "4", "5", "6", "7", "8", "9", "10", "11"], full: ["2 October", "3 October", "4 October", "5 October", "6 October", "7 October", "8 October", "9 October", "10 October", "11 October"], volume: [1520, 1610, 1580, 1700, 2650, 1830, 1690, 1740, 1810, 1720], net: [24, 23, 25, 21, 7, 17, 22, 24, 23, 25], spike: 4, note: "Spike on 6 Oct · mostly negative" },
   },
   /** "Posts below" the timeline: the spike interval's posts, or the whole period. */
   timelinePosts: {

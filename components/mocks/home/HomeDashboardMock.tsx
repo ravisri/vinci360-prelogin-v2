@@ -164,7 +164,7 @@ export function HomeDashboardMock() {
       </MockFrame>
 
       {/* Post: in flow under the frame below lg (never over the axis labels), overhanging the left edge from lg. */}
-      <FloatCard enter className="mr-6 ml-2 md:relative md:mt-3 md:w-80 lg:absolute lg:top-100 lg:-left-3 lg:mt-0 lg:ml-0">
+      <FloatCard enter className="mr-6 ml-2 md:relative md:mt-3 md:w-80 lg:absolute lg:top-100 lg:-left-3 lg:mt-0 lg:ml-0 hidden">
 
         <PostCard
           initials={d.feedPost.initials}

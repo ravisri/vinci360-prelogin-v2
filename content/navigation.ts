@@ -57,6 +57,8 @@ export const legalNav: NavItem[] = [
 export const ctaLink: NavItem = { label: "Request a demo", href: "/request-demo" }
 
 export const loginLink: NavItem = { label: "Log in", href: "/login" }
+/** Header, mobile sheet and 404 "Log in" links are hidden for now; /login itself stays live. Set true to bring them back. */
+export const showLogin = false
 
 export const footerBlurb = "Social media intelligence for your brand: mentions, reach, sentiment and trends in one view."
 

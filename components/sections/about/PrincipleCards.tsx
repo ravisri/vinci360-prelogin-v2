@@ -1,5 +1,4 @@
 import { Stagger, StaggerItem } from "@/components/motion/Stagger"
-import { SampleDataChip } from "@/components/mocks/SampleDataChip"
 import { aboutPage, type Principle } from "@/content/about"
 import { aboutPrinciples as sample } from "@/content/sample-data"
 import { cn } from "@/lib/utils"
@@ -53,9 +52,6 @@ const illustrations: Record<Principle["id"], React.ReactNode> = {
   ),
 }
 
-/** Principles that show a figure carry the "Sample data" chip. */
-const showsNumbers: Principle["id"][] = ["evidence", "estimates"]
-
 /** "What we believe": four principle cards (icon, title, line) with a mini illustration from md; staggered reveal. */
 export function PrincipleCards({ className }: { className?: string }) {
   return (
@@ -76,7 +72,6 @@ export function PrincipleCards({ className }: { className?: string }) {
           </p>
           <figure className="mt-auto hidden flex-col gap-2.5 rounded-lg bg-background p-3.5 md:flex">
             <figcaption className="sr-only">{caption}</figcaption>
-            {showsNumbers.includes(id) && <SampleDataChip tone="light" className="self-end" />}
             <div aria-hidden="true">{illustrations[id]}</div>
           </figure>
         </StaggerItem>

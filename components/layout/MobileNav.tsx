@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { NavLink } from "@/components/layout/NavLink"
-import { features, loginLink, platformLink, primaryNav, overviewLink } from "@/content/navigation"
+import { features, loginLink, platformLink, primaryNav, overviewLink, showLogin } from "@/content/navigation"
 import { HeaderCta } from "@/components/layout/HeaderCta"
 import { cn } from "@/lib/utils"
 
@@ -60,11 +60,13 @@ export function MobileNav({ className }: { className?: string }) {
           ))}
           <Separator className="my-4" />
           <div className="flex flex-col gap-2">
-            <SheetClose asChild>
-              <Button variant="outline" asChild>
-                <Link href={loginLink.href}>{loginLink.label}</Link>
-              </Button>
-            </SheetClose>
+            {showLogin && (
+              <SheetClose asChild>
+                <Button variant="outline" asChild>
+                  <Link href={loginLink.href}>{loginLink.label}</Link>
+                </Button>
+              </SheetClose>
+            )}
             <SheetClose asChild>
               <HeaderCta />
             </SheetClose>

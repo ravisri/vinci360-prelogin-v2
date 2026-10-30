@@ -36,7 +36,7 @@ export function RouteCards({ className }: { className?: string }) {
       <h2 id="need-h" className="text-[1.375rem] md:text-h3">
         {contactRoutes.title}
       </h2>
-      <RadioGroup value={route} onValueChange={setRoute} aria-labelledby="need-h" className="grid gap-2.5 md:grid-cols-2 md:gap-4 lg:grid-cols-4">
+      <RadioGroup value={route} onValueChange={setRoute} aria-labelledby="need-h" className="grid gap-2.5 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
         {contactRoutes.items.map((r) => {
           const Icon = icons[r.icon]
           const on = r.id === route

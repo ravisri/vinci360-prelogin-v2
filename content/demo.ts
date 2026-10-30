@@ -97,7 +97,7 @@ export const demoForm = {
 export const demoSuccess = {
   title: (name: string) => `Thanks, ${name}. We’ve got your request.`,
   lead: "Here is what you sent us.",
-  labels: { type: "Request", brand: "Brand", competitors: "Competitors", focus: "Focus" },
+  labels: { type: "Request", company: "Company", email: "Reply to", brand: "Brand", competitors: "Competitors", focus: "Focus" },
   noCompetitors: "None added",
   allFocus: "Everything (none selected)",
   nextTitle: "What happens next",

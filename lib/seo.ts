@@ -27,12 +27,12 @@ export function buildMetadata({ title, description, path, noindex, image }: Meta
 
 const absolute = (path: string) => new URL(path, siteUrl).toString()
 
-/** Organization JSON-LD: confirmed names only (no URL, logo or address until supplied). */
+/** Organization JSON-LD: confirmed fields only (name, URL and logo; no address until supplied). */
 export function organization() {
   return {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Organization", "@id": absolute("/#msrcosmos"), name: "MSRcosmos", brand: { "@id": absolute("/#vinci360") } },
+      { "@type": "Organization", "@id": absolute("/#msrcosmos"), name: "MSRcosmos", url: "https://www.msrcosmos.com/", logo: absolute("/images/msrcosmos-logo.svg"), brand: { "@id": absolute("/#vinci360") } },
       { "@type": "Brand", "@id": absolute("/#vinci360"), name: siteName },
     ],
   }

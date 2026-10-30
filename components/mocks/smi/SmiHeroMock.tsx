@@ -17,7 +17,7 @@ const k = smi.kpis
 const kpis = [k.mentions, k.engagement, k.reach, k.posts, k.sentiment]
 /** The 390 reference keeps three cards: Mentions, Engagement, Sentiment. */
 const mobileHidden = new Set<Kpi>([k.reach, k.posts])
-const w = smi.timeline.weekly
+const w = smi.timeline.daily
 const post = smi.articles[0]
 
 /**
@@ -87,7 +87,7 @@ export function SmiHeroMock() {
         {/* On the frame's left edge beside the KPI strip: the dot sits in the body padding, clear of the card labels. */}
         <Hotspot n={1} accent="smi" title={c.hotspots[0].title} text={c.hotspots[0].text} className="top-27 left-0 md:top-40" />
       </div>
-      <FloatCard enter className="md:-right-3 md:-bottom-6 md:w-70">
+      <FloatCard enter className="md:-right-3 md:-bottom-6 md:w-70 hidden">
         <PostCard
           initials={post.initials}
           handle={post.handle}

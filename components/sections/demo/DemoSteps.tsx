@@ -1,5 +1,5 @@
 import { Stagger, StaggerItem } from "@/components/motion/Stagger"
-import { PlaceholderInline } from "@/components/sections/PlaceholderBlock"
+// import { PlaceholderInline } from "@/components/sections/PlaceholderBlock"
 import { StepBadge } from "@/components/sections/StepBadge"
 import { demoSteps as s } from "@/content/demo"
 import { cn } from "@/lib/utils"
@@ -32,7 +32,7 @@ export function DemoSteps({ className }: { className?: string }) {
         <h2 id="how-h" className="text-h3 md:text-h2">
           {s.title}
         </h2>
-        <PlaceholderInline>{s.timing}</PlaceholderInline>
+        {/* <PlaceholderInline>{s.timing}</PlaceholderInline> */}
       </div>
       <Stagger as="ol" className="grid gap-2.5 md:grid-cols-3 md:gap-5">
         {s.steps.map((step, i) => (

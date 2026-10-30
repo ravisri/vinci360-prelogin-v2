@@ -89,10 +89,13 @@ export const aboutPage = {
   },
   msr: {
     title: "A product from MSRcosmos",
-    placeholders: ["[About MSRcosmos: company description to be supplied]", "[Years in business, services and focus areas: to be supplied]"],
+    /** From msrcosmos.com (infrastructure wording left out per the content rules). */
+    paragraphs: [
+      "MSRcosmos is a fast-growing global IT services company. It helps organisations move forward with digital transformation, backed by delivery excellence, differentiated talent and a methodical approach.",
+      "Established in 2008, MSRcosmos has 20 offices across 4 continents and more than 15 strong partnerships, serving clients across diverse industries in Data & AI, Generative AI, enterprise applications and automation.",
+    ],
     visit: "Visit msrcosmos.com",
-    logo: "MSRcosmos logo",
-    logoLabel: "Placeholder for the MSRcosmos logo",
+    logoAlt: "MSRcosmos",
     poweredBy: "Powered by",
     caption: "Vinci360 is built and supported by MSRcosmos.",
   },

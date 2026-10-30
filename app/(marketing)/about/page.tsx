@@ -127,9 +127,9 @@ export default function AboutPage() {
         steps={page.how.steps.map((s, i) => ({ ...s, illustration: stepArt[i], dark: i === 1 }))}
       />
 
-      <LeaderCards />
-      <LocationsPanel />
-      <SecurityCard />
+      {/* <LeaderCards /> */}
+      {/* <LocationsPanel /> */}
+      {/* <SecurityCard /> */}
 
       <RelatedModules
         title={page.explore.title}

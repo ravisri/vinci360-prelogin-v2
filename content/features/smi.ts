@@ -107,10 +107,10 @@ export const smiWalkthrough = {
       hintMobile: "Tap a card to scope the whole page to that metric.",
     },
     {
-      title: "Weekly timeline",
+      title: "Timeline",
       lead: "How much people talked about you over time, with a line showing how they felt.",
       tells: { label: tellsLabel, text: "when a spike happened and whether it was good news or bad." },
-      metrics: ["Volume", "Net sentiment", "Weekly · Monthly · Quarterly · Yearly"],
+      metrics: ["Volume", "Net sentiment", "Daily · Weekly · Custom range (up to 30 days)"],
       hint: "Click a point to filter the posts below to that interval.",
     },
     {
@@ -163,10 +163,9 @@ export const smiWidgets = {
   timeline: {
     granularity: "Granularity",
     options: [
+      { value: "daily", label: "Daily" },
       { value: "weekly", label: "Weekly" },
-      { value: "monthly", label: "Monthly" },
-      { value: "quarterly", label: "Quarterly" },
-      { value: "yearly", label: "Yearly" },
+      { value: "custom", label: "Custom range" },
     ],
     mentions: "Mentions",
     spike: "Spike",

@@ -49,7 +49,7 @@ export default function SocialMediaIntelligencePage() {
           undefined,
           <ReachNote key="hashtags" />,
         ]}
-        after={<TopHandlesTeaser />}
+        // after={<TopHandlesTeaser />}
       />
       <SmiFilterShowcase />
     </FeaturePageTemplate>

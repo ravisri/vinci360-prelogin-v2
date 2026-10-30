@@ -111,7 +111,7 @@ export default function HomePage() {
         <RoleCards items={home.roles.items} />
       </section>
 
-      <section className="container-site pb-16 lg:pb-24">
+      <section className="container-site pb-16 lg:pb-24 hidden">
         <ProofPlaceholder {...home.proof} />
       </section>
 

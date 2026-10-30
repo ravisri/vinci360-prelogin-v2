@@ -70,7 +70,7 @@ function KitBlock({ label, children }: { label: string; children: ReactNode }) {
 }
 
 export default function KitPage() {
-  const w = smi.timeline.weekly
+  const w = smi.timeline.daily
   return (
     <>
       <div className="container-site pt-10 pb-6">

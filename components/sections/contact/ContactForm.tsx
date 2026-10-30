@@ -18,9 +18,8 @@ import { PlaceholderInline } from "@/components/sections/PlaceholderBlock"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { contactFailure, contactForm as f, contactRoles, contactSuccess, contactTopics, type ContactTopic } from "@/content/contact"
+import { contactFailure, contactForm as f, contactSuccess } from "@/content/contact"
 import { contactDefaults, contactErrorOrder, contactSchema, type ContactValues } from "@/lib/contact-schema"
 import { cn } from "@/lib/utils"
 
@@ -114,27 +113,6 @@ export function ContactForm({ className }: { className?: string }) {
               <fieldset disabled={sending} className="mt-5 flex min-w-0 flex-col gap-5">
                 <legend className="sr-only">{f.legend}</legend>
 
-                <Controller
-                  control={control}
-                  name="topic"
-                  render={({ field }) => (
-                    <Select value={field.value} onValueChange={(v) => field.onChange(v as ContactTopic)}>
-                      <FormField id={fid("topic")} label={f.fields.topic} optional>
-                        <SelectTrigger className="w-full" onBlur={field.onBlur} ref={field.ref}>
-                          <SelectValue />
-                        </SelectTrigger>
-                      </FormField>
-                      <SelectContent position="popper">
-                        {contactTopics.map((t) => (
-                          <SelectItem key={t} value={t}>
-                            {t}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
-
                 <div className="grid gap-5 md:grid-cols-2 md:gap-3.5">
                   <FormField id={fid("first")} label={f.fields.first} required error={errors.first?.message}>
                     <Input type="text" autoComplete="given-name" {...register("first")} />
@@ -147,32 +125,6 @@ export function ContactForm({ className }: { className?: string }) {
                 <FormField id={fid("email")} label={f.fields.email} required error={errors.email?.message}>
                   <Input type="email" inputMode="email" autoComplete="email" {...register("email")} />
                 </FormField>
-
-                <div className="grid gap-5 md:grid-cols-2 md:gap-3.5">
-                  <FormField id={fid("company")} label={f.fields.company} optional>
-                    <Input type="text" autoComplete="organization" {...register("company")} />
-                  </FormField>
-                  <Controller
-                    control={control}
-                    name="role"
-                    render={({ field }) => (
-                      <Select value={field.value || undefined} onValueChange={field.onChange}>
-                        <FormField id={fid("role")} label={f.fields.role} optional>
-                          <SelectTrigger className="w-full" onBlur={field.onBlur} ref={field.ref}>
-                            <SelectValue placeholder={f.rolePlaceholder} />
-                          </SelectTrigger>
-                        </FormField>
-                        <SelectContent position="popper">
-                          {contactRoles.map((r) => (
-                            <SelectItem key={r} value={r}>
-                              {r}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  />
-                </div>
 
                 <FormField
                   id={fid("message")}
@@ -242,14 +194,11 @@ export function ContactForm({ className }: { className?: string }) {
 
 function SuccessPanel({ values }: { values: ContactValues }) {
   const s = contactSuccess
-  const rows = [
-    [s.labels.topic, values.topic],
-    [s.labels.email, values.email.trim()],
-  ] as const
+  const rows = [[s.labels.email, values.email.trim()]] as const
 
   return (
     <FormStatus variant="success" title={s.title(values.first.trim() || "there")}>
-      <dl className="grid gap-2.5 rounded-lg bg-background p-3.5 md:grid-cols-2">
+      <dl className="grid gap-2.5 rounded-lg bg-background p-3.5">
         {rows.map(([dt, dd]) => (
           <div key={dt}>
             <dt className="text-xs font-bold tracking-[0.04em] text-muted-foreground uppercase">{dt}</dt>

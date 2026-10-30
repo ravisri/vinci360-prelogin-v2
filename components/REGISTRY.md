@@ -29,12 +29,13 @@ shadcn primitives, edited in place (never wrapped in copies). All accept `classN
 - `HeaderCta` — `className, …Link props` — The filled "Request a demo" button (header + mobile sheet); on /request-demo it links to #form with aria-current="page". (HeaderCta.tsx)
 - `Logo` — `className` — Wordmark "vinci360°" with the primary-coloured degree sign. (Logo.tsx)
 - `MegaMenu` — — — Desktop primary nav. (MegaMenu.tsx)
-- `MobileNav` — `className` — Mobile/tablet navigation in a right-hand Sheet (focus trapped, Esc closes, focus returns to the trigger). (MobileNav.tsx)
-- `MsrcosmosLink` — `children, className` — "MSRcosmos" placeholder link (className replaces the default link style, e.g. button classes on About): focusable with a tooltip, no navigation until the URL is confirmed. (MsrcosmosLink.tsx)
+- `MobileNav` — `className` — Mobile/tablet navigation in a right-hand Sheet (focus trapped, Esc closes, focus returns to the trigger); Log in button only when `showLogin`. (MobileNav.tsx)
+- `MsrcosmosLink` — `children, className` — "MSRcosmos" external link to https://www.msrcosmos.com/ (className replaces the default link style, e.g. button classes on About): new tab, tooltip + sr-only hint. (MsrcosmosLink.tsx)
 - `LoginHeader` — — — Minimal /login header: logo, ghost "Back to website" (lg+), cta "Request a demo"; used by app/(auth)/layout. (LoginHeader.tsx)
 - `NavLink` — `href, variant, className` — Link that marks itself with aria-current="page" (bold + underline) when active. (NavLink.tsx)
 - `SiteFooter` — — — Site footer: brand column, Platform / Solutions / Company / Legal link columns, copyright bar. (SiteFooter.tsx)
-- `SiteHeader` — — — Sticky site header: logo, primary nav with mega menu (lg+), Log in, Request a demo, mobile sheet (<lg). (SiteHeader.tsx)
+- `SiteHeader` — — — Sticky site header: logo, primary nav with mega menu (lg+), Log in (hidden while `showLogin` is false), Request a demo, mobile sheet (<lg). (SiteHeader.tsx)
+- `LegalLayout` — `doc: LegalDoc` — Privacy Policy / Terms page body: breadcrumb, H1, lead, "Last updated" placeholder, legal switch (current = check + bold + underline, aria-current), "On this page" contents (sticky lg+, shadcn Accordion below), 720px reading column (text-legal) with highlights card, sections, term blocks, external links (new tab) and a support@vinci360.com card. Copy in content/legal.ts. (LegalLayout.tsx)
 
 ## components/sections/
 - `BenefitList` — `items, accent, columns, iconClassName, className` — 40px tinted icon tile + bold title + muted line. (BenefitList.tsx)
@@ -79,13 +80,13 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 ## components/sections/contact/
 - `ContactTopicProvider`, `useContactTopic()` — `children` — Shares the topic picked on a routing card with the contact form. (RouteCards.tsx)
 - `RouteCards` — `className` — "What do you need?": four routing cards in a radio group (arrows move); Demo → /request-demo, Log in → /login, the other two set the form topic and jump to #form. (RouteCards.tsx)
-- `ContactForm` — `className` — "Send us a message" (#form): topic, names, email, company, role, message (1000), consent, honeypot; error summary, sending, success "Thanks, {name}…", failure + Retry; sticky submit bar below md. (ContactForm.tsx)
+- `ContactForm` — `className` — "Send us a message" (#form): names, email, message (1000), consent, honeypot (Topic, Company and Role hidden for now; topic still set by RouteCards); submits via `sendContactMessage`, which emails support@vinci360.com through `lib/mail.ts` (SMTP from .env.local); error summary, sending, success "Thanks, {name}…" + Reply to, failure + Retry; sticky submit bar below md. (ContactForm.tsx)
 - `OfficeMap` — `className` — "Our offices": next/image base map + HTML pins by %; dots drop in with a stagger, pulse ring on primary; xl+ label-pill buttons with leader lines, below xl one 44px button per region; each opens a Popover with placeholders. (OfficeMap.tsx)
-- `MsrcosmosCard` — `className` — "Powered by MSRcosmos" card: logo placeholder, About / Privacy / Terms links, placeholder "Visit msrcosmos.com" (tooltip, no navigation). (MsrcosmosCard.tsx)
+- `MsrcosmosCard` — `className` — "Powered by MSRcosmos" card: MSRcosmos logo (next/image, public/images/msrcosmos-logo.svg), About / Privacy / Terms links, "Visit msrcosmos.com" (new tab). (MsrcosmosCard.tsx)
 - `contactExploreThumbnails` — array of 3 nodes — "Keep exploring" thumbnails (tour steps, feature grid, role pills). (ExploreThumbnails.tsx)
 
 ## components/sections/demo/
-- `DemoForm` — — — "Tell us about you" (#form): request type, names, email, company, role, brand, competitor chips (max 2), keyword, focus areas, notes (500), consent, honeypot; error summary, sending, success summary, failure + Retry; sticky submit bar below md. (DemoForm.tsx)
+- `DemoForm` — — — "Tell us about you" (#form): demo only (request-type tabs, role, brand, competitors and focus hidden); first/last, work email, company, keyword, notes (counter), consent, honeypot; error summary, sending, success (Request · Company · Reply to), failure + Retry; submits via `requestDemo`, which emails support@vinci360.com ("Request a demo: …") through `lib/mail.ts` `deliver`. (DemoForm.tsx)
 - `DemoPreviewMock` — `className` — Hero sample preview: 3 KPIs + share-of-voice ring in a dark frame on the primary tint, with the "In your demo…" note. (DemoPreviewMock.tsx)
 - `DemoSteps` — `className` — "What happens next": 3 step cards with art (md+), compact badge rows at 390, `[Timing…]` placeholder. (DemoSteps.tsx)
 - `WhatYoullSee` — `className` — Sticky intro + seven-stop numbered timeline with module dots (lg); one accordion below lg. (WhatYoullSee.tsx)
@@ -95,9 +96,9 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 
 ## components/sections/about/
 - `NetworksHeroVisual` — `caption` — About hero (client): four metric nodes wired by dashed connectors that draw in, hub pulses once, dark dashboard frame; compact 2-column version at 390. (NetworksHeroVisual.tsx)
-- `PrincipleCards` — `className` — "What we believe": four staggered principle cards; mini illustrations (posts, native metric chips, reach estimate, Accept/Dismiss) from md. (PrincipleCards.tsx)
+- `PrincipleCards` — `className` — "What we believe": four staggered principle cards; mini illustrations (posts, native metric chips, reach estimate, Accept/Dismiss) from md; no Sample data chip (decorative illustrations, by request). (PrincipleCards.tsx)
 - `FeatureTiles` — `className` — "What Vinci360 does": seven feature link tiles (dot, name, question); swipe strip below md. (FeatureTiles.tsx)
-- `MsrcosmosBlock` — `className` — "A product from MSRcosmos": placeholder copy, placeholder "Visit msrcosmos.com" (tooltip, no navigation), logo placeholder card. (MsrcosmosBlock.tsx)
+- `MsrcosmosBlock` — `className` — "A product from MSRcosmos": company copy from msrcosmos.com, "Visit msrcosmos.com" (new tab), logo card (next/image, public/images/msrcosmos-logo.svg). (MsrcosmosBlock.tsx)
 - `LeaderCards` — `className` — "Leadership" (#team): placeholder name/role/bio/email cards, empty avatar slot until initials are confirmed. (LeaderCards.tsx)
 - `LocationsPanel` — `className` — "Where we are": dot-grid tinted panel, locations kept as placeholders. (LocationsPanel.tsx)
 - `SecurityCard` — `className` — "Questions and security": placeholder line + Privacy / Terms outline links. (SecurityCard.tsx)
@@ -171,7 +172,7 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 - `NetworkTerms` — — — "Each view, in its own words": semantic table from md, swipe cards (dl) below. (NetworkTerms.tsx)
 - `NetworkViewMock` — `view (keywords·entity·groups·hashtags·object)` — One walkthrough visual for all five views: per-block view picker, cross-fading table, hotspots on the frame edge, "Open the posts" disclosure. (NetworkViewMock.tsx)
 - `NetworkInsights` — — — "One insight per view": four dark mini-figures with a label card (4/2/1 grid), compact swipe cards below md. (NetworkInsights.tsx)
-- `ChannelsFilterShowcase` — — — "Narrow it down": view toggle, 8 selects (object filter renamed Profile/Post/Author), four live widgets with "Updated" + pulse (aria-live), empty-state strip. (ChannelsFilterShowcase.tsx)
+- `ChannelsFilterShowcase` — — — "Narrow it down": view toggle, 8 selects (object filter renamed Profile/Post/Author), four live widgets with "Updated" + pulse (aria-live), empty-state strip. Date range capped at 30 days (Today · 7 days · 30 days · Weekly · Custom range). (ChannelsFilterShowcase.tsx)
 - `ShareBar` — `segs, ariaLabel, height, className` — 100% (or partial) horizontal share bar in chart tones, grows from the left; percent geometry, no inline styles. (ShareBar.tsx)
 - `channelsStepIllustrations`, `channelsRelatedThumbnails` — arrays of 3 nodes — Step and related thumbnails (ChannelsIllustrations.tsx)
 - `dk`, `wt`, `fpill`, `avatar`, `dtab`, `mchip`, `pickerItem`, `checkBadge`, `hotspotSide` — class strings — Shared in-mock styles (styles.ts)
@@ -259,7 +260,7 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 - `SentimentWidget` — — — Widget 5 · Sentiment bar graphs: net score tile plus overall bars or a per-topic split. (SentimentWidget.tsx)
 - `SmiFilterShowcase` — — — "Slice it your way": a working filter bar (date, topic toggles, sentiment). (SmiFilterShowcase.tsx)
 - `SmiHeroMock` — — — SMI hero: dashboard window with the five KPI cards and this week's mentions (Tuesday spike, tone line dipping), two hotspots, and the negative post behind th… (SmiHeroMock.tsx)
-- `TimelineWidget` — — — Widget 2 · Timeline: mentions per interval with the spike called out and the net-sentiment line dashed over it. (TimelineWidget.tsx)
+- `TimelineWidget` — — — Widget 2 · Timeline: mentions per interval with the spike called out and the net-sentiment line dashed over it. Granularity: Daily · Weekly · Custom range, max 30 days; period shown in the legend row. (TimelineWidget.tsx)
 - `TopHandlesTeaser` — — — Optional "Top handles" teaser after the walkthrough: a native disclosure, so it works without JS. (TopHandlesTeaser.tsx)
 - `TopicsWidget` — — — Widget 3 · Topics: ranked table with a sentiment split per topic; select a row to filter the page. (TopicsWidget.tsx)
 - `smiStepIllustrations`, `smiRelatedThumbnails` — arrays of 3 nodes — Step and related thumbnails (SmiIllustrations.tsx)
@@ -277,7 +278,7 @@ Shared form kit (Demo, Contact, Login). react-hook-form + zod + shadcn controls.
 - `EvidenceWidget` — — — Walkthrough 2 · Evidence 2×2 (counts up), sentiment split and the "reach is an estimate" hotspot. (StoriesWidgets.tsx)
 - `SupportingPostsWidget` — — — Walkthrough 3 · Three positive posts with View original, plus a float card. (StoriesWidgets.tsx)
 - `DecisionWidget` — — — Walkthrough 4 · Decision panel and shortlist. (StoriesWidgets.tsx)
-- `RaiseTheBar` — — — "Raise the bar": date/topic/sentiment/category filters, evidence slider and minimums; rows below the bar fade out, the count is announced, and an empty list says which filter caused it. At 390 only the slider, count and dot strip show. (RaiseTheBar.tsx)
+- `RaiseTheBar` — — — "Raise the bar": date/topic/sentiment/category filters, evidence slider and minimums; rows below the bar fade out, the count is announced, and an empty list says which filter caused it. At 390 only the slider, count and dot strip show. Date range capped at 30 days (Today · 7 days · 30 days · Weekly · Custom). (RaiseTheBar.tsx)
 - `storiesStepIllustrations`, `storiesRelatedThumbnails` — arrays of 3 nodes — Step and related thumbnails (StoriesIllustrations.tsx)
 - `aiChipDark`, `aiChipLight`, `tagChip`, `kwChip`, `evTile`, `candidateChip`, `priorityChip`, `darkAction` — class strings — Shared in-mock styles (styles.ts)
 

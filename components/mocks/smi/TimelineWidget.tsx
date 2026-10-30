@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils"
 
 const c = smiWidgets.timeline
 type Granularity = keyof typeof smi.timeline
+/** Interval word per granularity, for the chart's label. All views stay within the last 30 days. */
+const unit: Record<Granularity, string> = { daily: "day", weekly: "week", custom: "day" }
 
 const W = 420
 const H = 130
@@ -25,7 +27,7 @@ const H = 130
  * dashed over it. Each bar is a button that filters the posts box; the granularity switch redraws it.
  */
 export function TimelineWidget() {
-  const [gran, setGran] = useState<Granularity>("weekly")
+  const [gran, setGran] = useState<Granularity>("daily")
   const [sel, setSel] = useState<number | null>(null)
   const t = smi.timeline[gran]
   const posts = sel === t.spike ? smi.timelinePosts.spike : smi.timelinePosts.all
@@ -48,7 +50,7 @@ export function TimelineWidget() {
             }}
           />
         }
-        caption={`Sample mentions timeline with net sentiment, ${gran}: ${t.full.map((n, i) => `${n} ${fmt(t.volume[i])} mentions, net +${t.net[i]}`).join("; ")}. ${t.note}.`}
+        caption={`Sample mentions timeline with net sentiment, ${t.range}: ${t.full.map((n, i) => `${n} ${fmt(t.volume[i])} mentions, net +${t.net[i]}`).join("; ")}. ${t.note}.`}
       >
         <ul aria-hidden="true" className="flex flex-wrap gap-x-3.5 gap-y-1 text-[0.6875rem] text-muted-foreground">
           <li className="flex items-center gap-1.5">
@@ -65,11 +67,12 @@ export function TimelineWidget() {
             </svg>
             {c.net}
           </li>
+          <li className="ml-auto font-semibold text-foreground">{t.range}</li>
         </ul>
         <div className="relative">
           <Bars
             key={gran}
-            ariaLabel={`${c.mentions} and ${c.net.toLowerCase()} by ${gran.replace("ly", "")}: ${t.note}.`}
+            ariaLabel={`${c.mentions} and ${c.net.toLowerCase()} by ${unit[gran]}: ${t.note}.`}
             labels={t.labels}
             data={[{ label: c.mentions, values: t.volume, tone: "chart-1" }]}
             highlight={t.spike}
@@ -77,7 +80,7 @@ export function TimelineWidget() {
             width={W}
             height={H}
           />
-          {gran === "weekly" && (
+          {gran === "daily" && (
             <svg aria-hidden="true" viewBox={`0 0 ${W} ${H}`} className="pointer-events-none absolute inset-x-0 top-0 w-full overflow-visible">
               <circle cx={ringX} cy={ringY} r="12" fill="none" strokeWidth="2" className="transform-fill origin-center animate-hotspot stroke-neg-dark [animation-iteration-count:3]" />
             </svg>

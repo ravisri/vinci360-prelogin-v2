@@ -54,7 +54,7 @@ export default function RequestDemoPage() {
                 </li>
               ))}
             </ul>
-            <PlaceholderInline className="self-start">{h.responseTime}</PlaceholderInline>
+            {/* <PlaceholderInline className="self-start">{h.responseTime}</PlaceholderInline> */}
             <Reveal className="mt-2 hidden lg:block">
               <DemoPreviewMock />
             </Reveal>
@@ -69,18 +69,18 @@ export default function RequestDemoPage() {
         title={demoFaq.title}
         items={demoFaq.items}
         className="pb-0 md:pb-0"
-        after={
-          <Link
-            href={demoFaq.pricing.href}
-            className="flex flex-col items-start gap-1.5 rounded-lg border border-dashed border-placeholder-border bg-placeholder px-4.5 py-4 text-foreground no-underline"
-          >
-            <PlaceholderInline>{demoFaq.pricing.placeholder}</PlaceholderInline>
-            <span className="text-sm font-semibold text-primary-700">{demoFaq.pricing.link}</span>
-          </Link>
-        }
+        // after={
+        //   <Link
+        //     href={demoFaq.pricing.href}
+        //     className="flex flex-col items-start gap-1.5 rounded-lg border border-dashed border-placeholder-border bg-placeholder px-4.5 py-4 text-foreground no-underline"
+        //   >
+        //     <PlaceholderInline>{demoFaq.pricing.placeholder}</PlaceholderInline>
+        //     <span className="text-sm font-semibold text-primary-700">{demoFaq.pricing.link}</span>
+        //   </Link>
+        // }
       />
-      <TalkToPerson className="section-y" />
-      <LinkBand title={demoBand.title} links={demoBand.links} className="max-md:hidden" />
+      {/* <TalkToPerson className="section-y" /> */}
+      <LinkBand title={demoBand.title} links={demoBand.links} className="max-md:hidden mt-10" />
     </>
   )
 }
