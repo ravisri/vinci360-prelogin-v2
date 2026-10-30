@@ -39,7 +39,8 @@ shadcn primitives, edited in place (never wrapped in copies). All accept `classN
 
 ## components/sections/
 - `BenefitList` — `items, accent, columns, iconClassName, className` — 40px tinted icon tile + bold title + muted line. (BenefitList.tsx)
-- `CtaBand` — `variant (full·slim); full: title, lead, label, placeholder, buttonLabel, action, id · slim: title, buttonLabel, href; className` — Navy closing band: H2, lead, work-email field and the filled CTA; `slim` = H2 + filled CTA link on one row (Contact). (CtaBand.tsx)
+- `CtaBand` — `variant (full·slim); full: title, lead, label, placeholder, buttonLabel, action, id · slim: title, buttonLabel, href; className` — Navy closing band: H2, lead, work-email field and the filled CTA; `slim` = H2 + filled CTA link on one row (Contact). Full variant renders `CtaEmailForm`; `action` is deprecated and unused. (CtaBand.tsx)
+- `CtaEmailForm` — `id, label, placeholder, buttonLabel` — CTA band work-email field: `useActionState` + `requestWalkthrough` server action (works without JS) emails support@vinci360.com ("Walkthrough request: {email} wants a Vinci360 walkthrough", Reply-To the visitor, page in body); pending = button spinner, invalid/error = inline `text-neg` message + aria-invalid + focus, success = in-place check row (aria-live); honeypot. (CtaEmailForm.tsx)
 - `FaqAccordion` — `title, lead, items, jsonLd, after, className` — Optional `lead` under the heading. Heading left, questions right; `after` renders under the questions (e.g. Terms placeholder card). (FaqAccordion.tsx)
 - `FeatureSplit` — `accent, reverse, visualFirstOnMobile, chip, chipVariant, badge, title, lead, benefits, benefitIconClassName, tells, metrics, hint, hintIcon, hintVariant, note, action, visual, headingAs, variant, id, className` — Text + visual side by side. (FeatureSplit.tsx)
 - `FeatureTabs` — `label, tabs, panels, className` — Feature-area tab strip (Radix: roving tabindex, ←/→/Home/End). (FeatureTabs.tsx)

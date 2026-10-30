@@ -55,6 +55,12 @@ export const legalNav: NavItem[] = [
 ]
 
 export const ctaLink: NavItem = { label: "Request a demo", href: "/request-demo" }
+/** CTA band email field states (walkthrough request to support@vinci360.com). */
+export const ctaBandForm = {
+  invalid: "Enter a work email like you@company.com",
+  error: "Something went wrong. Please try again or email support@vinci360.com.",
+  success: (email: string) => `Thanks! We’ll email ${email} to set up your walkthrough of Vinci360.`,
+}
 
 export const loginLink: NavItem = { label: "Log in", href: "/login" }
 /** Header, mobile sheet and 404 "Log in" links are hidden for now; /login itself stays live. Set true to bring them back. */
