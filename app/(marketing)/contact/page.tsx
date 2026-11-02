@@ -30,7 +30,7 @@ export default function ContactPage() {
             {h.title}
           </h1>
           <p className="text-base text-muted-foreground md:text-[1.1875rem]">{h.lead}</p>
-          <PlaceholderInline>{h.responseTime}</PlaceholderInline>
+          {/* <PlaceholderInline>{h.responseTime}</PlaceholderInline> */}
         </div>
       </section>
 
