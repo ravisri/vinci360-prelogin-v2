@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 
 /** "How to use it" illustrations (decorative; HowToUse hides them from screen readers). */
 export const channelsStepIllustrations = [
-  <div key="pick" className="flex h-full items-center justify-center gap-1 text-xs font-semibold">
+  <div key="pick" className="flex h-full flex-wrap content-center items-center justify-center gap-x-1 gap-y-0.5 text-xs font-semibold">
     {c.tabs.map((t, i) => (
       <span key={t} className={cn("inline-flex items-center gap-1.5 px-2.5 py-2", i === 0 ? "border-b-3 border-channels-text font-extrabold" : "text-neutral-text")}>
         {i === 0 && <ViewIcon view="interactions" className="size-3.5" />}
@@ -20,7 +20,7 @@ export const channelsStepIllustrations = [
     <span className="flex items-center gap-1.5 rounded-sm border-2 border-channels-text bg-card px-2.5 py-2 text-xs font-semibold">
       <span className="text-channels-text">{c.object.label}</span> {c.object.value}
     </span>
-    <span className="flex gap-1.5">
+    <span className="flex flex-wrap gap-1.5">
       {c.chips.map((chip) => (
         <span key={chip} className={mchip}>
           {chip}
