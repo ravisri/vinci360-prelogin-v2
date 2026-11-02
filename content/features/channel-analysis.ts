@@ -58,7 +58,7 @@ export const channelsPage = {
     title: "Works with the rest of Vinci360",
     items: [
       { accent: "smi", label: "Social Media Intelligence", prompt: "See the whole conversation together.", href: "/features/social-media-intelligence", linkLabel: "Explore Social Media Intelligence" },
-      { accent: "sent", label: "Sentiment & Keywords", prompt: "Compare the tone across views.", href: "/features/sentiment-keywords", linkLabel: "Explore Sentiment & Keywords" },
+      { accent: "sent", label: "Sentiment", prompt: "Compare the tone across views.", href: "/features/sentiment", linkLabel: "Explore Sentiment" },
       { accent: "reports", label: "Reports & Alerts", prompt: "Send a source report on a schedule.", href: "/features/reports-alerts", linkLabel: "Explore Reports & Alerts" },
     ],
   },
@@ -184,7 +184,7 @@ export const channelsWalkthrough = {
     },
   ] satisfies (WalkthroughItem & { id: string })[],
   objectTitle: (obj: string) => `Main object: ${obj}`,
-  keywordNote: { before: "The single-view counterpart of ", link: "Keyword Analysis", href: "/features/sentiment-keywords", after: "." },
+  keywordNote: { before: "The single-view counterpart of ", link: "Keyword Analysis", href: "/features/sentiment", after: "." },
   views: {
     keywords: {
       label: "Keywords",

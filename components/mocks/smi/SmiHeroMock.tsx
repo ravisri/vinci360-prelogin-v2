@@ -51,8 +51,8 @@ export function SmiHeroMock() {
           </div>
           <div className="flex flex-wrap gap-1.5">
             <span className={cn(frameChip, "md:hidden")}>{c.range}</span>
-            {c.filters.map((f) => (
-              <span key={f.label} className={cn(frameChip, f.desktopOnly && "max-md:hidden")}>
+            {c.filters.map((f,i) => (
+              <span key={f.label + i} className={cn(frameChip, f.desktopOnly && "max-md:hidden")}>
                 <span className="text-muted-foreground">{f.label}</span> {f.value}
               </span>
             ))}

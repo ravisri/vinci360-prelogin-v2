@@ -51,7 +51,7 @@ export const trendsPage = {
     title: "Works with the rest of Vinci360",
     items: [
       { accent: "stories", label: "Promotable Stories", prompt: "Turn a rising tag into a content idea.", href: "/features/promotable-stories", linkLabel: "Explore Promotable Stories" },
-      { accent: "sent", label: "Sentiment & Keywords", prompt: "Check the tone before you jump in.", href: "/features/sentiment-keywords", linkLabel: "Explore Sentiment & Keywords" },
+      { accent: "sent", label: "Sentiment", prompt: "Check the tone before you jump in.", href: "/features/sentiment", linkLabel: "Explore Sentiment" },
       { accent: "cmp", label: "Brand Compare", prompt: "See where you stand overall.", href: "/features/brand-compare", linkLabel: "Explore Brand Compare" },
     ],
   },

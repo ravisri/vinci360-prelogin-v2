@@ -64,7 +64,7 @@ export function AlertNotifications() {
                       {n.topic}
                     </span>
                     <Link
-                      href="/features/sentiment-keywords"
+                      href="/features/sentiment"
                       className="ml-auto inline-flex min-h-11 items-center gap-1 font-semibold text-on-dark-focus underline-offset-4 hover:underline"
                     >
                       {c.view}

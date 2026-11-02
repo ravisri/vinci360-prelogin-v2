@@ -14,7 +14,7 @@ export type FeatureNavItem = NavItem & {
 export const features: FeatureNavItem[] = [
   { label: "Social Media Intelligence", href: "/features/social-media-intelligence", blurb: "Every mention, one view", accent: "smi", dotClass: "bg-smi" },
   { label: "Trends", href: "/features/trends", blurb: "What is rising right now", accent: "trends", dotClass: "bg-trends" },
-  { label: "Sentiment & Keywords", href: "/features/sentiment-keywords", blurb: "How people feel, and why", accent: "sent", dotClass: "bg-sent" },
+  { label: "Sentiment", href: "/features/sentiment", blurb: "How people feel, and why", accent: "sent", dotClass: "bg-sent" },
   { label: "Brand Compare", href: "/features/brand-compare", blurb: "You vs your competitors", accent: "cmp", dotClass: "bg-cmp" },
   { label: "Promotable Stories", href: "/features/promotable-stories", blurb: "Content ideas with evidence", accent: "stories", dotClass: "bg-stories" },
   { label: "Reports & Alerts", href: "/features/reports-alerts", blurb: "Insights that come to you", accent: "reports", dotClass: "bg-reports" },

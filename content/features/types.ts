@@ -9,7 +9,7 @@ import type { Accent } from "@/content/navigation"
 export type FeatureSlug =
   | "social-media-intelligence"
   | "trends"
-  | "sentiment-keywords"
+  | "sentiment"
   | "brand-compare"
   | "promotable-stories"
   | "reports-alerts"

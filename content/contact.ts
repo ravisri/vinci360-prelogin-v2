@@ -38,6 +38,8 @@ export type ContactRoute = {
 export const contactRoutes = {
   title: "What do you need?",
   items: [
+    { id: "other", title: "Something else", text: "A general question about the product or the company.", icon: "message", button: "Send a message", topic: "General question" },
+    { id: "partners", title: "Partnerships and media", text: "Working together or writing about Vinci360?", icon: "users", button: "Send a message", topic: "Partnership" },
     { id: "demo", title: "See Vinci360 on your brand", text: "Tell us your brand and two competitors.", icon: "play", button: "Request a demo", href: "/request-demo" },
     // {
     //   id: "users",
@@ -48,8 +50,8 @@ export const contactRoutes = {
     //   href: "/login",
     //   placeholder: "[Help for existing users: route to be confirmed]",
     // },
-    { id: "partners", title: "Partnerships and media", text: "Working together or writing about Vinci360?", icon: "users", button: "Send a message", topic: "Partnership" },
-    { id: "other", title: "Something else", text: "A general question about the product or the company.", icon: "message", button: "Send a message", topic: "General question" },
+    
+    
   ] as readonly ContactRoute[],
 } as const
 

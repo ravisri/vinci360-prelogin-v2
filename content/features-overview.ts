@@ -130,12 +130,12 @@ export const featuresOverview = {
       },
       {
         accent: "sent",
-        eyebrow: "Sentiment & Keywords",
+        eyebrow: "Sentiment",
         title: "How do people feel, and which words drive it?",
         titleMobile: "How do people feel, and why?",
         modules: ["Sentiment Analysis", "Keyword Analysis"],
         glyph: "sent",
-        href: "/features/sentiment-keywords",
+        href: "/features/sentiment",
       },
       {
         accent: "cmp",
@@ -266,8 +266,8 @@ export const featuresOverview = {
       {
         id: "sent",
         accent: "sent",
-        name: "Sentiment & Keywords",
-        chip: "Sentiment & Keywords",
+        name: "Sentiment",
+        chip: "Sentiment",
         title: "Find the problem before it reaches the headline number.",
         lead: "Sentiment Analysis and Keyword Analysis show where opinion is turning, and the words behind it.",
         benefits: [
@@ -288,8 +288,8 @@ export const featuresOverview = {
           },
         ],
         action: {
-          label: "Explore Sentiment & Keywords",
-          href: "/features/sentiment-keywords",
+          label: "Explore Sentiment",
+          href: "/features/sentiment",
         },
         hotspots: [
           {

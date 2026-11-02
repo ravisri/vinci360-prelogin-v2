@@ -13,7 +13,7 @@ Read this file fully before every task. It is the contract for this repo.
 |---|---|---|
 | Social Media Intelligence | Social Media Intelligence | `smi` |
 | Trends | Trending Topics, Trending Hashtags | `trends` |
-| Sentiment & Keywords | Sentiment Analysis, Keyword Analysis | `sent` |
+| Sentiment | Sentiment Analysis, Keyword Analysis | `sent` |
 | Brand Compare | Brand Compare Analysis | `cmp` |
 | Promotable Stories | Promotable Stories | `stories` |
 | Reports & Alerts | SMA Reports | `reports` |
@@ -50,7 +50,7 @@ app/
     features/page.tsx                          # Features overview
     features/social-media-intelligence/page.tsx
     features/trends/page.tsx
-    features/sentiment-keywords/page.tsx
+    features/sentiment/page.tsx                  # was sentiment-keywords (308 redirect in next.config.ts)
     features/brand-compare/page.tsx
     features/promotable-stories/page.tsx
     features/reports-alerts/page.tsx

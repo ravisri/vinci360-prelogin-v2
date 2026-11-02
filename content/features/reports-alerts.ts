@@ -51,7 +51,7 @@ export const reportsPage = {
     title: "Works with the rest of Vinci360",
     items: [
       { accent: "cmp", label: "Brand Compare", prompt: "Send the competitive view on a schedule.", href: "/features/brand-compare", linkLabel: "Explore Brand Compare" },
-      { accent: "sent", label: "Sentiment & Keywords", prompt: "Alert on a keyword turning negative.", href: "/features/sentiment-keywords", linkLabel: "Explore Sentiment & Keywords" },
+      { accent: "sent", label: "Sentiment", prompt: "Alert on a keyword turning negative.", href: "/features/sentiment", linkLabel: "Explore Sentiment" },
       { accent: "stories", label: "Promotable Stories", prompt: "Share the shortlist with the team.", href: "/features/promotable-stories", linkLabel: "Explore Promotable Stories" },
     ],
   },

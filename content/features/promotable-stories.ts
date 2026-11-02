@@ -52,7 +52,7 @@ export const storiesPage = {
     title: "Works with the rest of Vinci360",
     items: [
       { accent: "trends", label: "Trends", prompt: "Start from what is rising.", href: "/features/trends", linkLabel: "Explore Trends" },
-      { accent: "sent", label: "Sentiment & Keywords", prompt: "Check the tone before you promote.", href: "/features/sentiment-keywords", linkLabel: "Explore Sentiment & Keywords" },
+      { accent: "sent", label: "Sentiment", prompt: "Check the tone before you promote.", href: "/features/sentiment", linkLabel: "Explore Sentiment" },
       { accent: "reports", label: "Reports & Alerts", prompt: "Share the shortlist on a schedule.", href: "/features/reports-alerts", linkLabel: "Explore Reports & Alerts" },
     ],
   },

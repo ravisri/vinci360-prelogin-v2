@@ -21,7 +21,7 @@ export function PartHeader({ id, accent, part, title, lead, journey, className }
   return (
     <Reveal className={cn("flex flex-wrap items-end justify-between gap-5", className)}>
       <div className="flex flex-col gap-2.5">
-        <ModuleChip accent={accent} label={part} dot={false} className="max-md:hidden" />
+        {/* <ModuleChip accent={accent} label={part} dot={false} className="max-md:hidden" /> */}
         <h2 id={id} className="text-[1.625rem] leading-[1.15] md:text-display">
           {title}
         </h2>

@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   title: { default: defaultTitle, template: "%s | vinci360°" },
   description: defaultDescription,
   applicationName: siteName,
+  icons: {
+    icon: [{ url: "/images/favicon.svg", type: "image/svg+xml" }],
+  },
   openGraph: {
     siteName,
     title: defaultTitle,
@@ -46,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en-GB" className={cn(inter.variable, jakarta.variable)}>
+    <html lang="en-GB" data-scroll-behavior="smooth" className={cn(inter.variable, jakarta.variable)}>
       <body>
         <noscript>
           <style>{noScriptMotion}</style>

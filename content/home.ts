@@ -93,7 +93,7 @@ export const home = {
     items: [
       { accent: "cmp", eyebrow: "Brand Compare", title: "Where do we stand?", glyph: "bars", link: "Explore Brand Compare", href: "/features/brand-compare" },
       { accent: "trends", eyebrow: "Trends", title: "What is rising?", glyph: "rise", link: "Explore Trends", href: "/features/trends" },
-      { accent: "sent", eyebrow: "Sentiment & Keywords", title: "What is going wrong?", glyph: "meters", link: "Explore Sentiment", href: "/features/sentiment-keywords" },
+      { accent: "sent", eyebrow: "Sentiment", title: "What is going wrong?", glyph: "meters", link: "Explore Sentiment", href: "/features/sentiment" },
       { accent: "stories", eyebrow: "Promotable Stories", title: "What is worth promoting?", glyph: "doc", link: "Explore Stories", href: "/features/promotable-stories" },
     ] as { accent: Accent; eyebrow: string; title: string; glyph: "bars" | "rise" | "meters" | "doc"; link: string; href: string }[],
   },
@@ -130,7 +130,7 @@ export const home = {
 
   sentiment: {
     accent: "sent",
-    chip: "Sentiment & Keywords",
+    chip: "Sentiment",
     title: "Find the problem before it reaches the headline number.",
     lead: "Follow sentiment over time and by keyword to see exactly where opinion is turning, and why.",
     benefits: [
@@ -138,7 +138,7 @@ export const home = {
       { icon: KeyRound, title: "Keywords that drive it", text: "The words most linked to praise or complaints." },
       { icon: MessageSquareWarning, title: "Catch the shift early", text: "Week-on-week change flags opinion turning sour." },
     ],
-    action: { label: "Explore Sentiment & Keywords", href: "/features/sentiment-keywords" },
+    action: { label: "Explore Sentiment", href: "/features/sentiment" },
   } satisfies Feature,
   sentimentMock: { title: "Sentiment over time", keywords: "Top negative keywords:", callout: "Net sentiment · this week" },
 

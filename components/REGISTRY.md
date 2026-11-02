@@ -35,6 +35,7 @@ shadcn primitives, edited in place (never wrapped in copies). All accept `classN
 - `NavLink` — `href, variant, className` — Link that marks itself with aria-current="page" (bold + underline) when active. (NavLink.tsx)
 - `SiteFooter` — — — Site footer: brand column, Platform / Solutions / Company / Legal link columns, copyright bar. (SiteFooter.tsx)
 - `SiteHeader` — — — Sticky site header: logo, primary nav with mega menu (lg+), Log in (hidden while `showLogin` is false), Request a demo, mobile sheet (<lg). (SiteHeader.tsx)
+- `Loading` (route) — — — Marketing route loader: vinci360° app mark (ink tile, white V) whose ° orbits 360°, soft primary "signal" pulses, wordmark, seven feature-accent dot wave; CSS-only, fades in after 150ms, static under reduced motion. (app/(marketing)/loading.tsx)
 - `LegalLayout` — `doc: LegalDoc` — Privacy Policy / Terms page body: breadcrumb, H1, lead, "Last updated" placeholder, legal switch (current = check + bold + underline, aria-current), "On this page" contents (sticky lg+, shadcn Accordion below), 720px reading column (text-legal) with highlights card, sections, term blocks, external links (new tab) and a support@vinci360.com card. Copy in content/legal.ts. (LegalLayout.tsx)
 
 ## components/sections/

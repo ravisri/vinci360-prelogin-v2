@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
     return [
       /** Channel Analysis became the source-agnostic Source Analysis page. */
       { source: "/features/channel-analysis", destination: "/features/source-analysis", permanent: true },
+      /** Sentiment & Keywords became Sentiment. */
+      { source: "/features/sentiment-keywords", destination: "/features/sentiment", permanent: true },
       /** The product tour was retired; interested visitors request a demo instead. */
       { source: "/product-tour", destination: "/request-demo", permanent: true },
     ]

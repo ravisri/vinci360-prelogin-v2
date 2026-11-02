@@ -8,16 +8,16 @@ import type { Benefit } from "@/components/sections/BenefitList"
 import type { FeaturePageConfig, WalkthroughItem } from "@/content/features/types"
 
 export const sentimentPage = {
-  slug: "sentiment-keywords",
+  slug: "sentiment",
   accent: "sent",
   seo: {
-    title: "Sentiment & Keywords",
+    title: "Sentiment",
     description:
       "See how people feel about your brand across social media, by topic and hashtag, and how any keyword or campaign term performs across its sub-topics over time.",
   },
   hero: {
-    breadcrumb: [{ label: "Platform", href: "/features" }, { label: "Sentiment & Keywords" }],
-    chip: { label: "Sentiment & Keywords", variant: "tint", bordered: true },
+    breadcrumb: [{ label: "Platform", href: "/features" }, { label: "Sentiment" }],
+    chip: { label: "Sentiment", variant: "tint", bordered: true },
     title: "Find the problem before it reaches the headline number.",
     lead: "See where the favourable and adverse conversation sits, and how any keyword or campaign term performs across every topic.",
     leadMobile: "See where the favourable and adverse conversation sits, and how any keyword performs across every topic.",
@@ -123,7 +123,7 @@ export const sentimentSubnav = {
   label: "On this page",
   items: [
     { id: "sentiment", label: "Sentiment" },
-    { id: "keywords", label: "Keywords" },
+    // { id: "keywords", label: "Keywords" },
   ],
 } as const
 
@@ -473,7 +473,7 @@ export const sentimentFilters = {
   tabsLabel: "Filter sets",
   tabs: [
     { value: "sent", label: "Sentiment filters" },
-    { value: "key", label: "Keyword filters" },
+    // { value: "key", label: "Keyword filters" },
   ],
   date: { label: "Date range", value: "Last 30 days" },
   platform: {

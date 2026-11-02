@@ -296,7 +296,7 @@ export const solutionsPage = {
     title: "AI that reads the conversation for you",
     lead: "Vinci360 uses AI to sort, score and summarise every mention, so your team spends its time acting, not reading.",
     items: [
-      { icon: Smile, accent: "sent", title: "AI sentiment analysis", text: "Every mention scored positive, neutral or negative, always shown with ▲ ▼ – and a label.", link: "Explore Sentiment & Keywords", href: "/features/sentiment-keywords" },
+      { icon: Smile, accent: "sent", title: "AI sentiment analysis", text: "Every mention scored positive, neutral or negative, always shown with ▲ ▼ – and a label.", link: "Explore Sentiment", href: "/features/sentiment" },
       { icon: Layers, accent: "trends", title: "Topic detection", text: "Groups posts into the subjects people discuss, with volume, reach and tone for each.", link: "Explore Trends", href: "/features/trends" },
       { icon: TrendingUp, accent: "trends", title: "Trend & momentum detection", text: "Spots topics and hashtags gaining speed, not just the biggest ones.", link: "Explore Trends", href: "/features/trends" },
       { icon: BellRing, accent: "reports", title: "Spike alerts", text: "Flags unusual jumps in mentions or negative tone, like “Mentions +212% vs normal”.", link: "Explore Reports & Alerts", href: "/features/reports-alerts" },

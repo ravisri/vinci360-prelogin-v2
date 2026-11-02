@@ -304,6 +304,34 @@
     from { background-position: -200% 0; }
     to   { background-position: 200% 0; }
   }
+
+  /* Route loader (app/(marketing)/loading.tsx) */
+  /* Every final frame is the rest pose, so reduced motion shows a clean static mark. */
+  --animate-loader-in: loader-in 0.4s var(--ease-out-expo) 0.15s both;
+  --animate-mark-orbit: mark-orbit 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  --animate-mark-breathe: mark-breathe 2.4s ease-in-out infinite;
+  --animate-signal: signal 2.4s ease-out infinite;
+  --animate-wave: wave 1.2s ease-in-out infinite;
+
+  @keyframes loader-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes mark-orbit {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes mark-breathe {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(.96); }
+  }
+  @keyframes signal {
+    from { transform: scale(.8);  opacity: .6; }
+    to   { transform: scale(1.6); opacity: 0; }
+  }
+  @keyframes wave {
+    0%, 60%, 100% { transform: translateY(0) scale(1); }
+    30%           { transform: translateY(-6px) scale(1.25); }
+  }
 }
 
 /* --------------------------------------------------------------------------

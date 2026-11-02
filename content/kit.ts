@@ -126,7 +126,7 @@ export const kit = {
     title: "Works with the rest of Vinci360",
     items: [
       { accent: "trends", label: "Trends", prompt: "Found a spike? See what is rising.", href: "/features/trends", linkLabel: "Explore Trends" },
-      { accent: "sent", label: "Sentiment & Keywords", prompt: "Tone dropped? Find the words behind it.", href: "/features/sentiment-keywords", linkLabel: "Explore Sentiment & Keywords" },
+      { accent: "sent", label: "Sentiment", prompt: "Tone dropped? Find the words behind it.", href: "/features/sentiment", linkLabel: "Explore Sentiment" },
       { accent: "reports", label: "Reports & Alerts", prompt: "Want this every Monday? Have it sent to you.", href: "/features/reports-alerts", linkLabel: "Explore Reports & Alerts" },
     ] as const,
   },
