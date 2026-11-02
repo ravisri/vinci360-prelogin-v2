@@ -506,7 +506,7 @@ export function ReportBuilder() {
       </Reveal>
 
       {/* 390: Settings / Preview tabs. */}
-      <Tabs value={tab} onValueChange={setTab} className="gap-0 md:hidden">
+      <Tabs value={tab} onValueChange={setTab} className="flex-col gap-0 md:hidden">
         <TabsList variant="line" aria-label={c.tabs.label} className="h-auto! w-full justify-start gap-0 border-b border-border px-4">
           {[
             { v: "settings", l: c.tabs.settings },

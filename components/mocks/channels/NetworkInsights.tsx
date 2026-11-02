@@ -121,7 +121,7 @@ export function NetworkInsights() {
               <span className="text-xs font-semibold text-muted-foreground">
                 {channelNetworks[k].name} · <SampleDataChip tone="light" className="px-2 py-0.5 text-[0.625rem]" />
               </span>
-              <figure className="on-dark flex flex-col gap-1.5 rounded-sm bg-background p-2.5 text-[0.6875rem] text-foreground tabular">
+              <figure className="on-dark relative flex flex-col gap-1.5 rounded-sm bg-background p-2.5 text-[0.6875rem] text-foreground tabular">
                 <InsightViz insight={item.insight} compact />
                 <figcaption className="sr-only">{item.caption}</figcaption>
               </figure>
